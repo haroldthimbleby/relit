@@ -1,0 +1,2904 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    122940,       2895]
+NotebookOptionsPosition[    121096,       2828]
+NotebookOutlinePosition[    121487,       2845]
+CellTagsIndexPosition[    121444,       2842]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"DateString", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.6567701280730133`*^9, 3.656770132255333*^9}}],
+
+Cell[BoxData["\<\"Sun 10 Apr 2016 15:55:15\"\>"], "Output",
+ CellChangeTimes->{3.656770132515695*^9, 3.657614105056116*^9, 
+  3.65782300604531*^9, 3.65789369988653*^9, 3.667043577055331*^9, 
+  3.667066877611927*^9, 3.668850736522621*^9, 3.669021788648032*^9, 
+  3.669054974558531*^9, 3.6690550069965963`*^9, 3.669288915615649*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6561798295483503`*^9, 3.656179845192265*^9}}],
+
+Cell[BoxData["\<\"/Users/harold/Organised/Active \
+papers/Euler/Distribution\"\>"], "Output",
+ CellChangeTimes->{3.6561798456504383`*^9, 3.656263260225585*^9, 
+  3.6562686274841146`*^9, 3.656268931628717*^9, 3.6564135154576817`*^9, 
+  3.656749430029627*^9, 3.65676973396211*^9, 3.657614106823251*^9, 
+  3.6578230080224667`*^9, 3.6578937010582457`*^9, 3.667043578942926*^9, 
+  3.667066878926*^9, 3.6687493395034657`*^9, 3.668850738821946*^9, 
+  3.6690217890051117`*^9, 3.669054974919944*^9, 3.669055007390111*^9, 
+  3.669288916146769*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Draw diagrams", "Chapter",
+ CellChangeTimes->{{3.656769941400538*^9, 3.656769944384612*^9}, 
+   3.656770216085577*^9, {3.6688507422328377`*^9, 3.6688507453501253`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"multiString", "[", "s_", "]"}], ":=", 
+  RowBox[{"StringJoin", "@@", 
+   RowBox[{"Table", "[", 
+    RowBox[{"s", ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "100"}], "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.668749560338254*^9, 3.66874956044664*^9}, {
+  3.668749647237605*^9, 3.668749720946514*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"multiString", "[", "\"\<x\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.668749695928897*^9, 3.6687497020910997`*^9}}],
+
+Cell[BoxData["\<\"\
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\
+xxxxxxxxxxxxxxxxxxxxxx\"\>"], "Output",
+ CellChangeTimes->{{3.6687497026103687`*^9, 3.6687497101101847`*^9}, 
+   3.668850747844548*^9, 3.66902178915847*^9, 3.6690549751172667`*^9, 
+   3.6690550075593777`*^9, 3.6692889162994623`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"height", "=", ".28"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"gap", "=", "0.1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"singleLineWidth", "[", "s_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"1", "/", "50"}], "*", 
+    RowBox[{"Total", "@", 
+     RowBox[{"Map", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Switch", "[", 
+         RowBox[{"#", ",", "\[IndentingNewLine]", 
+          RowBox[{"Alternatives", "@@", 
+           RowBox[{"Characters", "@", "\"\<OQC\>\""}]}], ",", "1.75", ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Alternatives", "@@", 
+           RowBox[{"Characters", "@", "\"\<UG\>\""}]}], ",", "1.85", ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Alternatives", "@@", 
+           RowBox[{"Characters", "@", "\"\<w\>\""}]}], ",", "1.75", ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Alternatives", "@@", 
+           RowBox[{"Characters", "@", "\"\<m\>\""}]}], ",", "2", ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Alternatives", "@@", 
+           RowBox[{"Characters", "@", "\"\<ijl\>\""}]}], ",", ".55", ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Alternatives", "@@", 
+           RowBox[{"Characters", "@", "\"\<ABDEFGHJKLNPRSTVXYZ\>\""}]}], ",", 
+          "1.6", ",", "\[IndentingNewLine]", 
+          RowBox[{"Alternatives", "@@", 
+           RowBox[{"Characters", "@", "\"\<I\>\""}]}], ",", "0.8", ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Alternatives", "@@", 
+           RowBox[{"Characters", "@", "\"\<yskc\>\""}]}], ",", "1.18", ",", 
+          "\[IndentingNewLine]", "\"\<W\>\"", ",", "2.25", ",", 
+          "\[IndentingNewLine]", "\"\<M\>\"", ",", "2.005", ",", 
+          "\[IndentingNewLine]", "_", ",", "1.325"}], "\[IndentingNewLine]", 
+         "]"}], "&"}], ",", 
+       RowBox[{"Characters", "[", "s", "]"}]}], "]"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Graphics", "[", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"chars", "=", 
+       RowBox[{
+       "Characters", "[", 
+        "\"\<abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\>\"", 
+        "]"}]}], ";", "\[IndentingNewLine]", "Black"}], ",", 
+     RowBox[{"Line", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Table", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"y", "=", 
+           RowBox[{"c", "/", "52"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"dw", "=", 
+           RowBox[{"singleLineWidth", "[", 
+            RowBox[{"multiString", "@", 
+             RowBox[{"chars", "[", 
+              RowBox[{"[", "c", "]"}], "]"}]}], "]"}]}], ";", 
+          "\[IndentingNewLine]", "Black"}], ",", 
+         RowBox[{"Line", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"dw", ",", 
+              RowBox[{"y", "-", 
+               RowBox[{".5", "/", "52"}]}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"dw", ",", 
+              RowBox[{"y", "+", 
+               RowBox[{".5", "/", "52"}]}]}], "}"}]}], "}"}], "]"}], ",", 
+         "\[IndentingNewLine]", "Red", ",", 
+         RowBox[{"Text", "[", 
+          RowBox[{
+           RowBox[{"Style", "[", 
+            RowBox[{
+             RowBox[{"multiString", "@", 
+              RowBox[{"chars", "[", 
+               RowBox[{"[", "c", "]"}], "]"}]}], ",", "12"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "y"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"-", "1"}], ",", "0"}], "}"}]}], "]"}]}], 
+        "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"c", ",", "2", ",", "52", ",", "2"}], "}"}]}], 
+      "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "}"}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"Automatic", ",", "300"}], "}"}]}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.6566028893113832`*^9, 3.656602895219308*^9}, {
+   3.656602949921507*^9, 3.656603092259107*^9}, {3.656603124465611*^9, 
+   3.6566031809367867`*^9}, {3.6566032374038763`*^9, 
+   3.6566032496424713`*^9}, {3.6566032849037857`*^9, 3.65660331096321*^9}, {
+   3.656603347015067*^9, 3.6566035246669083`*^9}, {3.6567658195926733`*^9, 
+   3.656766259720922*^9}, {3.656766301739169*^9, 3.6567663137629023`*^9}, {
+   3.6567663561508512`*^9, 3.656766403710475*^9}, {3.6567664347208977`*^9, 
+   3.6567666605193253`*^9}, {3.656767086640614*^9, 3.656767118834133*^9}, 
+   3.6567699016731663`*^9, {3.6568362521683826`*^9, 3.6568363151149178`*^9}, {
+   3.656836784785787*^9, 3.656836785380869*^9}, 3.667042361316491*^9, {
+   3.667042425174252*^9, 3.667042473580125*^9}, {3.66704252301724*^9, 
+   3.667042528004704*^9}, 3.667042582633053*^9, {3.667042805360243*^9, 
+   3.667042827413744*^9}, {3.668748661993595*^9, 3.668748676010291*^9}, 
+   3.668748725488715*^9, {3.6687488007299833`*^9, 3.6687489537518578`*^9}, {
+   3.6687489997704487`*^9, 3.668749126043882*^9}, {3.668749179684454*^9, 
+   3.668749184820938*^9}, {3.668749256925077*^9, 3.6687492570737658`*^9}, {
+   3.668749384355332*^9, 3.668749391705092*^9}, {3.668749435299872*^9, 
+   3.668749450109192*^9}, {3.6687494834117517`*^9, 3.6687494970846357`*^9}, {
+   3.668749612807309*^9, 3.668749624601968*^9}, {3.668749726712476*^9, 
+   3.668749760081852*^9}, {3.6687498043967533`*^9, 3.668750330413085*^9}, 
+   3.668856956911878*^9, 3.669054972780637*^9, {3.669055005676071*^9, 
+   3.669055005872293*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {GrayLevel[0], LineBox[{{0, 0}, {0, 1}}], {{
+     {GrayLevel[0], 
+      LineBox[{{2.65, 0.028846153846153848`}, {2.65, 
+       0.04807692307692308}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\
+bbbbbbbbbbbbbbbbbbbbbb\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[1, 26]}, {
+        0, 0.038461538461538464`}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{2.65, 0.06730769230769232}, {2.65, 0.08653846153846154}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\
+dddddddddddddddddddddd\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[1, 13]}, {0, 0.07692307692307693}], {-1, 0}]}}, {
+     {GrayLevel[0], LineBox[{{2.65, 0.10576923076923078`}, {2.65, 0.125}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\
+ffffffffffffffffffffff\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[3, 26]}, {0, 0.11538461538461539`}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{2.65, 0.14423076923076925`}, {2.65, 
+       0.16346153846153846`}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\
+hhhhhhhhhhhhhhhhhhhhhh\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[2, 13]}, {0, 0.15384615384615385`}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{1.1, 0.1826923076923077}, {1.1, 0.20192307692307693`}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj\
+jjjjjjjjjjjjjjjjjjjjjj\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[5, 26]}, {0, 0.19230769230769232`}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{1.1, 0.22115384615384617`}, {1.1, 0.2403846153846154}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll\
+llllllllllllllllllllll\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[3, 13]}, {0, 0.23076923076923078`}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{2.65, 0.2596153846153846}, {2.65, 0.27884615384615385`}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\
+nnnnnnnnnnnnnnnnnnnnnn\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[7, 26]}, {0, 0.2692307692307692}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{2.65, 0.2980769230769231}, {2.65, 0.31730769230769235`}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp\
+pppppppppppppppppppppp\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[4, 13]}, {0, 0.3076923076923077}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{2.65, 0.3365384615384615}, {2.65, 0.3557692307692308}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr\
+rrrrrrrrrrrrrrrrrrrrrr\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[9, 26]}, {0, 0.34615384615384615`}], {-1, 0}]}}, {
+     {GrayLevel[0], LineBox[{{2.65, 0.375}, {2.65, 0.3942307692307693}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt\
+tttttttttttttttttttttt\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[5, 13]}, {0, 0.38461538461538464`}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{2.65, 0.41346153846153844`}, {2.65, 0.4326923076923077}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\
+vvvvvvvvvvvvvvvvvvvvvv\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[11, 26]}, {0, 0.4230769230769231}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{2.65, 0.4519230769230769}, {2.65, 0.4711538461538462}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\
+xxxxxxxxxxxxxxxxxxxxxx\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[6, 13]}, {0, 0.46153846153846156`}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{2.65, 0.49038461538461536`}, {2.65, 0.5096153846153846}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\
+zzzzzzzzzzzzzzzzzzzzzz\"\>",
+        StripOnInput->False,
+        FontSize->12], NCache[{0, Rational[1, 2]}, {0, 0.5}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.5288461538461539}, {
+       3.2000000000000006`, 0.548076923076923}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\
+BBBBBBBBBBBBBBBBBBBBBB\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[7, 13]}, {0, 0.5384615384615384}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.5673076923076923}, {
+       3.2000000000000006`, 0.5865384615384615}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\
+DDDDDDDDDDDDDDDDDDDDDD\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[15, 26]}, {0, 0.5769230769230769}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.6057692307692308}, {
+       3.2000000000000006`, 0.625}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\
+FFFFFFFFFFFFFFFFFFFFFF\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[8, 13]}, {0, 0.6153846153846154}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.6442307692307693}, {
+       3.2000000000000006`, 0.6634615384615384}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\
+HHHHHHHHHHHHHHHHHHHHHH\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[17, 26]}, {0, 0.6538461538461539}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.6826923076923077}, {
+       3.2000000000000006`, 0.7019230769230769}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ\
+JJJJJJJJJJJJJJJJJJJJJJ\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[9, 13]}, {0, 0.6923076923076923}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.7211538461538461}, {
+       3.2000000000000006`, 0.7403846153846153}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\
+LLLLLLLLLLLLLLLLLLLLLL\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[19, 26]}, {0, 0.7307692307692307}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.7596153846153847}, {
+       3.2000000000000006`, 0.7788461538461539}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN\
+NNNNNNNNNNNNNNNNNNNNNN\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[10, 13]}, {0, 0.7692307692307693}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.7980769230769231}, {
+       3.2000000000000006`, 0.8173076923076923}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP\
+PPPPPPPPPPPPPPPPPPPPPP\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[21, 26]}, {0, 0.8076923076923077}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.8365384615384616}, {
+       3.2000000000000006`, 0.8557692307692307}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR\
+RRRRRRRRRRRRRRRRRRRRRR\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[11, 13]}, {0, 0.8461538461538461}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.875}, {3.2000000000000006`, 
+       0.8942307692307692}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT\
+TTTTTTTTTTTTTTTTTTTTTT\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[23, 26]}, {0, 0.8846153846153846}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.9134615384615385}, {
+       3.2000000000000006`, 0.9326923076923077}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\
+VVVVVVVVVVVVVVVVVVVVVV\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[12, 13]}, {0, 0.9230769230769231}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.951923076923077}, {3.2000000000000006`,
+        0.9711538461538461}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\
+XXXXXXXXXXXXXXXXXXXXXX\"\>",
+        StripOnInput->False,
+        FontSize->12], 
+       NCache[{0, Rational[25, 26]}, {0, 0.9615384615384616}], {-1, 0}]}}, {
+     {GrayLevel[0], 
+      LineBox[{{3.2000000000000006`, 0.9903846153846154}, {
+       3.2000000000000006`, 1.0096153846153846`}}]}, 
+     {RGBColor[1, 0, 0], InsetBox[
+       StyleBox["\<\"\
+ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ\
+ZZZZZZZZZZZZZZZZZZZZZZ\"\>",
+        StripOnInput->False,
+        FontSize->12], {0, 1}, {-1, 0}]}}}},
+  ImageSize->{Automatic, 300}]], "Output",
+ CellChangeTimes->{{3.668749614604498*^9, 3.6687496253984423`*^9}, {
+   3.668749736509574*^9, 3.6687497606384287`*^9}, {3.66874986174883*^9, 
+   3.6687500816912937`*^9}, {3.66875012317619*^9, 3.668750226182572*^9}, {
+   3.6687502663438396`*^9, 3.6687503315270653`*^9}, 3.668850749101062*^9, 
+   3.668856957830102*^9, 3.669021789302915*^9, 3.669054975242919*^9, 
+   3.66905500771515*^9, 3.669288916495494*^9}]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"WeightedStringLength", "[", "s_", "]"}], ":=", 
+   RowBox[{"Max", "[", 
+    RowBox[{"singleLineWidth", "/@", 
+     RowBox[{"StringSplit", "[", 
+      RowBox[{"s", ",", "\"\<\\n\>\""}], "]"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"forcewidth", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"maxwidth", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"box", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"xc_", ",", "yc_"}], "}"}], ",", "name_", ",", 
+     RowBox[{"colour_:", "White"}]}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"ww", ",", "h"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"h", "=", "height"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"ww", "=", 
+       RowBox[{"WeightedStringLength", "[", "name", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"maxwidth", "=", 
+       RowBox[{"Max", "[", 
+        RowBox[{"maxwidth", ",", "ww"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"forcewidth", "\[NotEqual]", "0"}], ",", 
+        RowBox[{"ww", "=", "maxwidth"}]}], "]"}], ";", "\[IndentingNewLine]", 
+      
+      RowBox[{"xmin", "=", 
+       RowBox[{"xc", "-", "ww"}]}], ";", 
+      RowBox[{"xmax", "=", 
+       RowBox[{"xc", "+", "ww"}]}], ";", 
+      RowBox[{"ymin", "=", 
+       RowBox[{"yc", "-", 
+        RowBox[{"h", "/", "2"}]}]}], ";", 
+      RowBox[{"ymax", "=", 
+       RowBox[{"yc", "+", 
+        RowBox[{"h", "/", "2"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"!", 
+           RowBox[{"NumericQ", "[", "colour", "]"}]}], ",", 
+          RowBox[{"Lighter", "@", 
+           RowBox[{"Lighter", "@", "colour"}]}], ",", 
+          RowBox[{"FaceForm", "[", "None", "]"}]}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"EdgeForm", "[", 
+         RowBox[{"Directive", "[", "Black", "]"}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"!", 
+           RowBox[{"NumericQ", "[", "colour", "]"}]}], ",", 
+          RowBox[{"{", "}"}], ",", 
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"FaceForm", "@", 
+             RowBox[{"Lighter", "@", 
+              RowBox[{"Lighter", "@", "Gray"}]}]}], ",", 
+            RowBox[{"EdgeForm", "[", "None", "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"colour", "<", ".5"}], ",", "\[IndentingNewLine]", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"Rectangle", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"xmin", ",", "ymin"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"xmin", "+", 
+                    RowBox[{".2", "*", 
+                    RowBox[{"(", 
+                    RowBox[{"xmax", "-", "xmin"}], ")"}]}]}], ",", "ymax"}], 
+                   "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+                RowBox[{"Rectangle", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"xmin", "+", 
+                    RowBox[{".3", "*", 
+                    RowBox[{"(", 
+                    RowBox[{"xmax", "-", "xmin"}], ")"}]}]}], ",", "ymin"}], 
+                   "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"xmin", "+", 
+                    RowBox[{".45", "*", 
+                    RowBox[{"(", 
+                    RowBox[{"xmax", "-", "xmin"}], ")"}]}]}], ",", "ymax"}], 
+                   "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+                RowBox[{"Rectangle", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"xmin", "+", 
+                    RowBox[{".55", "*", 
+                    RowBox[{"(", 
+                    RowBox[{"xmax", "-", "xmin"}], ")"}]}]}], ",", "ymin"}], 
+                   "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"xmin", "+", 
+                    RowBox[{".7", "*", 
+                    RowBox[{"(", 
+                    RowBox[{"xmax", "-", "xmin"}], ")"}]}]}], ",", "ymax"}], 
+                   "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+                RowBox[{"Rectangle", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"xmin", "+", 
+                    RowBox[{".8", "*", 
+                    RowBox[{"(", 
+                    RowBox[{"xmax", "-", "xmin"}], ")"}]}]}], ",", "ymin"}], 
+                   "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"xmax", ",", "ymax"}], "}"}]}], "]"}]}], "}"}], 
+              ",", "\[IndentingNewLine]", 
+              RowBox[{"Rectangle", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{".95", "*", 
+                    RowBox[{"(", 
+                    RowBox[{"xmax", "-", "xmin"}], ")"}]}], "+", "xmin"}], 
+                  ",", "ymin"}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"xmax", ",", "ymax"}], "}"}]}], "]"}]}], 
+             "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "}"}]}], 
+         "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Rectangle", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"xmin", ",", "ymin"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"xmax", ",", "ymax"}], "}"}], ",", 
+          RowBox[{"RoundingRadius", "\[Rule]", ".015"}]}], "]"}], ",", 
+        "\[IndentingNewLine]", "Black", ",", 
+        RowBox[{"Text", "[", 
+         RowBox[{
+          RowBox[{"Style", "[", 
+           RowBox[{"name", ",", "12"}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"xc", ",", "yc"}], "}"}]}], "]"}]}], "}"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"highlight", "[", 
+    RowBox[{"c_", ",", 
+     RowBox[{"partial_:", "0"}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "s", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"EdgeForm", "[", 
+        RowBox[{"{", 
+         RowBox[{"Thick", ",", "c"}], "}"}], "]"}], ",", 
+       RowBox[{"FaceForm", "[", "None", "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Rectangle", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"xmin", ",", "ymin"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"xmax", ",", "ymax"}], "}"}], ",", 
+         RowBox[{"RoundingRadius", "\[Rule]", ".015"}]}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"partial", "\[NotEqual]", "0"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Thickness", "[", ".01", "]"}], ",", "White", ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Line", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"s", "=", 
+                 RowBox[{
+                  RowBox[{".95", "*", 
+                   RowBox[{"(", 
+                    RowBox[{"xmax", "-", "xmin"}], ")"}]}], "+", "xmin"}]}], 
+                ",", "ymin"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"xmax", ",", "ymin"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"xmax", ",", "ymax"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"s", ",", "ymax"}], "}"}]}], "}"}], "]"}]}], 
+          "\[IndentingNewLine]", "}"}], ",", 
+         RowBox[{"{", "}"}]}], "]"}]}], "\[IndentingNewLine]", "}"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.6566028893113832`*^9, 3.656602895219308*^9}, {
+   3.656602949921507*^9, 3.656603092259107*^9}, {3.656603124465611*^9, 
+   3.6566031809367867`*^9}, {3.6566032374038763`*^9, 
+   3.6566032496424713`*^9}, {3.6566032849037857`*^9, 3.65660331096321*^9}, {
+   3.656603347015067*^9, 3.6566035246669083`*^9}, {3.6567658195926733`*^9, 
+   3.656766259720922*^9}, {3.656766301739169*^9, 3.6567663137629023`*^9}, {
+   3.6567663561508512`*^9, 3.656766403710475*^9}, {3.6567664347208977`*^9, 
+   3.6567666605193253`*^9}, {3.656767086640614*^9, 3.656767118834133*^9}, 
+   3.6567699016731663`*^9, {3.6568362521683826`*^9, 3.6568363151149178`*^9}, {
+   3.656836784785787*^9, 3.656836785380869*^9}, 3.667042361316491*^9, {
+   3.667042425174252*^9, 3.667042473580125*^9}, {3.66704252301724*^9, 
+   3.667042528004704*^9}, 3.667042582633053*^9, {3.667042805360243*^9, 
+   3.667042827413744*^9}, {3.668748661993595*^9, 3.668748676010291*^9}, 
+   3.668748725488715*^9, {3.6687488007299833`*^9, 3.66874880612523*^9}, {
+   3.669017806852593*^9, 3.6690179313823957`*^9}, {3.669017988887093*^9, 
+   3.6690180651216516`*^9}, {3.6690191961083927`*^9, 3.669019196442686*^9}, {
+   3.669020029788487*^9, 3.6690200831276093`*^9}, {3.669020254349964*^9, 
+   3.669020303105796*^9}, {3.6690205891610193`*^9, 3.6690205939193573`*^9}, {
+   3.66902102721413*^9, 3.669021039461088*^9}, {3.6690210812921886`*^9, 
+   3.669021135915292*^9}, {3.669021284743178*^9, 3.669021330499674*^9}, {
+   3.669021372429824*^9, 3.669021384416997*^9}, {3.669021520671997*^9, 
+   3.669021616396586*^9}, {3.66903165004173*^9, 3.6690317258493156`*^9}, {
+   3.6690319143765907`*^9, 3.669031944221327*^9}, {3.669032090728407*^9, 
+   3.6690321587219887`*^9}, {3.669032202273986*^9, 3.669032322714396*^9}, {
+   3.669032507277193*^9, 3.6690325360612373`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"caption", "[", "s_", "]"}], ":=", 
+   RowBox[{"Text", "[", 
+    RowBox[{
+     RowBox[{"Style", "[", 
+      RowBox[{"s", ",", "17", ",", "Bold"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", 
+       RowBox[{"1.5", "height"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"description", "[", 
+    RowBox[{"s_", ",", "pos_"}], "]"}], ":=", 
+   RowBox[{"Text", "[", 
+    RowBox[{
+     RowBox[{"Style", "[", 
+      RowBox[{"s", ",", "14"}], "]"}], ",", "pos"}], "]"}]}], ";"}]}], "Input",\
+
+ CellChangeTimes->{{3.656768237417636*^9, 3.656768251877249*^9}, {
+   3.656768792544263*^9, 3.656768812041175*^9}, {3.656769914719146*^9, 
+   3.656769915306682*^9}, {3.667066899650779*^9, 3.667066937658526*^9}, 
+   3.6670670060060787`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"forcewidth", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Clear", "[", "c", "]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"c", "[", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "t", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"t", "=", 
+       RowBox[{"Graphics", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Arrowheads", "[", "Medium", "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"caption", "[", "\"\<(b) Literate programming\>\"", "]"}], 
+           ",", "\[IndentingNewLine]", 
+           RowBox[{"Arrow", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"0", ",", "0"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{".25", ",", 
+                RowBox[{
+                 RowBox[{"-", ".5"}], "+", 
+                 RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], ",",
+            "\[IndentingNewLine]", 
+           RowBox[{"Arrow", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"0", ",", "0"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", ".25"}], ",", 
+                RowBox[{
+                 RowBox[{"-", ".5"}], "+", 
+                 RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], ",",
+            "\[IndentingNewLine]", 
+           RowBox[{"box", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0", ",", "0"}], "}"}], ",", "\"\<WEB file\>\"", ",", 
+             "Gray"}], "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"box", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+               RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Source code\>\""}], 
+            "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"Arrow", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{".25", "+", "gap"}], ",", 
+                RowBox[{"-", ".5"}]}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{".25", "+", "gap"}], ",", 
+                RowBox[{
+                 RowBox[{"-", "1"}], "+", 
+                 RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], ",",
+            "\[IndentingNewLine]", 
+           RowBox[{"box", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{".25", "+", "gap"}], ",", 
+               RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Latex file\>\""}], 
+            "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"box", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{".25", "+", "gap"}], ",", 
+               RowBox[{"-", "1"}]}], "}"}], ",", "\"\<Publish\>\""}], "]"}], 
+           ",", "\[IndentingNewLine]", 
+           RowBox[{"description", "[", 
+            RowBox[{
+            "\"\<The published document\\nmust be formatted in\\nan \
+idiosyncratic \[OpenCurlyDoubleQuote]literate\\nprogramming\
+\[CloseCurlyDoubleQuote] style.\>\"", ",", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", 
+               RowBox[{"-", "1.5"}]}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"caption", "[", "\"\<(c) Loom & Warp\>\"", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", ".250"}], ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "0.1"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{".25", ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0.1", ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".250"}], "-", "gap"}], ",", "0"}], "}"}], 
+                 ",", "\"\<Latex file\>\"", ",", "Gray"}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", "0"}]}], "}"}], ",", "\"\<Source code\>\"", 
+                 ",", "Gray"}], "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", 
+                    RowBox[{"-", ".5"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", 
+                 "\"\<Temporary\\nLatex file\>\""}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<The published document\\nis unrestricted, but at \
+the\\nexpense of managing\\nseveral source files.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], 
+              "\[IndentingNewLine]", "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"1.5", ",", "0"}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"caption", "[", "\"\<(a) Conventional\>\"", "]"}], ",",
+                "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", "0"}], "}"}], 
+                  ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "0.25"}], "-", "gap"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".250"}], "-", "gap"}], ",", "0"}], "}"}], 
+                 ",", "\"\<Latex file\>\"", ",", "Gray"}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", "0"}]}], "}"}], ",", "\"\<Source code\>\"", 
+                 ",", "Gray"}], "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", "0.25"}], "-", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<The published document\\nand the source code\\nare \
+independent and\\nprobably inconsistent.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "1.5"}], ",", "0"}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"caption", "[", "\"\<(d) This paper\>\"", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{".25", ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", ".25"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", "0"}], "}"}], ",", 
+                 "\"\<Single\\nLatex file\>\"", ",", "Gray"}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Source code\>\""}],
+                 "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<There is only one source\\nfile to manage, and \
+the\\npublished document is\\nunrestricted.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"3", ",", "0"}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", "\[IndentingNewLine]", "Thick", ",", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"Line", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"i", ",", 
+                  RowBox[{"+", "height"}]}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"i", ",", 
+                  RowBox[{"-", "1.2"}]}], "}"}]}], "}"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"-", "2.2"}], ",", 
+                 RowBox[{"-", ".74"}], ",", ".8", ",", "2.25"}], "}"}]}], 
+              "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"Thickness", "[", "Medium", "]"}], ",", "Dashed", ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Line", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", "2.95"}], ",", 
+                RowBox[{"-", ".25"}]}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"3.5", ",", 
+                RowBox[{"-", ".25"}]}], "}"}]}], "}"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Text", "[", 
+            RowBox[{
+             RowBox[{"Style", "[", 
+              RowBox[{"\"\<Editable files\\nare shaded\>\"", ",", "14"}], 
+              "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "2.65"}], ",", 
+               RowBox[{"-", "0"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", "0"}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Text", "[", 
+            RowBox[{
+             RowBox[{"Style", "[", 
+              RowBox[{"\"\<Generated\\nfiles\>\"", ",", "14"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "2.65"}], ",", 
+               RowBox[{"-", ".5"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", "0"}], "}"}]}], "]"}]}], 
+          "\[IndentingNewLine]", "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "300"}], "}"}]}]}], 
+        "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"forcewidth", "=", "maxwidth"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", "t", "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"c", "[", "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"find", " ", "out", " ", "box", " ", "sizes"}], " ", "*)"}], ";", 
+  RowBox[{"c", "[", "]"}]}]}], "Input",
+ CellChangeTimes->{{3.656836723924718*^9, 3.656836725131502*^9}, {
+   3.667042635540573*^9, 3.667042640114596*^9}, {3.667042682975605*^9, 
+   3.667042798350625*^9}, 3.667042846790985*^9, {3.6670428886297092`*^9, 
+   3.667042925562311*^9}, {3.667042990877451*^9, 3.6670433434458113`*^9}, 
+   3.66704337719221*^9, {3.6670435866900873`*^9, 3.667043587709247*^9}, {
+   3.667066946071105*^9, 3.667066991702345*^9}, {3.6670670257831287`*^9, 
+   3.667067082101635*^9}, 3.667067202727373*^9, {3.66874855661357*^9, 
+   3.66874856919594*^9}, {3.668751125077188*^9, 3.668751214751647*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {Arrowheads[Medium], InsetBox[
+    StyleBox["\<\"(b) Literate programming\"\>",
+     StripOnInput->False,
+     FontSize->17,
+     FontWeight->Bold], {0, 0.42000000000000004`}], 
+   ArrowBox[{{0, 0}, {0.25, -0.36}}], ArrowBox[{{0, 0}, {-0.25, -0.36}}], 
+   {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+    EdgeForm[GrayLevel[0]], {}, 
+    RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
+     RoundingRadius->0.015], 
+    {GrayLevel[0], InsetBox[
+      StyleBox["\<\"WEB file\"\>",
+       StripOnInput->False,
+       FontSize->12], {0, 0}]}}, 
+   {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+    RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
+     RoundingRadius->0.015], 
+    {GrayLevel[0], InsetBox[
+      StyleBox["\<\"Source code\"\>",
+       StripOnInput->False,
+       FontSize->12], {-0.35, -0.5}]}}, 
+   ArrowBox[{{0.35, -0.5}, {0.35, -0.86}}], 
+   {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+    RectangleBox[{0.05879999999999996, -0.64}, {0.6412, -0.36},
+     RoundingRadius->0.015], 
+    {GrayLevel[0], InsetBox[
+      StyleBox["\<\"Latex file\"\>",
+       StripOnInput->False,
+       FontSize->12], {0.35, -0.5}]}}, 
+   {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+    RectangleBox[{0.05879999999999996, -1.1400000000000001`}, {0.6412, -0.86},
+     
+     RoundingRadius->0.015], 
+    {GrayLevel[0], InsetBox[
+      StyleBox["\<\"Publish\"\>",
+       StripOnInput->False,
+       FontSize->12], {0.35, -1}]}}, InsetBox[
+    StyleBox["\<\"The published document\\nmust be formatted in\\nan \
+idiosyncratic \[OpenCurlyDoubleQuote]literate\\nprogramming\
+\[CloseCurlyDoubleQuote] style.\"\>",
+     StripOnInput->False,
+     FontSize->14], {0, -1.5}], GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(c) Loom & Warp\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{-0.25, 0}, {-0.1, -0.36}}], 
+     ArrowBox[{{0.25, 0}, {0.1, -0.36}}], 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6412, -0.14}, {-0.05879999999999996, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Latex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, 0}]}}, 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{0.05879999999999996, -0.14}, {0.6412, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, 0}]}}, ArrowBox[{{0, -0.5}, {0, -0.86}}], 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.2912, -0.64}, {0.2912, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Temporary\\nLatex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, -0.5}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.2912, -1.1400000000000001`}, {0.2912, -0.86},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, -1}]}}, InsetBox[
+      StyleBox["\<\"The published document\\nis unrestricted, but at \
+the\\nexpense of managing\\nseveral source files.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {1.5, 0}], 
+   GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(a) Conventional\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{-0.35, 0}, {-0.35, -0.36}}], 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6412, -0.14}, {-0.05879999999999996, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Latex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, 0}]}}, 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{0.05879999999999996, -0.14}, {0.6412, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, 0}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, -0.5}]}}, InsetBox[
+      StyleBox["\<\"The published document\\nand the source code\\nare \
+independent and\\nprobably inconsistent.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {-1.5, 0}], 
+   GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(d) This paper\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{0, 0}, {0.25, -0.36}}], ArrowBox[{{0, 0}, {-0.25, -0.36}}], 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Single\\nLatex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, 0}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, -0.5}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{0.05879999999999996, -0.64}, {0.6412, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, -0.5}]}}, InsetBox[
+      StyleBox["\<\"There is only one source\\nfile to manage, and \
+the\\npublished document is\\nunrestricted.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {3, 0}], 
+   {Thickness[Large], LineBox[{{-2.2, 0.28}, {-2.2, -1.2}}], 
+    LineBox[{{-0.74, 0.28}, {-0.74, -1.2}}], 
+    LineBox[{{0.8, 0.28}, {0.8, -1.2}}], 
+    LineBox[{{2.25, 0.28}, {2.25, -1.2}}]}, 
+   {Thickness[Medium], Dashing[{Small, Small}], 
+    LineBox[{{-2.95, -0.25}, {3.5, -0.25}}], InsetBox[
+     StyleBox["\<\"Editable files\\nare shaded\"\>",
+      StripOnInput->False,
+      FontSize->14], {-2.65, 0}, {0, 0}], InsetBox[
+     StyleBox["\<\"Generated\\nfiles\"\>",
+      StripOnInput->False,
+      FontSize->14], {-2.65, -0.5}, {0, 0}]}},
+  ImageSize->{Automatic, 300}]], "Output",
+ CellChangeTimes->{
+  3.656836359258449*^9, {3.6568364025292177`*^9, 3.6568364212215137`*^9}, 
+   3.6568364557430477`*^9, 3.65683650552556*^9, {3.65683672740368*^9, 
+   3.656836801241695*^9}, {3.656857839721711*^9, 3.6568578653597717`*^9}, 
+   3.656858296646943*^9, {3.65685833840335*^9, 3.6568583551728373`*^9}, {
+   3.656858396210958*^9, 3.656858421765229*^9}, {3.657614140958913*^9, 
+   3.65761420989816*^9}, {3.657614260508223*^9, 3.657614275022794*^9}, {
+   3.657892592449979*^9, 3.657892601652664*^9}, {3.65791177343128*^9, 
+   3.657911800373068*^9}, {3.667042111261305*^9, 3.66704213156948*^9}, 
+   3.667042176460129*^9, 3.667042239734355*^9, 3.6670422755697737`*^9, {
+   3.667042315498632*^9, 3.667042365859165*^9}, 3.6670424788240557`*^9, {
+   3.667042568294648*^9, 3.667042584939501*^9}, 3.667042648502886*^9, {
+   3.667042684145982*^9, 3.667042703429084*^9}, {3.667042735117502*^9, 
+   3.6670428297142143`*^9}, {3.6670428892651587`*^9, 
+   3.6670429261959352`*^9}, {3.667042991298668*^9, 3.667043130456915*^9}, {
+   3.6670431714206333`*^9, 3.66704317963306*^9}, {3.6670432260581827`*^9, 
+   3.667043234708407*^9}, {3.667043274869287*^9, 3.667043343995686*^9}, 
+   3.667043379150931*^9, 3.667043588901394*^9, 3.667066892103014*^9, {
+   3.6670669968327293`*^9, 3.667067082739005*^9}, 3.667067203868641*^9, 
+   3.668748577350463*^9, {3.6687486651182404`*^9, 3.6687486796961412`*^9}, 
+   3.668748730737177*^9, 3.668749227092453*^9, 3.6687503433677464`*^9, {
+   3.66875114162823*^9, 3.6687512159176064`*^9}, 3.668850753917387*^9, 
+   3.6688569618919277`*^9, 3.669019202940096*^9, 3.6690216762841187`*^9, 
+   3.6690217895085897`*^9, 3.66905497548005*^9, 3.669055007967284*^9, 
+   3.669288916744783*^9}]
+}, Open  ]],
+
+Cell["\<\
+\[LineSeparator]Various sorts of writing about programs. Approach (a) is very \
+common: a paper is written about a program, but there is no automatic \
+relation between the paper and the 
+program, and there are likely errors in the paper. In (b) a single WEB file \
+is the source of both the program source code and any documentation; in this \
+case, the code and paper are side-by-side when they are edited. In (c) \
+\>", "Text",
+ CellChangeTimes->{{3.656857800302774*^9, 3.6568578155995407`*^9}, {
+  3.656857981925456*^9, 3.6568580923801203`*^9}, {3.668856963900177*^9, 
+  3.668856965384733*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<figures/diagram.pdf\>\"", ",", 
+    RowBox[{"c", "[", "]"}]}], "]"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.6567697204415216`*^9, 3.6567697266414948`*^9}, {
+  3.656836809852418*^9, 3.656836809941183*^9}, {3.669288752061013*^9, 
+  3.669288782979706*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"cg", "=", 
+  RowBox[{"Graph", "[", 
+   RowBox[{
+    RowBox[{"Flatten", "@", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"u", "\[DirectedEdge]", "v"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"u", ",", "3"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"v", ",", "3"}], "}"}]}], "]"}]}], ",", 
+    RowBox[{"VertexSize", "\[Rule]", "Medium"}], ",", 
+    RowBox[{"EdgeStyle", "\[Rule]", "Black"}], ",", 
+    RowBox[{"VertexStyle", "\[Rule]", "White"}], ",", 
+    RowBox[{"VertexLabels", "\[Rule]", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"u", "\[Rule]", 
+        RowBox[{"Placed", "[", 
+         RowBox[{
+          RowBox[{"Style", "[", 
+           RowBox[{
+            RowBox[{"Switch", "[", 
+             RowBox[{
+             "u", ",", "1", ",", "\"\<C\>\"", ",", "2", ",", "\"\<B\>\"", ",",
+               "3", ",", "\"\<A\>\""}], "]"}], ",", "Italic", ",", 
+            RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}], ",", "Bold", 
+            ",", "20"}], "]"}], ",", "\[IndentingNewLine]", "Center"}], 
+         "\[IndentingNewLine]", "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"u", ",", "3"}], "}"}]}], "]"}]}], ",", 
+    RowBox[{"EdgeShapeFunction", "\[Rule]", 
+     RowBox[{"GraphElementData", "[", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Arrow\>\"", ",", 
+        RowBox[{"\"\<ArrowSize\>\"", "\[Rule]", ".05"}]}], "}"}], "]"}]}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.655357592324538*^9, 3.655357614305019*^9}, {
+  3.655357651779985*^9, 3.655357655880678*^9}, {3.655357716679554*^9, 
+  3.655357749917437*^9}, {3.655357823609105*^9, 3.655357932774167*^9}, {
+  3.655357980676097*^9, 3.655357981406095*^9}, {3.655358033403754*^9, 
+  3.6553580368267727`*^9}, {3.655358113532015*^9, 3.65535834924407*^9}, {
+  3.655358405523416*^9, 3.6553584647283278`*^9}, {3.655358495241953*^9, 
+  3.6553585029015217`*^9}, {3.6553585372844152`*^9, 3.655358545059792*^9}, {
+  3.655358575858694*^9, 3.6553587886231003`*^9}, {3.655358870428466*^9, 
+  3.655358924636714*^9}, {3.6553612981069803`*^9, 3.655361304303652*^9}, {
+  3.656687712781351*^9, 3.656687724072303*^9}, {3.656770248824318*^9, 
+  3.656770267547927*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  NamespaceBox["NetworkGraphics",
+   DynamicModuleBox[{Typeset`graph = HoldComplete[
+     Graph[{1, 2, 
+      3}, {{{1, 1}, {1, 2}, {1, 3}, {2, 1}, {2, 2}, {2, 3}, {3, 1}, {3, 2}, {
+       3, 3}}, Null}, {EdgeShapeFunction -> {
+         GraphElementData[{"Arrow", "ArrowSize" -> 0.05}]}, EdgeStyle -> {
+         GrayLevel[0]}, VertexLabels -> {3 -> Placed[
+           Style["A", Italic, FontFamily -> "Times", Bold, 20], Center], 2 -> 
+         Placed[
+           Style["B", Italic, FontFamily -> "Times", Bold, 20], Center], 1 -> 
+         Placed[
+           Style["C", Italic, FontFamily -> "Times", Bold, 20], Center]}, 
+       VertexSize -> {Medium}, VertexStyle -> {
+         GrayLevel[1]}}]]}, 
+    TagBox[GraphicsGroupBox[{
+       {GrayLevel[0], Opacity[0.7], 
+        {Arrowheads[{{0.05, 0.8}}], 
+         ArrowBox[BezierCurveBox[{{0.4969222153812606, 0.}, {
+          0.6873904251757703, -0.08915602018494104}, {
+          0.7430802511242329, -0.2882334630989339}, {
+          0.6836720610015965, -0.4151939759099758}, {
+          0.30722904122918515`, -0.413857514310497}, {
+          0.2487238169004704, -0.2864783810384543}, {
+          0.3058257650517279, -0.08780137555297982}, {0.4969222153812606, 0.}},
+          SplineDegree->7]]}, 
+        {Arrowheads[{{0.05, 0.8}}], 
+         ArrowBox[BezierCurveBox[{{0.4969222153812606, 0.}, {
+          0.6063408523521697, 0.514847913886857}, {0.9999936568025142, 
+          0.8642449403459487}}]]}, 
+        {Arrowheads[{{0.05, 0.8}}], 
+         ArrowBox[BezierCurveBox[{{0.4969222153812606, 0.}, {
+          0.1057602456031444, 0.3521832514257624}, {0., 
+          0.8677950236298684}}]]}, 
+        {Arrowheads[{{0.05, 0.8}}], 
+         ArrowBox[BezierCurveBox[{{0.9999936568025142, 0.8642449403459487}, {
+          0.8905750198316025, 0.3493970264591557}, {0.4969222153812606, 
+          0.}}]]}, 
+        {Arrowheads[{{0.05, 0.8}}], 
+         ArrowBox[BezierCurveBox[{{0.9999936568025142, 0.8642449403459487}, {
+          0.981970912857964, 1.0737732572347456`}, {1.126532110476953, 
+          1.2215407947194983`}, {1.2661872339094185`, 1.233572060901945}, {
+          1.4532513612710862`, 0.9068946274612545}, {1.3721904176215585`, 
+          0.7925380435601159}, {1.1715801137970816`, 0.7426512618359438}, {
+          0.9999936568025142, 0.8642449403459487}},
+          SplineDegree->7]]}, 
+        {Arrowheads[{{0.05, 0.8}}], 
+         ArrowBox[BezierCurveBox[{{0.9999936568025142, 0.8642449403459487}, {
+          0.4994130500534916, 0.7015802778846691}, {0., 
+          0.8677950236298684}}]]}, 
+        {Arrowheads[{{0.05, 0.8}}], 
+         ArrowBox[BezierCurveBox[{{0., 0.8677950236298684}, {
+          0.3911619697781157, 0.5156117722041118}, {0.4969222153812606, 
+          0.}}]]}, 
+        {Arrowheads[{{0.05, 0.8}}], 
+         ArrowBox[BezierCurveBox[{{0., 0.8677950236298684}, {
+          0.5005806067490268, 1.0304596860909105`}, {0.9999936568025142, 
+          0.8642449403459487}}]]}, 
+        {Arrowheads[{{0.05, 0.8}}], 
+         ArrowBox[BezierCurveBox[{{0., 
+          0.8677950236298684}, {-0.1724454776055367, 
+          0.747422717300957}, {-0.37269651588156283`, 
+          0.7987326253180023}, {-0.4529434556078141, 
+          0.9136618797811782}, {-0.26356455135602697`, 
+          1.2390028761056062`}, {-0.12399837325238695`, 1.22598032656901}, {
+          0.019509993581533297`, 1.0771900928841167`}, {0., 
+          0.8677950236298684}},
+          SplineDegree->7]]}}, 
+       {GrayLevel[1], EdgeForm[{GrayLevel[0], Opacity[
+        0.7]}], {DiskBox[{0.4969222153812606, 0.}, 0.09999999455880904], 
+         InsetBox[
+          StyleBox["\<\"C\"\>",
+           StripOnInput->False,
+           FontFamily->"Times",
+           FontSize->20,
+           FontWeight->Bold,
+           FontSlant->Italic], {0.4969222153812606, 0.},
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{0.9999936568025142, 0.8642449403459487}, 
+          0.09999999455880904], InsetBox[
+          StyleBox["\<\"B\"\>",
+           StripOnInput->False,
+           FontFamily->"Times",
+           FontSize->20,
+           FontWeight->Bold,
+           FontSlant->Italic], {0.9999936568025142, 0.8642449403459487},
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{0., 0.8677950236298684}, 0.09999999455880904], InsetBox[
+          StyleBox["\<\"A\"\>",
+           StripOnInput->False,
+           FontFamily->"Times",
+           FontSize->20,
+           FontWeight->Bold,
+           FontSlant->Italic], {0., 0.8677950236298684},
+          BaseStyle->"Graphics"]}}}],
+     MouseAppearanceTag["NetworkGraphics"]],
+    AllowKernelInitialization->False]],
+  DefaultBaseStyle->{
+   "NetworkGraphics", FrontEnd`GraphicsHighlightColor -> Hue[0.8, 1., 0.6]},
+  FrameTicks->None,
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->15]], "Output",
+ CellChangeTimes->{{3.6553576002595673`*^9, 3.655357614837409*^9}, 
+   3.655357656653695*^9, {3.6553577201957903`*^9, 3.65535775020046*^9}, {
+   3.655357825042865*^9, 3.655357859988562*^9}, {3.6553578951326647`*^9, 
+   3.655357933383532*^9}, 3.655357981785385*^9, 3.655358037254826*^9, 
+   3.655358114780003*^9, {3.6553581525009413`*^9, 3.6553581880110693`*^9}, {
+   3.655358229381278*^9, 3.655358350034048*^9}, {3.655358418274425*^9, 
+   3.655358465264862*^9}, 3.6553585036522827`*^9, 3.655358545756727*^9, {
+   3.6553585767512302`*^9, 3.6553587895914793`*^9}, {3.655358871952448*^9, 
+   3.655358925726358*^9}, 3.655360880249805*^9, 3.655361305161231*^9, {
+   3.656687714885141*^9, 3.656687724615089*^9}, {3.656770249940769*^9, 
+   3.656770281969014*^9}, 3.669021790066236*^9, 3.669054977115078*^9, 
+   3.6690550103649673`*^9, 3.669288917005925*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<figures/K3.pdf\>\"", ",", "cg"}], "]"}]], "Input",
+ CellChangeTimes->{{3.655360882288003*^9, 3.655360897994679*^9}, {
+   3.656770270957954*^9, 3.6567702712435207`*^9}, {3.6692887613643227`*^9, 
+   3.669288762148747*^9}, 3.669288797247075*^9}],
+
+Cell[BoxData["\<\"figures/K3.pdf\"\>"], "Output",
+ CellChangeTimes->{3.669021790383037*^9, 3.669054977663266*^9, 
+  3.669055011087565*^9, 3.6692889173078117`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"divider", "[", "dy_", "]"}], ":=", 
+  RowBox[{"{", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Thickness", "[", "Medium", "]"}], ",", "Dashed", ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2.95"}], ",", 
+         RowBox[{
+          RowBox[{"-", ".25"}], "+", "dy"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1.1", ",", 
+         RowBox[{
+          RowBox[{"-", ".25"}], "+", "dy"}]}], "}"}]}], "}"}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"\"\<Editable files\\nare shaded\>\"", ",", "14"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "2.65"}], ",", 
+        RowBox[{"dy", "-", "0"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"\"\<Generated\\nfiles\>\"", ",", "14"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "2.65"}], ",", 
+        RowBox[{"dy", "-", ".5"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}]}], "]"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.668851068546914*^9, 3.6688510992429543`*^9}, {
+   3.668851140859556*^9, 3.6688511466315002`*^9}, {3.668851177699071*^9, 
+   3.668851187334629*^9}, {3.6688512174012623`*^9, 3.66885126065783*^9}, {
+   3.668856132824643*^9, 3.66885620658992*^9}, {3.668856373105756*^9, 
+   3.668856398547872*^9}, 3.668856548607114*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"forcewidth", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Clear", "[", "c", "]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"c", "[", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "t", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"t", "=", 
+       RowBox[{"Graphics", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Arrowheads", "[", "Medium", "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"caption", "[", "\"\<(a) Conventional\>\"", "]"}], ",",
+                "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", "0"}], "}"}], 
+                  ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "0.25"}], "-", "gap"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".250"}], "-", "gap"}], ",", "0"}], "}"}], 
+                 ",", "\"\<Latex file\>\"", ",", "Gray"}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", "0"}]}], "}"}], ",", "\"\<Source code\>\"", 
+                 ",", "Gray"}], "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", "0.25"}], "-", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<The published document\\nand the source code\\nare \
+independent and\\nprobably inconsistent.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "1.4"}], ",", "0"}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{
+               "caption", "[", "\"\<(b) Literate programming\>\"", "]"}], ",",
+                "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{".25", ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", ".25"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", "0"}], "}"}], ",", "\"\<WEB file\>\"", 
+                 ",", "Gray"}], "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                    RowBox[{"-", ".5"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Latex file\>\""}], 
+                "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Source code\>\""}],
+                 "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                   RowBox[{"-", "1"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<The published document\\nmust be formatted in\\nan \
+idiosyncratic \[OpenCurlyDoubleQuote]literate\\nprogramming\
+\[CloseCurlyDoubleQuote] style.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{".25", ",", "0"}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"caption", "[", "\"\<(c) Loom & Warp\>\"", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", ".250"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", "height"}], "/", "2"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "0.1"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{".25", ",", 
+                    RowBox[{
+                    RowBox[{"-", "height"}], "/", "2"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0.1", ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".250"}], "-", "gap"}], ",", "0"}], "}"}], 
+                 ",", "\"\<Latex file\>\"", ",", "Gray"}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", "0"}]}], "}"}], ",", "\"\<Source code\>\"", 
+                 ",", "Gray"}], "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", 
+                    RowBox[{"-", ".5"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", 
+                 "\"\<Temporary\\nLatex files\>\""}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<The published document\\nis unrestricted, but at \
+the\\nexpense of managing\\nseveral source files.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], 
+              "\[IndentingNewLine]", "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "1.4"}], ",", 
+               RowBox[{"-", "2.5"}]}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"caption", "[", "\"\<(d) This paper\>\"", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{".25", ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", ".25"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", "0"}], "}"}], ",", "\"\<Latex file\>\"", 
+                 ",", "Gray"}], "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Source code\>\""}],
+                 "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<There is only one source\\nfile to manage, and \
+the\\npublished document is\\nunrestricted.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{".25", ",", 
+               RowBox[{"-", "2.5"}]}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", "Thin", ",", "\[IndentingNewLine]", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"Line", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"i", ",", 
+                  RowBox[{".2", "+", "height"}]}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"i", ",", 
+                  RowBox[{"-", "4.3"}]}], "}"}]}], "}"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"-", "2.2"}], ",", 
+                 RowBox[{"-", ".65"}]}], 
+                RowBox[{"(*", 
+                 RowBox[{",", ".8", ",", "2.25"}], "*)"}], "}"}]}], "}"}]}], 
+            "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"Line", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", "2.95"}], ",", 
+                RowBox[{
+                 RowBox[{"-", ".25"}], "+", 
+                 RowBox[{"-", "1.675"}]}]}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"1.1", ",", 
+                RowBox[{
+                 RowBox[{"-", ".25"}], "+", 
+                 RowBox[{"-", "1.675"}]}]}], "}"}]}], "}"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"divider", "[", "0", "]"}], ",", 
+           RowBox[{"divider", "[", 
+            RowBox[{"-", "2.5"}], "]"}], ","}], "\[IndentingNewLine]", "}"}], 
+         ",", 
+         RowBox[{"ImageSize", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "600"}], "}"}]}]}], 
+        "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"forcewidth", "=", "maxwidth"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", "t", "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"c", "[", "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"find", " ", "out", " ", "box", " ", "sizes"}], " ", "*)"}], ";", 
+  RowBox[{"c", "[", "]"}]}]}], "Input",
+ CellChangeTimes->{{3.668850814026264*^9, 3.668851059580888*^9}, {
+   3.6688511125824347`*^9, 3.6688511221329613`*^9}, {3.668851152348349*^9, 
+   3.6688511734264927`*^9}, {3.6688560484730053`*^9, 3.668856104216949*^9}, {
+   3.668856224560478*^9, 3.6688563567957373`*^9}, {3.6688565592540693`*^9, 
+   3.668856577813142*^9}, {3.668856609902865*^9, 3.668856740298637*^9}, {
+   3.668856822349959*^9, 3.668856832766623*^9}, {3.668857027649671*^9, 
+   3.668857031733807*^9}, {3.668857061965933*^9, 3.668857072051363*^9}, {
+   3.668857102484448*^9, 3.6688571391686068`*^9}, {3.668857206307914*^9, 
+   3.668857207505931*^9}, {3.668857259462452*^9, 3.66885731511343*^9}, {
+   3.6688573768172483`*^9, 3.668857391133625*^9}, 3.668857439410372*^9, {
+   3.668857597531487*^9, 3.668857620846854*^9}, 3.66905489868112*^9}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {Arrowheads[Medium], GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(a) Conventional\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{-0.35, 0}, {-0.35, -0.36}}], 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6412, -0.14}, {-0.05879999999999996, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Latex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, 0}]}}, 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{0.05879999999999996, -0.14}, {0.6412, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, 0}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, -0.5}]}}, InsetBox[
+      StyleBox["\<\"The published document\\nand the source code\\nare \
+independent and\\nprobably inconsistent.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {-1.4, 0}], 
+   GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(b) Literate programming\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{0, 0}, {0.25, -0.36}}], ArrowBox[{{0, 0}, {-0.25, -0.36}}], 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"WEB file\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, 0}]}}, 
+     ArrowBox[{{-0.35, -0.5}, {-0.35, -0.86}}], 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Latex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, -0.5}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{0.05879999999999996, -0.64}, {0.6412, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, -0.5}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6412, -1.1400000000000001`}, {-0.05879999999999996, -0.86},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, -1}]}}, InsetBox[
+      StyleBox["\<\"The published document\\nmust be formatted in\\nan \
+idiosyncratic \[OpenCurlyDoubleQuote]literate\\nprogramming\
+\[CloseCurlyDoubleQuote] style.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {0.25, 0}], 
+   GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(c) Loom & Warp\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{-0.25, -0.14}, {-0.1, -0.36}}], 
+     ArrowBox[{{0.25, -0.14}, {0.1, -0.36}}], 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6412, -0.14}, {-0.05879999999999996, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Latex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, 0}]}}, 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{0.05879999999999996, -0.14}, {0.6412, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, 0}]}}, ArrowBox[{{0, -0.5}, {0, -0.86}}], 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.2912, -0.64}, {0.2912, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Temporary\\nLatex files\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, -0.5}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.2912, -1.1400000000000001`}, {0.2912, -0.86},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, -1}]}}, InsetBox[
+      StyleBox["\<\"The published document\\nis unrestricted, but at \
+the\\nexpense of managing\\nseveral source files.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {-1.4, -2.5}], 
+   GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(d) This paper\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{0, 0}, {0.25, -0.36}}], ArrowBox[{{0, 0}, {-0.25, -0.36}}], 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Latex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, 0}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, -0.5}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{0.05879999999999996, -0.64}, {0.6412, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, -0.5}]}}, InsetBox[
+      StyleBox["\<\"There is only one source\\nfile to manage, and \
+the\\npublished document is\\nunrestricted.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {0.25, -2.5}], 
+   {Thickness[
+    Tiny], {LineBox[{{-2.2, 0.48000000000000004`}, {-2.2, -4.3}}], 
+     LineBox[{{-0.65, 0.48000000000000004`}, {-0.65, -4.3}}]}, 
+    LineBox[{{-2.95, -1.925}, {1.1, -1.925}}], 
+    {Thickness[Medium], Dashing[{Small, Small}], 
+     LineBox[{{-2.95, -0.25}, {1.1, -0.25}}], InsetBox[
+      StyleBox["\<\"Editable files\\nare shaded\"\>",
+       StripOnInput->False,
+       FontSize->14], {-2.65, 0}, {0, 0}], InsetBox[
+      StyleBox["\<\"Generated\\nfiles\"\>",
+       StripOnInput->False,
+       FontSize->14], {-2.65, -0.5}, {0, 0}]}, 
+    {Thickness[Medium], Dashing[{Small, Small}], 
+     LineBox[{{-2.95, -2.75}, {1.1, -2.75}}], InsetBox[
+      StyleBox["\<\"Editable files\\nare shaded\"\>",
+       StripOnInput->False,
+       FontSize->14], {-2.65, -2.5}, {0, 0}], InsetBox[
+      StyleBox["\<\"Generated\\nfiles\"\>",
+       StripOnInput->False,
+       FontSize->14], {-2.65, -3.}, {0, 0}]}}},
+  ImageSize->{Automatic, 600}]], "Output",
+ CellChangeTimes->{{3.668850881344247*^9, 3.6688508932849483`*^9}, {
+   3.668850948030139*^9, 3.668850993800219*^9}, {3.668851102365614*^9, 
+   3.6688511229517403`*^9}, 3.668851153993656*^9, {3.668851192310775*^9, 
+   3.668851262201635*^9}, {3.668856061773848*^9, 3.668856104895015*^9}, {
+   3.668856138244093*^9, 3.6688563996778193`*^9}, {3.668856552230338*^9, 
+   3.6688565784320507`*^9}, {3.668856611361454*^9, 3.668856653149197*^9}, {
+   3.668856694390712*^9, 3.6688567530770082`*^9}, {3.668856823183383*^9, 
+   3.6688568334892187`*^9}, 3.668856972354417*^9, 3.6688570328653584`*^9, 
+   3.668857072550714*^9, {3.668857103001713*^9, 3.6688571398633547`*^9}, 
+   3.668857208305375*^9, {3.668857261231966*^9, 3.668857315661583*^9}, 
+   3.6688573925618258`*^9, 3.6688574405990257`*^9, 3.668857621368745*^9, 
+   3.669019208219439*^9, {3.669021660321212*^9, 3.669021671238453*^9}, 
+   3.669021790625311*^9, {3.669054903490571*^9, 3.669054912805806*^9}, 
+   3.669054978092025*^9, 3.669055011450655*^9, 3.66928891749679*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<figures/literateProgramming.pdf\>\"", ",", 
+   RowBox[{"c", "[", "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6567697204415216`*^9, 3.6567697266414948`*^9}, {
+   3.656836809852418*^9, 3.656836809941183*^9}, {3.669288765043824*^9, 
+   3.6692887659075317`*^9}, 3.669288836794998*^9}],
+
+Cell[BoxData["\<\"figures/literateProgramming.pdf\"\>"], "Output",
+ CellChangeTimes->{
+  3.656769740059627*^9, 3.656833859157134*^9, 3.656833937395238*^9, {
+   3.6568367982151413`*^9, 3.6568368131881447`*^9}, 3.656858302167116*^9, 
+   3.6568584542996483`*^9, 3.657614222636239*^9, 3.657614286321756*^9, 
+   3.667043441730215*^9, 3.667043595442211*^9, 3.667067089439212*^9, 
+   3.667067237026729*^9, 3.668750357873385*^9, 3.668751243266062*^9, 
+   3.668856408621662*^9, 3.668856756933261*^9, 3.668856843376957*^9, 
+   3.6688569857993937`*^9, 3.668857509551477*^9, 3.668857633129157*^9, 
+   3.669021791250196*^9, 3.669054917331649*^9, 3.6690549784421473`*^9, 
+   3.6690550117289467`*^9, 3.6692889179272137`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"dividertwo", "[", "dy_", "]"}], ":=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"Style", "[", 
+        RowBox[{"\"\<Hidden code\\nis shaded\>\"", ",", "14"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2.65"}], ",", 
+         RowBox[{"dy", "-", "0"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"Style", "[", 
+        RowBox[{
+        "\"\<Published\\nmaterial\\nshown in\\nhighlighted\\nboxes\>\"", ",", 
+         "14"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2.65"}], ",", 
+         RowBox[{"dy", "-", "1"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}], "]"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"forcewidth", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Clear", "[", "c", "]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"c", "[", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "t", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"t", "=", 
+       RowBox[{"Graphics", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Arrowheads", "[", "Medium", "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"caption", "[", "\"\<(a) Conventional\>\"", "]"}], ",",
+                "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", "0"}], "}"}], 
+                  ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "0.25"}], "-", "gap"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".250"}], "-", "gap"}], ",", "0"}], "}"}], 
+                 ",", "\"\<Latex file\>\""}], "]"}], ",", 
+               RowBox[{"highlight", "[", "Black", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", "0"}]}], "}"}], ",", "\"\<Source code\>\"", 
+                 ",", "Gray"}], "]"}], ",", 
+               RowBox[{"highlight", "[", "White", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", "0.25"}], "-", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", 
+               RowBox[{"highlight", "[", "Black", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<The source code is hidden.\\nThere is no link \
+between\\nthe source code\\nand the published paper.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "1.4"}], ",", "0"}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{
+               "caption", "[", "\"\<(b) Literate programming\>\"", "]"}], ",",
+                "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{".25", ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", ".25"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", "0"}], "}"}], ",", "\"\<WEB file\>\""}], 
+                "]"}], ",", 
+               RowBox[{"highlight", "[", "Black", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                    RowBox[{"-", ".5"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", 
+                 "\"\<Latex file\\nplus full code\>\""}], "]"}], ",", 
+               RowBox[{"highlight", "[", "Black", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Source code\>\""}],
+                 "]"}], ",", 
+               RowBox[{"highlight", "[", "Black", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                   RowBox[{"-", "1"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", 
+               RowBox[{"highlight", "[", "Black", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<Although no code is hidden,\\nthere is usually so much \
+of\\nit that not all can be\\nreliably read by a human.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{".25", ",", "0"}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"caption", "[", "\"\<(c) Loom & Warp\>\"", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", ".250"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", "height"}], "/", "2"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "0.1"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{".25", ",", 
+                    RowBox[{
+                    RowBox[{"-", "height"}], "/", "2"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0.1", ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".250"}], "-", "gap"}], ",", "0"}], "}"}], 
+                 ",", "\"\<Latex file\>\""}], "]"}], ",", 
+               RowBox[{"highlight", "[", "Black", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", "0"}]}], "}"}], ",", "\"\<Source code\>\"", 
+                 ",", ".1"}], "]"}], ",", 
+               RowBox[{"highlight", "[", "White", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "-", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", 
+                 "\"\<Temporary\\nLatex files\>\""}], "]"}], ",", 
+               RowBox[{"highlight", "[", "Black", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", 
+               RowBox[{"highlight", "[", "Black", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<Some code is visible\\nbut the bulk needed to \
+get\\nthings to work is hidden\\neven from the authors.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], 
+              "\[IndentingNewLine]", "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "1.4"}], ",", 
+               RowBox[{"-", "2.5"}]}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Translate", "[", 
+            RowBox[{
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"caption", "[", "\"\<(d) This paper\>\"", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"+", "height"}], "/", "2"}], ",", 
+                    RowBox[{"0", "-", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{".25", ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"-", 
+                    RowBox[{"+", "height"}]}], "/", "2"}], ",", 
+                    RowBox[{"0", "-", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", ".25"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", ".5"}], "+", 
+                    RowBox[{"height", "/", "2"}]}]}], "}"}]}], "}"}], "]"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", "0"}], "}"}], ",", "\"\<Latex file\>\"", 
+                 ",", ".95"}], "]"}], ",", 
+               RowBox[{"highlight", "[", 
+                RowBox[{"Black", ",", "1"}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", ".25"}], "-", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Publish\>\""}], 
+                "]"}], ",", 
+               RowBox[{"highlight", "[", "Black", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"box", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{".25", "+", "gap"}], ",", 
+                   RowBox[{"-", ".5"}]}], "}"}], ",", "\"\<Source code\>\"", 
+                 ",", ".95"}], "]"}], ",", 
+               RowBox[{"highlight", "[", 
+                RowBox[{"Black", ",", "1"}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"description", "[", 
+                RowBox[{
+                "\"\<A negligible amount\\nof code may be hidden,\\n but only \
+with effort and it\\nis still in the same file.\>\"", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", 
+                   RowBox[{"-", "1.5"}]}], "}"}]}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{".25", ",", 
+               RowBox[{"-", "2.5"}]}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", "Thin", ",", "\[IndentingNewLine]", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"Line", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"i", ",", 
+                  RowBox[{".2", "+", "height"}]}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"i", ",", 
+                  RowBox[{"-", "4.3"}]}], "}"}]}], "}"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"-", "2.2"}], ",", 
+                 RowBox[{"-", ".65"}]}], 
+                RowBox[{"(*", 
+                 RowBox[{",", ".8", ",", "2.25"}], "*)"}], "}"}]}], "}"}]}], 
+            "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"Line", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", "2.2"}], ",", 
+                RowBox[{
+                 RowBox[{"-", ".25"}], "+", 
+                 RowBox[{"-", "1.675"}]}]}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"1.1", ",", 
+                RowBox[{
+                 RowBox[{"-", ".25"}], "+", 
+                 RowBox[{"-", "1.675"}]}]}], "}"}]}], "}"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"dividertwo", "[", 
+            RowBox[{"-", "1.5"}], "]"}]}], "\[IndentingNewLine]", "}"}], ",", 
+         
+         RowBox[{"ImageSize", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "600"}], "}"}]}]}], 
+        "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"forcewidth", "=", "maxwidth"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", "t", "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"c", "[", "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"find", " ", "out", " ", "box", " ", "sizes"}], " ", "*)"}], ";", 
+  RowBox[{"c", "[", "]"}]}]}], "Input",
+ CellChangeTimes->{{3.6690176608578377`*^9, 3.6690177305407753`*^9}, {
+   3.66901776152801*^9, 3.6690177793013897`*^9}, {3.669019247336705*^9, 
+   3.669019280576611*^9}, {3.669019319446944*^9, 3.669019436796625*^9}, {
+   3.669019484145464*^9, 3.669019538218474*^9}, {3.6690195743790903`*^9, 
+   3.669019609457563*^9}, {3.669019668338338*^9, 3.669019714901012*^9}, {
+   3.669019759682394*^9, 3.669019784441387*^9}, {3.669019838013095*^9, 
+   3.669019905805216*^9}, {3.669019948969911*^9, 3.66901996307407*^9}, {
+   3.669020135672907*^9, 3.669020222997121*^9}, {3.669020368820314*^9, 
+   3.669020412270938*^9}, {3.669020456573707*^9, 3.6690205415359077`*^9}, {
+   3.669020615284361*^9, 3.669020667680567*^9}, {3.669020779210862*^9, 
+   3.669020836295623*^9}, {3.669020886874606*^9, 3.669020917644835*^9}, 
+   3.669020987392832*^9, {3.669021180485568*^9, 3.6690212211875677`*^9}, {
+   3.669021722854547*^9, 3.6690217233832073`*^9}, {3.6690236297500553`*^9, 
+   3.669023643597867*^9}, {3.669031355471743*^9, 3.669031496153105*^9}, {
+   3.669031568023085*^9, 3.669031632192252*^9}, {3.669031789339713*^9, 
+   3.669031808531465*^9}, {3.6690319142540417`*^9, 3.669031935097438*^9}, {
+   3.669032072469524*^9, 3.669032079225556*^9}, {3.669032367633705*^9, 
+   3.669032381476819*^9}, {3.669032412948721*^9, 3.669032437586812*^9}, {
+   3.669037440720566*^9, 3.66903746042187*^9}, {3.669037502728376*^9, 
+   3.669037514156576*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {Arrowheads[Medium], GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(a) Conventional\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{-0.35, 0}, {-0.35, -0.36}}], 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Latex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, 0}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
+       
+       RoundingRadius->0.015]}, 
+     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
+      EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, 0}]}}, 
+     {EdgeForm[{GrayLevel[1], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
+       RoundingRadius->0.015]}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, -0.5}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+       
+       RoundingRadius->0.015]}, InsetBox[
+      StyleBox["\<\"The source code is hidden.\\nThere is no link \
+between\\nthe source code\\nand the published paper.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {-1.4, 0}], 
+   GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(b) Literate programming\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{0, 0}, {0.25, -0.36}}], ArrowBox[{{0, 0}, {-0.25, -0.36}}], 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.31870000000000004`, -0.14}, {0.31870000000000004`, 0.14},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"WEB file\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, 0}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{-0.31870000000000004`, -0.14}, {0.31870000000000004`, 0.14},
+       
+       RoundingRadius->0.015]}, ArrowBox[{{-0.35, -0.5}, {-0.35, -0.86}}], 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Latex file\\nplus full code\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, -0.5}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+       
+       RoundingRadius->0.015]}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, -0.5}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
+       RoundingRadius->0.015]}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6687000000000001, -1.1400000000000001`}, {-0.03129999999999994, -0.86},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, -1}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{-0.6687000000000001, -1.1400000000000001`}, {-0.03129999999999994, -0.86},
+       
+       RoundingRadius->0.015]}, InsetBox[
+      StyleBox["\<\"Although no code is hidden,\\nthere is usually so much of\
+\\nit that not all can be\\nreliably read by a human.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {0.25, 0}], 
+   GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(c) Loom & Warp\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{-0.25, -0.14}, {-0.1, -0.36}}], 
+     ArrowBox[{{0.25, -0.14}, {0.1, -0.36}}], 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Latex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, 0}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
+       
+       RoundingRadius->0.015]}, 
+     {EdgeForm[GrayLevel[0]], FaceForm[None], 
+      {EdgeForm[None], FaceForm[RGBColor[
+       0.7777777777777778, 0.7777777777777778, 0.7777777777777778]], 
+       RectangleBox[{0.03129999999999994, -0.14}, \
+{0.15877999999999998`, 0.14}], 
+       RectangleBox[{0.22252, -0.14}, {0.31813, 0.14}], 
+       RectangleBox[{0.3818700000000001, -0.14}, {0.47748, 0.14}], 
+       RectangleBox[{0.54122, -0.14}, {0.6687000000000001, 0.14}]}, 
+      RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, 0}]}}, 
+     {EdgeForm[{GrayLevel[1], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
+       RoundingRadius->0.015]}, ArrowBox[{{0, -0.64}, {0, -0.86}}], 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.31870000000000004`, -0.64}, {0.31870000000000004`, -0.36},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Temporary\\nLatex files\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, -0.5}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{-0.31870000000000004`, -0.64}, {0.31870000000000004`, -0.36},
+       
+       RoundingRadius->0.015]}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.31870000000000004`, -1.1400000000000001`}, {0.31870000000000004`, -0.86},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, -1}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{-0.31870000000000004`, -1.1400000000000001`}, {0.31870000000000004`, -0.86},
+       
+       RoundingRadius->0.015]}, InsetBox[
+      StyleBox["\<\"Some code is visible\\nbut the bulk needed to \
+get\\nthings to work is hidden\\neven from the authors.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {-1.4, -2.5}], 
+   GeometricTransformationBox[{InsetBox[
+      StyleBox["\<\"(d) This paper\"\>",
+       StripOnInput->False,
+       FontSize->17,
+       FontWeight->Bold], {0, 0.42000000000000004`}], 
+     ArrowBox[{{0.14, -0.14}, {0.25, -0.36}}], 
+     ArrowBox[{{-0.14, -0.14}, {-0.25, -0.36}}], 
+     {EdgeForm[GrayLevel[0]], FaceForm[None], 
+      {EdgeForm[None], FaceForm[RGBColor[
+       0.7777777777777778, 0.7777777777777778, 0.7777777777777778]], 
+       RectangleBox[{0.28683, -0.14}, {0.31870000000000004`, 0.14}]}, 
+      RectangleBox[{-0.31870000000000004`, -0.14}, {0.31870000000000004`, 0.14},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Latex file\"\>",
+         StripOnInput->False,
+         FontSize->12], {0, 0}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{-0.31870000000000004`, -0.14}, {0.31870000000000004`, 0.14},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[1], Thickness[0.01], 
+       LineBox[{{0.28683, -0.14}, {0.31870000000000004`, -0.14}, {
+        0.31870000000000004`, 0.14}, {0.28683, 0.14}}]}}, 
+     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
+      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+       
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Publish\"\>",
+         StripOnInput->False,
+         FontSize->12], {-0.35, -0.5}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+       
+       RoundingRadius->0.015]}, 
+     {EdgeForm[GrayLevel[0]], FaceForm[None], 
+      {EdgeForm[None], FaceForm[RGBColor[
+       0.7777777777777778, 0.7777777777777778, 0.7777777777777778]], 
+       RectangleBox[{0.63683, -0.64}, {0.6687000000000001, -0.36}]}, 
+      RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[0], InsetBox[
+        StyleBox["\<\"Source code\"\>",
+         StripOnInput->False,
+         FontSize->12], {0.35, -0.5}]}}, 
+     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
+      RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
+       RoundingRadius->0.015], 
+      {GrayLevel[1], Thickness[0.01], 
+       LineBox[{{0.63683, -0.64}, {0.6687000000000001, -0.64}, {
+        0.6687000000000001, -0.36}, {0.63683, -0.36}}]}}, InsetBox[
+      StyleBox["\<\"A negligible amount\\nof code may be hidden,\\n but only \
+with effort and it\\nis still in the same file.\"\>",
+       StripOnInput->False,
+       FontSize->14], {0, -1.5}]}, {0.25, -2.5}], 
+   {Thickness[
+    Tiny], {LineBox[{{-2.2, 0.48000000000000004`}, {-2.2, -4.3}}], 
+     LineBox[{{-0.65, 0.48000000000000004`}, {-0.65, -4.3}}]}, 
+    LineBox[{{-2.2, -1.925}, {1.1, -1.925}}], {InsetBox[
+      StyleBox["\<\"Hidden code\\nis shaded\"\>",
+       StripOnInput->False,
+       FontSize->14], {-2.65, -1.5}, {0, 0}], InsetBox[
+      StyleBox["\<\"Published\\nmaterial\\nshown in\\nhighlighted\\nboxes\"\>",
+       StripOnInput->False,
+       FontSize->14], {-2.65, -2.5}, {0, 0}]}}},
+  ImageSize->{Automatic, 600}]], "Output",
+ CellChangeTimes->{
+  3.66903143319178*^9, 3.669031735634515*^9, {3.669031792578658*^9, 
+   3.6690318090720453`*^9}, 3.669031949899329*^9, 3.669032164447811*^9, 
+   3.669032277683893*^9, 3.669032328553145*^9, {3.66903238934587*^9, 
+   3.669032438097969*^9}, {3.6690325151551323`*^9, 3.66903254100206*^9}, {
+   3.669037442472953*^9, 3.669037461048358*^9}, {3.669037504603818*^9, 
+   3.669037514605857*^9}, 3.6690549787880783`*^9, 3.669055011884449*^9, 
+   3.669288918268478*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<figures/hiddenCode.pdf\>\"", ",", 
+   RowBox[{"c", "[", "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.669017640266762*^9, {3.6692887683951797`*^9, 3.669288773111496*^9}, {
+   3.669288874246517*^9, 3.669288877594204*^9}}],
+
+Cell[BoxData["\<\"figures/hiddenCode.pdf\"\>"], "Output",
+ CellChangeTimes->{3.669021655007016*^9, 3.6690217919583273`*^9, 
+  3.669023671470841*^9, 3.6690323498828087`*^9, 3.669032548923781*^9, 
+  3.669037555832768*^9, 3.669054979076544*^9, 3.669055012296568*^9, 
+  3.6692889186114893`*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1498, 1147},
+WindowMargins->{{Automatic, -126}, {Automatic, 0}},
+Magnification:>1.25 Inherited,
+FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
+2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 126, 2, 36, "Input"],
+Cell[709, 26, 330, 4, 36, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1076, 35, 172, 3, 36, "Input"],
+Cell[1251, 40, 537, 8, 36, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1825, 53, 174, 2, 81, "Chapter"],
+Cell[2002, 57, 349, 9, 36, "Input"],
+Cell[CellGroupData[{
+Cell[2376, 70, 140, 2, 36, "Input"],
+Cell[2519, 74, 332, 5, 35, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2888, 84, 5799, 128, 582, "Input"],
+Cell[8690, 214, 11139, 255, 393, "Output"]
+}, Open  ]],
+Cell[19844, 472, 9946, 233, 708, "Input"],
+Cell[29793, 707, 826, 24, 57, "Input"],
+Cell[CellGroupData[{
+Cell[30644, 735, 15066, 363, 1065, "Input"],
+Cell[45713, 1100, 8664, 186, 393, "Output"]
+}, Open  ]],
+Cell[54392, 1289, 608, 10, 109, "Text"],
+Cell[55003, 1301, 327, 7, 36, "Input"],
+Cell[CellGroupData[{
+Cell[55355, 1312, 2195, 48, 99, "Input"],
+Cell[57553, 1362, 5704, 115, 415, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[63294, 1482, 296, 5, 36, "Input"],
+Cell[63593, 1489, 162, 2, 36, "Output"]
+}, Open  ]],
+Cell[63770, 1494, 1660, 44, 120, "Input"],
+Cell[CellGroupData[{
+Cell[65455, 1542, 15540, 367, 1023, "Input"],
+Cell[80998, 1911, 8487, 184, 768, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[89522, 2100, 338, 6, 36, "Input"],
+Cell[89863, 2108, 709, 10, 36, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[90609, 2123, 18607, 440, 1149, "Input"],
+Cell[109219, 2565, 11241, 242, 768, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[120497, 2812, 278, 6, 36, "Input"],
+Cell[120778, 2820, 290, 4, 36, "Output"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

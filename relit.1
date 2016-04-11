@@ -1,0 +1,92 @@
+.\" Harold Thimbleby
+.TH relit 1 "8 April 2016"
+.hw relit
+.SH NAME
+relit \- Reverse literate programming tool
+.SH SYNOPSIS
+.B relit 
+[\fB-a\fR]
+[\fB-f\fR]
+[\fIdefinitions...\fR]
+[\fB--\fR]
+.IR sourcefilenames...
+.SH DESCRIPTION
+.B relit
+is a 'reverse literate programming' tool. It is designed to process LaTeX and TeX files (or troff, etc) and flexibly extract and assemble complete source code. Reverse literate programming encourages putting the entire compilable source code in publishable documents (such as peer reviewed publications), in any suitable order, and perhaps with unit tests and other support (e.g., makefiles) in the same file but hidden from the reader. 
+.SH OPTIONS
+Arguments can be in any order; the files are always processed last. Within files, definitions and uses of names can be in any order; name definitions do not need to be in the files where they are used.
+.TP
+-a 
+List all definitions
+.TP
+-f 
+List all files processed to standard output
+.TP
+\fIname\fR=\fIvalue\fR
+Define a name. If there are spaces in the \fIvalue\fR it must be enclosed in quote marks.
+.TP
+--
+Treat all subsequent parameters as file names, following the same convention as \fBrm\fR (1).
+.SH DESCRIPTION
+The
+.B relit 
+tool generally processes TeX or LaTeX files.
+.LP
+% define 
+.I name 
+.I re
+, 
+.I re 
+[ ,
+.I tag
+]
+.IP
+Define 
+.I name 
+to be the following lines inclusive that match between the two regular expressions.
+.LP
+% generate 
+.I name 
+.I re
+, 
+.I re 
+[
+.I tag
+]
+.IP
+Generate a file, 
+.I name 
+to be the following lines inclusive that match between the two regular expressions.
+.IP
+Within the text matched for %define and %generate, names of the form <\fIname\fR> are expanded by their definitions. 
+.LP
+% set-tag 
+.I value
+.IP
+Define a default tag for any subsequent %define or %generate without an explicit tag. A tag value can 
+include <\fInames\fR>. By using <\fIname\fR> as a tag, the name, and hence the tag, can be set in the command line. Default tags can be changed repeatedly as required.
+.PP
+Where \fIre\fR can have the form:
+.TP
+\&. 
+Match the current line (i.e., if the first \fIre\fR, the immediately next line after the % command, and if the second \fIre\fR, the line the first \fIre\fR matches).
+.TP
+/ \fIregular expression\fR / 
+Match the regular expression, starting the search on the line the meaning of '.' (see above). See \fBre_format\fR (7).
+.LP
+REs can be followed by +\fInumber\fR or -\fInumber\fR, to adjust the line match (however it is an error to search backwards).
+.SH EXAMPLE
+.nf
+%generate t.c /demo/, /define/-1
+<demo>
+%define demo ., /Hello/, Boo!
+Hello world
+.fi
+.PP
+will create a file t.c containing "Hello world" and a file t.c-tagged.txt (which would not be created if there were no tags) containing "Boo!Hello world".
+.PP
+Typically, a %generate command, placed after LaTeX's \\end{document}, will be used to create a makefile to keep track of how to make, compile and unit test the source code files. Typically, tags will be \\seen{} and \\unseen{}, appropriately defined.
+.SH BUGS
+Regular expressions cannot contain /
+.PP
+% cannot be changed (it would be nice to be able to process makefiles or C programs too).
