@@ -90,3 +90,8 @@ Typically, a %generate command, placed after LaTeX's \\end{document}, will be us
 Regular expressions cannot contain /
 .PP
 % cannot be changed (it would be nice to be able to process makefiles or C programs too).
+.PP
+On second thoughts, if the \fBrelit\fR commands were in this format:
+.TP
+\\relit{command name re, re, tag} - say, in the original format
+they would look more like Latex. In normal use, the command could be defined to disappear, but if the author wished it could be defined like \\marginpar, so that the author can more easily keep track of where the commands are used. Perhaps we should have both? The advantage of the % notation is that it requires no new definitions to start using it.
