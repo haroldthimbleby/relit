@@ -28,8 +28,12 @@
 }
 \makeatother
 
-\title{\bfseries An elegant algorithm to generate $(N,2)$\\de Bruijn sequences
-with application to\\design of sequential experiments}
+\title{\bfseries How to publish algorithms reproducibly\\
+and\\
+A new elegant algorithm 
+% to generate $(N,2)$\\de Bruijn sequences with application to\\
+for the design of sequential experiments\\
+}
 \author{Harold Thimbleby, David Williams\\
 University of Swansea, Wales\\
 Correspondence: harold@thimbleby.net}
@@ -42,11 +46,13 @@ Correspondence: harold@thimbleby.net}
 \maketitle
 \begin{abstract}
 \noindent
-This paper presents a very short, elegant and portable algorithm for generating $(N,2)$ de Bruijn sequences. De Bruijn sequences have important applications in the design of sequential experiments to efficiently control bias, drift, random error, carry-over and other effects.
+This paper presents a very short, elegant and portable algorithm for finding Euler cycles 
+%generating $(N,2)$ de Bruijn sequences. De Bruijn sequences have 
+which has important applications in the design of sequential experiments to efficiently control bias, drift, random error, carry-over and other effects.
 
-The algorithm is presented in C, and uses elementary programming to simplify porting of the code to other languages. 
+The algorithm is presented in C, and written in a style to simplify porting of the code to other languages. 
 
-To explain and present the code, we use and describe a novel ``reversed literate programming'' technique that generates both the executable code and this manuscript for publication from a single, common \LaTeX\ source code file. The technique ensures that both the executable code and the published documentation are identical and synchronised, preventing transcription errors. The approach increases transparency, reproducibility, and accessibility --- and, more generally, encourages authors to publish details of working embodiments of algorithms rather than abstract or simplified descriptions.
+To explain and present the algorithm, we use and describe a novel ``reversed literate programming'' technique that  generates the executable code directly from this manuscript for publication. The technique ensures that both the executable code and the published paper are synchronised, preventing transcription errors. The approach increases transparency, reproducibility, and accessibility --- and, more generally, encourages authors to publish details of working embodiments of algorithms rather than abstract or simplified descriptions.
 
 \vskip .5cm\noindent
 \textbf{Keywords}: Euler cycle algorithm; de Bruijn sequence; Combinatorics; Experimental design; Literate programming.
@@ -57,7 +63,7 @@ In a sequential experiment, such as generation of a sensor calibration curves, a
 
 The problem may be illustrated by a familiar example. We might want to know which of $N$ types of wine tastes best, but, as is well known, the flavour of a wine is affected by the last wine just tasted. We therefore want to design a systematic experiment for wine tasting that tries every sequential combination of pairs of the set of $N$ wine types available in our cellar, and of course we want the shortest such cycle, because experiments with wine are expensive. 
 
-For the sake of concreteness, suppose we have $N=3$ types of wine in our cellar, specifically, say, Merlot, Pinotage and Chianti. If we have just drunk Pinotage, then there are three possible experiments to do next: to drink Merlot next, Chianti next, or of course to drink Pinotage again. If we drink Pinotage, then the next experiment should probably be to assess Merlot or Chianti, since we already know what Pinotage after Pinotage tastes like. 
+For the sake of concreteness, suppose we have $N=3$ types of wine in our cellar, specifically, say, Merlot, Pinotage and Shiraz. If we have just drunk Pinotage, then there are three possible experiments to do next: to drink Merlot next, Shiraz next, or of course to drink Pinotage again. If we drink Pinotage, then the next experiment should probably be to assess Merlot or Shiraz, since we already know what Pinotage after Pinotage tastes like. 
 
 With only three wines, the best sequence of experiments is not too hard to work out, but in general with lots of wine it becomes much harder (especially if we start the wine tasting before we have finished working out the right sequence).
 
@@ -65,13 +71,13 @@ Our problem, then, is to write a computer program to generate an efficient seque
 
 For simple cases, however, the problem can be solved by hand by drawing a graph with one vertex for each of the $N$ types of experiment (i.e., in this case, types of wine on our list), and with $N^2$ arrows linking each type to each of the others. (This creates a complete graph, usually denoted $K_N$; the background in graph theory is explained in section~\ref{graphtheory} below.) Each arrow then represents a possible sequence of experiments. Figure~\ref{completeg} shows the graph for $N=3$. 
 
-A sequence of experiments forms a path in this graph following appropriate arrows, and an optimal sequence is a shortest such path. It is a standard graph theory result that for a complete graph that the shortest sequence only needs to follow each arrow exactly once, and will end up where it started --- obviously, if it followed any arrow more than once, it would be repeating an experiment unnecessarily. The optimal sequence is called an \emph{Euler cycle}, after Leonard Euler who first studied paths in graphs (but not sequential experiments). Finding Euler cycles is a well-known programming problem, which has been solved many times. Our problem now reduces to finding an Euler cycle algorithm.
+A sequence of experiments forms a path in this graph following appropriate arrows, and an optimal sequence is a shortest such path. It is a standard graph theory result that for a complete graph that the shortest sequence only needs to follow each arrow exactly once, and will also end up where it started --- obviously, if it followed any arrow more than once, it would be repeating an experiment unnecessarily. An optimal sequence is called an \emph{Euler cycle}, after Leonard Euler who first studied paths in graphs (but not sequential experiments). Finding Euler cycles is a well-known programming problem, which has been solved many times. Our problem now reduces to finding an Euler cycle algorithm.
 
-Unfortunately, it turns out that programming textbooks typically leave this problem as an exercise for the reader, and that does not help if your aim is to do the experiment, rather than learn how to program algorithms! Worse, in many textbooks and published papers about the Euler cycle problem, the algorithm is presented as a sketch or in a simplifying pseudo-language. While this may be sufficient to explain the principles and estimate the time complexity of the algorithm or do other things programmers are interested in, it is inadequate to convert into a working program in an executable language such as C or Java. To get a working program, often a lot of extra detail needs carefullyworking out: how should a graph be represented in a language with type checking, for instance? Or should you use a standard package, and then have to convert the pseudo-program into the programming conventions of the package?
+Unfortunately, it turns out that programming textbooks typically leave this problem as an exercise for the reader, and that does not help if your aim is to do the experiment, rather than learn how to program algorithms! Worse, in many textbooks and published papers about the Euler cycle problem, the algorithm is presented as a sketch or in a simplifying pseudo-language. While this may be sufficient to explain the principles or to estimate the time complexity of the algorithm, or to do other things programmers are interested in, it is inadequate to convert into a working program in an executable language such as C or Java. To get a working program, often a lot of extra detail needs carefully working out: how should a graph be represented in a language with type checking, for instance? Or should you use a standard package, and then have to convert the pseudo-program into the programming conventions of the package?
 
 Furthermore, Euler cycle programs assume the graph is arbitrary (and there are different algorithms for directed and undirected graphs). In our case, the graph happens to be both directed and complete, and we discovered that these facts can be used to dramatically simplify the problem. In fact, inventing and implementing a new algorithm for our special case took less time than correctly implementing a standard algorithm. 
 
-Our \emph{complete\/} program as will be fully described in this paper (shown in full section~\ref{complete-program}) is just \input linesofcode.tex
+Our \emph{complete\/} program, as will be fully described in this paper (shown in full section~\ref{complete-program}), is just \input linesofcode.tex
 \newcount\testcode 
 \testcode=5 \advance\linesofcode by -\testcode
 \the\linesofcode\ lines of code  (plus \the\testcode\ lines of test code); moreover, deleting a purely diagnostic routine would save another 3 or 4 lines, leaving just
@@ -81,50 +87,16 @@ Our \emph{complete\/} program as will be fully described in this paper (shown in
 \input allLinesofcode.tex
 \the\linesofcode\ lines.\footnote{All line counts ignore comments and blank lines.} This reference code also requires minor work to edit the Java and local Java environment to compile it, as well as to define the graph and print the desired solution (details that are already included in our algorithm). Furthermore, while Java may be a fine language, it is hard to translate into other languages; whereas our code, written in basic C, is easy to translate into any language that has arrays (Fortran, PHP, JavaScript, Mathematica, Matlab, Java itself~\ldots), which will be a considerable advantage for scientists who are not familiar with Java
 
-The Java reference algorithm is sophisticated, and there is an evident separation of the published book text \cite{sedgewickbook} from the published program \cite{sedgewickcode}, which allowed the program to develop into a sophisticated program (which it is) at the unintentioned cost of losing clarity and reproducibility in the published book. In fact, the book \cite{sedgewickcode} omits the code altogether as it is too long and complicated: it has to be downloaded from the web instead. Of course, this is entirely defensible: the web code has many uses (e.g., for teaching) that go beyond what is needed in a book --- and the code is complete, which would be long and tedious in a book, and perhaps even a source of error when readers try to copy it by hand. However, it is clear that normal publishing practices do not help the goal of publishing easily reproducibe algorithms.
+The Java reference algorithm is sophisticated, but there is an evident separation of the published book text \cite{sedgewickbook} from the published program \cite{sedgewickcode}, which allowed the program to develop into a sophisticated program at the unintentioned cost of losing clarity and reproducibility in the published book. In fact, the book \cite{sedgewickcode} omits the code altogether as it is too long and complicated: it has to be downloaded from the web instead. Of course, this is entirely defensible: the web code has many details (e.g., features for teaching) that go far beyond what is needed in a book --- and the code is complete with unit tests and examples, which would be long and tedious to explain in a book, and even a source of error when readers try to copy something so long by hand. However, it is clear that normal publishing practices do not help the goal of publishing easily reproducibe algorithms. 
 
-While we take it for granted that algorithms are described in English, in psuedo-code, with illustrative fragments of uncompilable code, or left as exercises for the reader, unnecessary errors often persist in their real-life implementations. (Some of the problems are reviewed in \cite{heedless,jmlr}.) Often, of course, publications are not always aiming to describe the algorithm as such, but to do something else --- like teach students, analyse complexity, prove some theorems, discuss how to optimise them, and so on. This ``dual use'' creates things that look very much \emph{like\/} algorithms but which cannot be reliably used in practice \emph{as\/} algorithms; the likely confusion calls to mind Feynman's critique of cargo cult science \cite{feynman}. 
+We describe our new algorithm and its applications next, in section~\ref{new-algorithm}, and subsequently describe our new approach to publishing algorithms, in section~\ref{new-approach}.
 
-Ironically, then, in one of the very few areas --- programming --- where we could be completely explicit about our work (e.g., if an algorithm works, it is text that can surely be published explicitly) there is a default culture of vagueness and ``abstraction'' that undermines scientific reproducibility if not progress. English, pseudo-code, fragments, exercises~\ldots\ none are scientific statements: they are irrefutable \cite{popper}. 
+\section{A new Euler cycle algorithm}\label{new-algorithm}
+Many apparently simple algorithms to generate Eulerian cycles have been described, such as Hierholzer's algorithm \cite{hierholzer} (invented in 1873, well before modern computers) which finds cycles in the graph and merges them together one by one. However their simple descriptions in English belie their comparatively complex implementations in software --- such as just saying ``depth first search'' to find cycles and doubly-linked lists to ``merge'' them. What are the details of depth first search or merging? This common but deceptive simplicity is a problem we also noted in our previous discussion of the Chinese Postman Tour \cite{cpp}. 
 
-Often software practice and experience emphasises the efficiency of running programs, but we should also be concerned with the end-to-end time to develop a program, confirm it is correctly implemented, and to run it. In many cases, the development time dominates the run time. Unlike the bulk of the algorithms textbook literature, our goal was to have a reliable program quicker, not a faster program later. As we shall argue, literate programming and its variants are powerful approaches to be more scientific when publishing algorithms, and hence to end up with more reliable programs working in the wider world. In this paper, we developed a new variant of literate programming for this very reason.
+We therefore propose a novel simple and portable algorithm to generate Eulerian cycles on directed complete graphs. It is intended to be used to conveniently generate de Bruijn sequences for experimental study design, as we will explain. 
 
-\section{Finding an algorithm}
-Programs that can be compiled and run involve details that are generally not relevant to discussions of algorithms. Furthermore, writing a paper or book is a human process, so transcription errors may creep into any algorithms presented. 
-
-There is even the danger that publications may be sloppy: sometimes, authors do not check their published code adequately and referees take the correctness of the code on faith (partly because it is too hard to reconstruct the code from the paper, and too hard to disentangle whether problems are due to the published code or the referee's own errors in the reconstruction of it). ``Sloppy'' is a harsh word, but it covers a wide range of common problems ranging from deliberate fraud, unintentional exagerration, accidental uncorrected errors, and well-intentioned aspirational comments --- like, the program would \emph{obviously\/} work like this (even if it doesn't quite work yet). Even trivial and excusable errors, like typos and spelling errors, undermine the reproducibility of program code.
-
-All this means that finding an algorithm in the literature that can be used to solve a real problem is fraught with difficulties. In our case, having developed an algorithm to solve our problem --- because it is a very common problem for experimenters who may not have sufficient programmering expertise --- we wanted to take care that what we published (i.e., this paper) would be both clear and able to be copied from the paper as real, executable code without problem. We wanted to make it readily --- and reliably --- available.
-
-At the start, we developed and wrote our algorithm first in Mathematica then in C, which is non-proprietary and more portable. Then, because we were excited by our algorithm, we started to write this manuscript. We used the typesetting system \LaTeX\ to publish and share our findings.
-
-%Originally, we developed a C program (as one does), and then seeing how useful it would be for other people, we decided to write this paper to describe the new algorithm. This paper was then written in \LaTeX, one of many word processing/typesetting systems that are appropriate for writing papers. 
-As we wrote, we reviewed and revised the paper. We naturally made many changes to the program code. For example, originally we had used variables \texttt{i}, \texttt{j}\ldots\ in the program, but for writing the paper we decided to use \texttt{u}, \texttt{v}\ldots\ as these are conventional names for graph vertices.\footnote{Unfortunately wines starting with u, v, w, are not commonly recognisable.} So, over time, the original code and its description in the manuscript drifted far apart; yet, in principle, it should have been essential that the manuscript was synchronised with the source code so that it described the source code without error. Ideally, the paper should automatically change to reflect updates to the source code.
-
-In a word, we did not want to be sloppy, yet our initial approach to writing the paper was making life hard. It was tempting to take an easy approach, and only describe our algorithm in words or pseudo-code, being a bit vague about the details. Conventionally, neither the readers of the paper nor we, the authors, would worry about slight discrepancies, because they would be invisible and unknown.
-
-An obvious way to help ensure that executable code transcribed from a manuscript is correct is to cut and paste the relevant text in the paper to reconstruct a new program. However the presence of typesetting commands in \LaTeX\ documents means that the \LaTeX\ code used to generate the manuscript will by necessity differ from the source code of the executable file, so a simple ``cut and paste'' approach is unreliable. But why do something by hand when you can design a tool to do it with far more generality and reliability? Once a tool is written to do this chore automatically, this frees the authors from worrying about maintaining and checking the code in the document as it is repeatedly edited and revised: it should be done automatically.
-
-This idea is very similar to \emph{literate programming} (Knuth \cite{litprog}) which combines source code with explanatory documentation; however the format of the documentation generated by literate programming is not suitable for a journal manuscript. Literate programming also has the disadvantage for us (and for many authors) that the author has to start with the literate program, and in this instance we had already drafted the manuscript as a \LaTeX\ document. \name{Warp\/} is a type of literate programming that extracts code from a normal program commented in XML, thus avoiding the separate processing that literate programming normally requires to generate the executable program \cite{warp}. Our earlier paper in \emph{Software---Practice and Experience\/} on the related Chinese Postman Tour \cite{cpp} used \name{warp\/} to present accurate Java code.\footnote{The Chinese Postman finds the shortest cycle in a graph that is not necessarily Eulerian; it is a non-trivial generalisation of the problem discussed in this paper.} \name{Loom\/} \cite{loom} (originally written by Janet Incerpi and Robert Sedgewick for their classic algorithms book \cite{sedgeoriginalbook}) is another approach, similar to \name{warp\/}, but allows the use of Unix filters to perform arbitrary transformations of code (e.g., to handle special symbols) that is then inserted into arbitrary documents. 
-
-Mathematica, which we started out using, is a special case of literate programming. In Knuth's form, the entire program is presented, but in an order that suits exposition. In Mathematica, the entire program (or most of it) is presented, but it has to be in the right order Mathematica requires (e.g., declarations precede uses, even if the need for a variable definition makes little sense until it is used). Mathematica constrains how an author can write, and Knuth's literate programming demands an author write about everything. In general, neither is ideal. In the end, Mathematica is often used for presenting results (hiding the program details) and literate programming is mostly used for internal documentation (disclosing all details).
-
-In the present paper, however, we had already been working on the code \emph{in\/} the paper, in the usual informal way. To avoid this becoming increasingly sloppy (or, conversely, a huge burden to manage), we therefore developed a novel ``reversed'' literate programming approach: using it, the code is exactly as written in this paper (i.e., what you are now reading) \emph{and\/} it can be automatically extracted to generate a program that is directly executable. The point is: we know that the code shown in this paper works, and moreover, we have a fully automatic process that goes from this paper to executable code. What you now see may not be all of the code,\footnote{There is exactly one line missing; see section \ref{invisible-code}.} but the code shown \emph{does work\/} exactly as shown. (In fact, there is nothing in the approach that ties the output to an executable file; the same method can be used to automatically generate an output file in any format from a \LaTeX\ document source file.) 
-
-%there is nothing in the approach that ties it to programs; the method can be used to generate any type of text from a document.) 
-
-Figure \ref{fig:lp} compares the main forms of literate programming, including our new approach. There are of course many other related approaches, ranging from the very simple such as our reversed literate programming to the highly sophisticated, such as Pre\TeX\ \cite{pretex} that are designed for large complex projects and have commensurate learning curves; for a review see \cite{warp}.
-
-\def\mycaption#1{\sf\bfseries\caption{\sf #1}}
-\begin{figure}
-\begin{center}
-\includegraphics[width=.9\textwidth]{figures/literateProgramming.pdf}
-\end{center}
-\mycaption{Comparing various ways to write about programming. Note that in the conventional approach (a) there is no guarantee that the published paper faithfully represents the source code, as the paper and source code can be (and will be) edited independently: what is published has no automatic connection to the source code. (Although not made clear in the diagram, typically source code and \LaTeX\ documents will be split into multiple files for convenience. All methods can handle multiple files.)}
-\label{fig:lp}
-\end{figure}
-
-\section{Graph theory background}\label{graphtheory}
+\subsection{Graph theory background and applications}\label{graphtheory}
 Graph theory can be applied to our problem of experimental design to generate a sequence of experiments which is efficient and normalises the effects of random and systematic error.
 
 Leonard Euler effectively invented graph theory in 1736 with his solution to the famous K\"onigsberg\footnote{K\"onigsberg was in Prussia and is now Kaliningrad, Russia.} bridge problem \cite{euler,wilson}: is it possible to walk a cycle across each of the seven bridges in K\"onigsberg exactly once? In modern graph terminology, a bridge is an \emph{edge\/} and the land a bridge ends on is a \emph{vertex\/}; if bridges are one-way to traffic, then the graph is a \emph{directed graph\/} as opposed to an \emph{undirected graph\/}. An \emph{Euler\/} (or \emph{Eulerian\/}) \emph{cycle\/} is a walk that traverses each edge of a graph exactly once, starting and ending at the same vertex.%\footnote{cf.~an \emph{Euler(ian) path\/} is a walk that traverses every edge of the graph exactly once, but need not start and end at the same vertex.}
@@ -147,9 +119,8 @@ Fisher proposed the application of randomised Latin Squares to balance and equal
 %Similarly, a randomised $(N,2)$ de Bruijn sequence may be used to generate an optimal sequence of experimental tests which minimises unnecessary tests and balances the effects of random and systematic error.
 In a similar way, if a sequence of experimental tests is prescribed by a randomised $(N,2)$ de Bruijn sequence, every element in the series will be tested $N$ times in random order, and will be immediately preceded by every other element in the series in the set exactly once. This approach allows the most efficient means of testing multiple items balancing and equalising the effects of systematic bias, drift, serial carry-over effects, hysteresis and random error. Thus a simple algorithm to generate randomised de Bruijn sequences has applications in experimental design in many areas of scientific and statistical research, and even in improving the signal:noise ratios of MRI (Magnetic Resonance Imaging) scans \cite{aguirre}.
 
-Many apparently simple algorithms to generate Eulerian cycles have been described, such as Hierholzer's algorithm \cite{hierholzer} (invented in 1873, well before modern computers) which finds cycles in the graph and merges them together one by one. However their simple descriptions in English belie their comparatively complex implementations in software --- such as just saying ``depth first search'' to find cycles and doubly-linked lists to ``merge'' them. What are the details of depth first search or merging? This common but deceptive simplicity is a problem we also noted in our previous discussion of the Chinese Postman Tour \cite{cpp}. We therefore propose a novel simple and portable algorithm to generate Eulerian cycles of complete graphs. It is intended to be used to conveniently generate de Bruijn sequences for experimental study design. 
+\subsection{The new algorithm}
 
-\subsection{Deriving the new Euler cycle algorithm}
 \def\pair#1#2{\ifx #1#2
 #1\rightarrow #2 %{\rcirclearrowleft} %
 \else #1\rightarrow#2\rightarrow#1\fi}
@@ -247,7 +218,7 @@ void initialise() // initialisation; all edges initially unwalked
 
 In C, arrays can easily be initialised to zero when declared, so an explicit initialisation is not strictly required, but we provided explicit initialisation here in case the code is to be translated to another language (or needs to be re-entrant). 
 
-\section{Randomised sequences}\label{randomise}
+\subsection{Randomised sequences}\label{randomise}
 
 Performing a sequence of experiments in random order controls the effects of drift and random error, and adding the constraint that every calibration value in the set must be preceded exactly once by every other calibration value in the set normalises any carry-over effects. Therefore, for experimental design, we need to modify our algorithm so that the search for an unwalked cycle to recursively follow is randomised. Karl Popper called such sequences ``shortest random-like sequences'' \cite{popper}. The easiest way to do this is to use a random permutation in \texttt{walk}'s \texttt{for}-loop, as follows:
 
@@ -315,13 +286,13 @@ time_t t;
 srand((unsigned) time(&t)); 
 \end{verbatim}
 
-\section{Solving the wine tasting problem}
-The basic algorithm, described above, was defined using integers as the names of vertices. For many applications it may be more appropriate to use strings. We can define vertex name strings:\footnote{Not shown here, but our wine sequence generating program, which is generated automatically from this paper using reversed literate programming, checks at run time that \texttt{N} correctly matches the number of wines varieties declared. (It is a shame that this cannot be performed with a static check in C.)}
+\subsection{Solving the wine tasting problem}
+The basic algorithm, described above, uses integers as the names of vertices. For many applications it may be more appropriate to use strings. We can define vertex name strings:\footnote{Not shown here, but our wine sequence generating program, which is generated automatically from this paper using reversed literate programming, checks at run time that \texttt{N} correctly matches the number of wines declared. (It is a shame that this cannot be performed with a static check in C.)}
 
 %define wine-names /verbatim/+1, /verbatim/-1
 \begin{verbatim}
 // assuming N = 3 (C permits N > 3, which will not work well!)
-char *wines[N] = { "Merlot", "Pinotage", "Chianti" }; 
+char *wines[N] = { "Merlot", "Pinotage", "Shiraz" }; 
 \end{verbatim}
 
 and then convert the edge recording by changing \texttt{recordEdge} to print the names of the vertices rather than their numbers: 
@@ -347,7 +318,48 @@ happens to be drunk both first and last, and hence once more than any other wine
 
 Wine buffs will be tempted to test the algorithm with larger $N$\@. It would certainly be fun to take four varieties of wine to K\"onigsberg (the original graph had $4$ vertices and $7$ edges), cross a bridge, drink the wine variety available on the land, then cross the next bridge, and consider the wine on the other side of the river. As it happens, K\"onigsberg does not have an Euler cycle, so this experiment could take a long time and might result in a new meaning for ``drunken walks.''
 
-\section{Reverse literate programming --- the details}
+\section{Finding algorithms}\label{new-approach}
+While we take it for granted that algorithms are described in English, in psuedo-code, with illustrative fragments of uncompilable code, or left as exercises for the reader, unnecessary errors often persist in their real-life implementations. (Some of the problems are reviewed in \cite{heedless,jmlr}.) Often, of course, publications are not always aiming to describe the algorithm as such, but to do something else --- like teach students, analyse complexity, prove some theorems, discuss how to optimise them, and so on. This ``dual use'' creates things that look very much \emph{like\/} algorithms but which cannot be reliably used in practice \emph{as\/} algorithms; the likely confusion calls to mind Feynman's critique of cargo cult science \cite{feynman}. 
+
+Ironically, then, in one of the very few areas --- programming --- where we could be completely explicit about our work (e.g., if an algorithm works, it is text that can surely be published explicitly) there is a default culture of vagueness and ``abstraction'' that undermines scientific reproducibility if not progress. English, pseudo-code, fragments, exercises~\ldots\ none are scientific statements: they are irrefutable \cite{popper}. 
+
+Often software practice and experience emphasises the efficiency of running programs, but we should also be concerned with the end-to-end time to develop a program, confirm it is correctly implemented, and to run it. In many cases, the development time dominates the run time. Unlike the bulk of the algorithms textbook literature, our goal was to have a reliable program quicker, not a faster program later. As we shall argue, literate programming and its variants are powerful approaches to be more scientific when publishing algorithms, and hence to end up with more reliable programs working in the wider world. In this paper, we developed a new variant of literate programming for this very reason.
+
+Programs that can be compiled and run involve details that are generally not relevant to discussions of algorithms. Furthermore, writing a paper or book is a human process, so transcription errors may creep into any algorithms presented. 
+
+There is even the danger that publications may be sloppy: sometimes, authors do not check their published code adequately and referees take the correctness of the code on faith (partly because it is too hard to reconstruct the code from the paper, and too hard to disentangle whether problems are due to the published code or the referee's own errors in the reconstruction of it). ``Sloppy'' is a harsh word, but it covers a wide range of common problems ranging from deliberate fraud, unintentional exagerration, accidental uncorrected errors, and well-intentioned aspirational comments --- like, the program would \emph{obviously\/} work like this (even if it doesn't quite work yet). Even trivial and excusable errors, like typos and spelling errors, undermine the reproducibility of program code.
+
+All this means that finding an algorithm in the literature that can be used to solve a real problem is fraught with difficulties. In our case, having developed an algorithm to solve our problem --- because it is a very common problem for experimenters who may not have sufficient programmering expertise --- we wanted to take care that what we published (i.e., this paper) would be both clear and able to be copied from the paper as real, executable code without problem. We wanted to make it readily --- and reliably --- available.
+
+At the start, we developed and wrote our algorithm first in Mathematica then in C, which is non-proprietary and more portable. Then, because we were excited by our algorithm, we started to write this manuscript. We used the typesetting system \LaTeX\ to publish and share our findings.
+
+%Originally, we developed a C program (as one does), and then seeing how useful it would be for other people, we decided to write this paper to describe the new algorithm. This paper was then written in \LaTeX, one of many word processing/typesetting systems that are appropriate for writing papers. 
+As we wrote, we reviewed and revised the paper. We naturally made many changes to the program code. For example, originally we had used variables \texttt{i}, \texttt{j}\ldots\ in the program, but for writing the paper we decided to use \texttt{u}, \texttt{v}\ldots\ as these are conventional names for graph vertices.\footnote{Unfortunately wines starting with u, v, w, are not commonly recognisable.} So, over time, the original code and its description in the manuscript drifted far apart; yet, in principle, it should have been essential that the manuscript was synchronised with the source code so that it described the source code without error. Ideally, the paper should automatically change to reflect updates to the source code.
+
+In a word, we did not want to be sloppy, yet our initial approach to writing the paper was making life hard. It was tempting to take an easy approach, and only describe our algorithm in words or pseudo-code, being a bit vague about the details. Conventionally, neither the readers of the paper nor we, the authors, would worry about slight discrepancies, because they would be invisible and unknown.
+
+An obvious way to help ensure that executable code transcribed from a manuscript is correct is to cut and paste the relevant text in the paper to reconstruct a new program. However the presence of typesetting commands in \LaTeX\ documents means that the \LaTeX\ code used to generate the manuscript will by necessity differ from the source code of the executable file, so a simple ``cut and paste'' approach is unreliable. But why do something by hand when you can design a tool to do it with far more generality and reliability? Once a tool is written to do this chore automatically, this frees the authors from worrying about maintaining and checking the code in the document as it is repeatedly edited and revised: it should be done automatically.
+
+This idea is very similar to \emph{literate programming} (Knuth \cite{litprog}) which combines source code with explanatory documentation; however the format of the documentation generated by literate programming is not suitable for a journal manuscript. Literate programming also has the disadvantage for us (and for many authors) that the author has to start with the literate program, and in this instance we had already drafted the manuscript as a \LaTeX\ document. \name{Warp\/} is a type of literate programming that extracts code from a normal program commented in XML, thus avoiding the separate processing that literate programming normally requires to generate the executable program \cite{warp}. Our earlier paper in \emph{Software---Practice and Experience\/} on the related Chinese Postman Tour \cite{cpp} used \name{warp\/} to present accurate Java code.\footnote{The Chinese Postman finds the shortest cycle in a graph that is not necessarily Eulerian; it is a non-trivial generalisation of the problem discussed in this paper.} \name{Loom\/} \cite{loom} (originally written by Janet Incerpi and Robert Sedgewick for their classic algorithms book \cite{sedgeoriginalbook}) is another approach, similar to \name{warp\/}, but allows the use of Unix filters to perform arbitrary transformations of code (e.g., to handle special symbols) that is then inserted into arbitrary documents. 
+
+Mathematica, which we started out using, is a special case of literate programming. In Knuth's form, the entire program is presented, but in an order that suits exposition. In Mathematica, the entire program (or most of it) is presented, but it has to be in the right order Mathematica requires (e.g., declarations precede uses, even if the need for a variable definition makes little sense until it is used). Mathematica constrains how an author can write, and Knuth's literate programming demands an author write about everything. In general, neither is ideal. In the end, Mathematica is often used for presenting results (hiding the program details) and literate programming is mostly used for internal documentation (disclosing all details).
+
+In the present paper, however, we had already been working on the code \emph{in\/} the paper, in the usual informal way. To avoid this becoming increasingly sloppy (or, conversely, a huge burden to manage), we therefore developed a novel ``reversed'' literate programming approach: using it, the code is exactly as written in this paper (i.e., what you are now reading) \emph{and\/} it can be automatically extracted to generate a program that is directly executable. The point is: we know that the code shown in this paper works, and moreover, we have a fully automatic process that goes from this paper to executable code. What you now see may not be all of the code,\footnote{There is exactly one line missing; see section \ref{invisible-code}.} but the code shown \emph{does work\/} exactly as shown. (In fact, there is nothing in the approach that ties the output to an executable file; the same method can be used to automatically generate an output file in any format from a \LaTeX\ document source file.) 
+
+%there is nothing in the approach that ties it to programs; the method can be used to generate any type of text from a document.) 
+
+Figure \ref{fig:lp} compares the main forms of literate programming, including our new approach. There are of course many other related approaches, ranging from the very simple such as our reversed literate programming to the highly sophisticated, such as Pre\TeX\ \cite{pretex} that are designed for large complex projects and have commensurate learning curves; for a review see \cite{warp}.
+
+\def\mycaption#1{\sf\bfseries\caption{\sf #1}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=.9\textwidth]{figures/literateProgramming.pdf}
+\end{center}
+\mycaption{Comparing various ways to write about programming. Note that in the conventional approach (a) there is no guarantee that the published paper faithfully represents the source code, as the paper and source code can be (and will be) edited independently: what is published has no automatic connection to the source code. (Although not made clear in the diagram, typically source code and \LaTeX\ documents will be split into multiple files for convenience. All methods can handle multiple files.)}
+\label{fig:lp}
+\end{figure}
+
+\subsection{Reverse literate programming --- the details}
 
 Code formatted in this paper is written in the following conventional \LaTeX\ style:
 
@@ -432,7 +444,9 @@ Name definitions in \name{relit} can occur before or after they are used; in thi
 
 In general, authors of papers may want arbitrary text generated from programs (for example, we showed the text generated by running our algorithm on a selection of wines), and the generated text may require sophisticated testing. There are many ways to do this: \name{loom} for example, generalises \LaTeX's \texttt{\char'134input} command to allow arbitrary processing, but this has the disadvantage that the approach requires an intermediate \LaTeX\ file to be generated. Instead, our simple approach is to use \texttt{\%{}generate} to create a makefile or any shell script: then any processing whatsoever can be performed, and of course it will typically generate files that are then included in the \LaTeX\ paper. Indeed, this is how we generated the sample list of wine tasting --- using the makefile generated by \name{relit}, Unix's \name{make} then generated a C source program \texttt{wine.c} from the paper you are reading, which was then compiled and run (in the same run of \name{make}), obtaining results saved to a file. Finally, that file was read in at the appropriate point when this paper was typeset (in section \ref{winelist}), using \texttt{\char'134input} to read in the program's saved output to insert it into the paragraph where it was needed. 
 
-The approach is both very general and ensures \emph{everything\/} is kept in one place in a single \LaTeX\ source file, where it is easy to edit reliably. Names can also be defined in the tool's command line parameters, so any textual information can be imported when the tool is run --- such as a version number, the date, or even output from \name{expect} to refer to unit test diagnostics. Of course, files created by reversed literate programming can be processed by other tools in arbitrary ways, for example stream editors to decode \LaTeX\ typesetting conventions (e.g., in normal \LaTeX, the common programming symbol \texttt{\&} has to be written \texttt{\char'134\&}).
+The approach is both very general and ensures \emph{everything\/} is kept in one place in a single \LaTeX\ source file, where it is easy to edit reliably. 
+
+Names can also be defined in the tool's command line parameters, so any textual information can be imported when the tool is run --- such as a version number, the date, or even output from \name{expect} to refer to unit test diagnostics. Of course, files created by reversed literate programming can be processed by other tools in arbitrary ways, for example stream editors to decode \LaTeX\ typesetting conventions (e.g., in normal \LaTeX, the common programming symbol \texttt{\&} has to be written \texttt{\char'134\&}).
 
 Our reverse literate programming tool \name{relit} provides all the normal checks, such as reporting if names are defined and never used, used recursively, etc. 
 %\name{Relit} also warns if a name is used more than once, since this may indicate an error (if the same piece of code is needed twice in a paper, it probably needs explaining). 
@@ -527,19 +541,55 @@ The code shown below is in fact one of the example programs discussed in this pa
 \end{verse}
 }
 
+\def\relit{\begingroup\catcode`\^^M=12 \xmymacro}
+{\catcode`\^^M=12 %
+ \gdef\xmymacro#1^^M{\marginpar{RELIT}{\noindent\tt\hskip -1em\textcolor{red}{* RELIT: #1}}\endgroup}%
+}
+\def\relit#1{\marginpar{\textcolor{red}{RELIT}}{\noindent\tt\hskip -1em\textcolor{red}{* RELIT: #1}}\\}
+
+%\relit{define code ., /relit.end/-1, <seen>}
 To summarise: using this feature of \name{relit} we can assure ourselves that readers of this paper have the complete algorithm to reproduce \ldots\ bar the one line, shown above in the diagnostic output from \name{relit}, that we consider obvious, unnecessary and distracting implementation detail for the paper. Apart from the original literate programming approach that tells the reader everything, which may be overwhelming, we know of no other approach that give the benefits of concise algorithm publication combined with the assurances of reproducibility.
+%\relit{end}
 
 \subsection{The benefits of automatic honesty}
-Feynman \cite{feynman} warned about the utter honesty essential to do good science in 1974 he said, ``It's a kind of scientific integrity, a principle of scientific thought that corresponds to a kind of utter honesty --- a kind of leaning over backwards. [\ldots] In summary, the idea is to try to give all of the information to help others to judge the value of your contribution; not just the information that leads to judgment in one particular direction or another.'' But now we can go further: we can help make honesty automatic. This is so important: when honesty is automatic, it is easy. As Feynman said, ``The first principle is that you must not fool yourself --- and you are the easiest person to fool.  So you have to be very careful about that.  After you've not fooled yourself, it's easy not to fool other scientists.  You just have to be honest in a conventional way after that.'' So automatic techniques to encourage reproducibility can help you help yourself.  
+Feynman \cite{feynman} warned about the utter honesty essential to do good science in 1974, when he said, 
+
+\def\startquote{\sf\raggedright\setbox0=\hbox{``}\hskip -\wd0 \copy0}
+\def\quoteend{''}
+\begin{quote}\startquote 
+It's a kind of scientific integrity, a principle of scientific thought that corresponds to a kind of utter honesty --- a kind of leaning over backwards.~[\ldots] In summary, the idea is to try to give all of the information to help others to judge the value of your contribution; not just the information that leads to judgment in one particular direction or another.\quoteend
+\end{quote} 
+
+But now we can go further: we can help make honesty automatic. This is so important: when honesty is automatic, it is easy. As Feynman said, 
+
+\begin{quote}\startquote 
+The first principle is that you must not fool yourself --- and you are the easiest person to fool.  So you have to be very careful about that.  After you've not fooled yourself, it's easy not to fool other scientists.  You just have to be honest in a conventional way after that.\quoteend
+\end{quote}
+
+So automatic tools and techniques to encourage reproducibility, like \name{relit}, can help you help yourself --- and help your readers.  Our scientific writing should not rely on readers having to use their insight to interpret and clarify what we write; different readers may have different insights, and then it is not clear what our science is communicating.
 
 When describing something that is complicated, there is a temptation to simplify and take short cuts. In the worst case, this results in publications that describe what ought to happen, what we hope happens, but there are omissions that mean the claims are not easily reproducible. Somehow it is too easy to reframe our programs so that it sounds as if they work; all the details are too hard to check even for the original authors --- and as we convince themselves what we write is correct, then there seems to be less and less need to go to the trouble of checking our code. When we conceal errors --- and, worse, when we conceal errors from ourselves --- although our work may look good, it holds back progress \cite{blackbox}.
 
 If a tool like \name{relit} is used, the code in the paper is exactly what works. If describing it gets complicated, this cannot be denied. Instead of simplifying the narrative, the author is encouraged to improve the code so it becomes easier to describe. This means \emph{both\/} the code and the paper improve, and together.
 
-\section{Conclusions}
-Randomised $(N,2)$ de Bruijn sequences may be generated by an Euler cycle and generate an efficient sequence for experimental design which controls for random variation, systematic error, and carry-over effects. The simplicity of our algorithm, written in C, means that it is easy to understand and translate into other languages, which makes it accessible to those engaged in research. 
+It must be pointed out that not everybody agrees under all circumstances. For example, Knuth writes~\cite[p\emph{vii}]{texbook}:
 
-Conventional literate programming prevents transcription errors by linking source code and manuscripts. Our novel ``reversed literate programming'' approach, which we have described and used in the preparation of the present paper, has allowed us to simultaneously edit the program code and description in the paper at will, and repeatedly automatically generate an executable program we could then run and use to confirm the integrity of the code published.
+\begin{quote}\startquote 
+The author feels that this technique of deliberate lying will actually make it easier for you to learn the ideas. Once you understand a simple but false rule, it will not be hard to supplement that rule with its exceptions.\quoteend
+\end{quote}
+
+His argument is that a reader learns, and at first things need to be simplified with white lies as he calls them \cite[p44]{texbook}, and then, later with more knowledge and skill, the reader can learn from more elaborate explanations that would have been incomprehensible earlier. However, this is Knuth's strategy for writing his substantial and very successful \emph{\TeX book}, which describes in a single document a very complex system, namely \TeX\ itself. He knows readers will have an arduous process ahead of them, and the book tries to fit the needs of both beginners and experts. We believe that in contrast, in normal scientific publishing, particularly in publishing comparatively short peer reviewed papers --- which normally focus on one or two ideas --- the utter honesty championed by Feynman has important advantages. Another point of view is that perhaps Knuth should have improved \TeX\ so it did not require lying to explain it well.\footnote{On the other hand, one of the enormous strengths of \TeX\ is that it has \emph{not\/} ``improved'' over time, so it is remarkably portable and dependable, unlike many programs that are continually ``improving'' with new changes forcing users to upgrade.}
+
+While the \emph{\TeX book} is an exceptional piece of writing, elsewhere Knuth himself has said science is what we can explain well enough to computers~\cite{a=b}, and that everything else is art. 
+
+Our position is that if people are publishing scientific papers that cannot ``be explained to computers'' --- when they describe algorithms, they surely ought to work as described --- then their papers are too obscure to be called science. Science advances when art becomes science; we hope, then, that ideas like reverse literate programming will help move the darker arts of publishing programming into an improving science of programming.
+
+\section{Conclusions}
+We developed an algorithm to help perform reliable sequential experiments, and in the process we also developed a tool to help publish reliable papers about algorithms.
+
+Our algorithm generates Euler cycles or randomised Euler cycles for complete directed graphs. It can be used to generate randomised $(N,2)$ de Bruijn sequences for efficient sequential experimental design which controls for random variation, systematic error, and carry-over effects. The simplicity of our algorithm, written in basic C, means that it is easy to understand and translate into other languages, which makes it accessible to those engaged in research. 
+
+Conventional literate programming prevents transcription errors by linking source code and manuscripts. Our novel ``reversed literate programming'' approach, which we have described and used in the preparation of the present paper, has allowed us to simultaneously edit the program code and description in the paper at will, and repeatedly automatically generate an executable program we could then run and use to confirm the integrity of the code we have published. For example: at the last moment, Paul Cairns pointed out that we had confused wine regions (e.g., Chianti) for grape varieties (e.g., Pinotage and Merlot); we therefore did a \emph{simple\/} global edit to replace our original dubious use of Chianti with Shiraz. This simple change \emph{in one file}, also, thanks to using \name{relit}, recreated a new C program that used Shiraz, and then inserted the output from running it back into this paper so the example output (used in section~\ref{winelist}) was also automatically updated to say Shiraz instead of Chianti.
 
 This paper and the \name{relit} tool and documentation are available from \url{https://github.com/haroldthimbleby/relit}
 
@@ -548,7 +598,7 @@ This paper and the \name{relit} tool and documentation are available from \url{h
 %One can write a paper for human readers, edit the program code in the paper at will, and \emph{then\/} automatically generate a program test bed to check and run the code.
 
 \section*{Acknowledgements}
-This research was funded by EPSRC grant no.~[EP/L019272/1].
+This research was funded by EPSRC grant no.~[EP/L019272/1]. We are grateful to Paul Cairns for making us greatly improve the paper.
 
 \let\oldbibitem=\bibitem
 \def\bibitem{\frenchspacing\raggedright\oldbibitem}
@@ -769,13 +819,13 @@ int main(int argc, const char *argv[])
 <define-randomised-walk>
 
 int main(int argc, const char *argv[])
-{ <initialise-Random> 
+{ if( N != sizeof(wines)/sizeof(char*) )
+    printf("N is %d but the number of declared wines is %d\n", N, (int) (sizeof(wines)/sizeof(char*)));
+  else
+    printf("N = %d is correct for the number of wines declared.\n", N);
+  <initialise-Random> 
   <initialise-permutation> 
   <main-body>
-  if( N != sizeof(wines)/sizeof(char*) )
-  	fprintf(stderr, "N is %d but the number of declared wine types is %d\n", N, (int) (sizeof(wines)/sizeof(char*)));
-  else
-    fprintf(stderr, "N = %d is correct for the number of wine types declared.\n", N);
   printf("%s\n", wines[0]);
   return 0;
 }
