@@ -600,10 +600,6 @@ Apart from the original literate programming approach that tells the reader ever
 \subsection{A more flexible \TeX-mode}
 As described above, \name{relit} uses \texttt{\%} to introduce commands, like \texttt{generate} and \texttt{define}; the advantage of this approach is that \LaTeX\ completely ignores \name{relit} commands because they are in the form of \LaTeX\ comments. However, in addition, \name{relit} provides a ``\TeX-mode'' that makes the syntax it uses real \TeX\ or \LaTeX\ code; this is more sophisticated, requires a little \TeX\ programming, but has advantages that some authors may appreciate.
 
-Comments get completely lost to \LaTeX, which makes the basic use of \name{relit} easy to understand. On the other hand, an author may wish to see exactly where the \name{relit} commands are and what they do. In \name{relit}'s \TeX-mode, therefore, commands are written as proper \TeX\ commands. Normally, \TeX\ has to define the commands to be ignored, if we want \name{relit}'s behaviour to be exactly as described at length above. However, \TeX\ can also be used to define the commands to do anything, such as printing where they are used in the document to help the authors prepare the paper. \TeX\ can also construct an index of \name{relit} names, as shown in figure~\ref{fig:index}, which may help in large authoring projects.
-
-The \TeX-mode syntax corresponds directly to the original syntax, and is summarised in figure~\ref{fig:syntax}. The final case in the table allows the author to use \texttt{\char'134relit\{ends\}} to match in $\mbox{\tt \emph{re}}_2$ to mark the end of definitions (normally anything convenient, such as text in a comment, can be used). See below for an example of its use.
-
 \begin{figure}
 \begin{center}\tt\small\begin{tabular}{ll}
 \rm\bf Normal mode&\rm\bf \TeX-mode \\ \hline
@@ -614,9 +610,14 @@ The \TeX-mode syntax corresponds directly to the original syntax, and is summari
 \% se{}t-tag \emph{tag} & \char'134relit\{set-tag \emph{tag}\} \\
 \% \emph{any comments permitted\/} & \char'134relit\{ends\} \\
 \end{tabular}\end{center}
-\mycaption{Normal and \TeX-mode \name{relit} syntaxes.} 
+\mycaption{Corresponding normal and \TeX-mode \name{relit} syntaxes.} 
 \label{fig:syntax}
 \end{figure}
+
+Comments get completely lost to \LaTeX, which makes the basic use of \name{relit} easy to understand. On the other hand, an author may wish to see exactly where the \name{relit} commands are and what they do. In \name{relit}'s \TeX-mode, therefore, commands are written as proper \TeX\ commands. Normally, \TeX\ has to define the commands to be ignored, if we want \name{relit}'s behaviour to be exactly as described at length above. However, \TeX\ can also be used to define the commands to do anything, such as printing where they are used in the document to help the authors prepare the paper. \TeX\ can also construct an index of \name{relit} names, as shown in figure~\ref{fig:index}, which may help in large authoring projects.
+
+The \TeX-mode syntax corresponds directly to the original syntax, and is summarised in figure~\ref{fig:syntax}. The final case in the table allows the author to use \texttt{\char'134relit\{ends\}} to match in $\mbox{\tt \emph{re}}_2$ to mark the end of definitions (normally anything convenient, such as text in a comment, can be used). See below for an example of its use.
+
 
 \name{Relit} warns if \TeX-mode and non-\TeX-mode commands are mixed in the same files: the point of \TeX-mode is that authors can use \TeX\ to keep track of \emph{all\/} \name{relit} commands, but using the \texttt{\%} \name{relit} notation as well (which of course \TeX\ completely ignores) would undermine reliable tracking.
 
