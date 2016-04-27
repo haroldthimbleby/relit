@@ -1,7 +1,7 @@
 # relit
 Reverse literate programming tool **relit** plus demonstration of a nice, short Euler cycle algorithm useful for planning sequential experiments.
 
-* Read `eulerPaper.pdf` to see what it is all about.
+* Read [eulerPaper.pdf](https://github.com/haroldthimbleby/relit/blob/master/eulerPaper.pdf) to see what it is all about.
 
 * Run `make` 
   (or `make all`) to generate all the various files. You can then run the programs or typeset the paper `eulerpaper.tex`
