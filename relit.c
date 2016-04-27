@@ -1,8 +1,10 @@
 // Inverted literate programming
 // March 2016 (c) Harold Thimbleby harold@thimbleby.net 
-// Version 2.1
+// Version 3.0
 		// BUG regex cannot use /, since that's the terminator
 		// BUG if a line is not fully matched, it is ignored - we don't report any syntax error
+		// \relit{define name ., .} goes wrong because of backing up over a non-existent newline. Doh
+		
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -12,6 +14,8 @@
 #include <unistd.h>
 #include <regex.h>
 #include <time.h>
+
+int verbose = 0;
 
 struct dictionary // there aren't going to be many names, so a linked list will work fine
 {	struct dictionary *next;
@@ -28,15 +32,17 @@ char *safealloc(size_t n)
 	return p;
 }
 
-void checkDictionary(int everything)
+void checkDictionary(int everything, int namesonly)
 {	for( struct dictionary *d = names; d != NULL; d = d->next )
     {	if( !d->used ) fprintf(stderr, "** unused %s %s\n%s", d->type, d->name, d->value);
 		else if( d->recursive ) fprintf(stderr, "** recursive definition: %s %s\n%s", d->type, d->name, d->value);
-        else if( everything ) fprintf(stderr, "%s %s:\n%s", d->type, d->name, d->value);
+		// printf %8s padding so generate and define align nicely
+        else if( everything ) fprintf(stderr, "%8s %s:\n%s", d->type, d->name, d->value);
         if( !d->used || d->recursive || everything )
         {	char *p = index(d->value, '\0'); // adding a newline looks much better, but is it misleading?
         	fprintf(stderr, "%s-----\n", p > d->value && p[-1] != '\n'? "\n----(end of line added above for neater report)": "");
         }
+        else if( !everything && namesonly ) fprintf(stderr, "%8s %s\n", d->type, d->name);
     }
 }
 
@@ -70,7 +76,7 @@ int getOffset(char *type, char *where, char *name, int length, char *numeral)
 	if( *numeral == '-' ) sign = -1;
 	else if( *numeral == '+' ) sign = 1;
 	else 
-	{	fprintf(stderr, "** %% %s %s: unrecognised %s number sign: %c (should be + or -)\n", type, name, where, *numeral);
+	{	fprintf(stderr, "** %s %s: unrecognised %s number sign: %c (should be + or -)\n", type, name, where, *numeral);
 		return 0;
 	}
 	length--, numeral++;
@@ -89,20 +95,26 @@ char *allocString(char *bp, int length)
     return name;
 }
 
-regex_t REkeyword, REreplace, REcheck;
-
+#define REMAX 5
+regex_t REkeyword, REreplace, REcheck, RErelit, RErelitCheck;
 struct 
 {	regex_t *compiled;
 	char *regex;
-} res[] =
+} res[REMAX] =
 {	{	&REkeyword, // match % keyword name /re/+n, /re/+n [, tag] OR % set-tag name
-		"(%[ \t]*(generate|define)[ \t]+([[:alpha:]][[:alnum:].-]*)[ \t]*(/[^/]*/|\\.)([ \t]*[+-][ \t]*[0-9]+)?[ \t]*,[ \t]*(/[^/]*/|\\.)([ \t]*[+-][ \t]*[0-9]+)?([ \t]*,[ \t]*([^\n]+))?[ \t]*\n)|(%[ \t]*set-tag[ \t]+([^\n]+)[ \t]*\n)"
+		"(%[ \t]*(generate|define)[ \t]+([[:alpha:]][[:alnum:]\\.-]*)[ \t]*(/[^/]*/|\\.)([ \t]*[+-][ \t]*[0-9]+)?[ \t]*,[ \t]*(/[^/]*/|\\.)([ \t]*[+-][ \t]*[0-9]+)?([ \t]*,[ \t]*([^\n]+))?[ \t]*\n)|(%[ \t]*set-tag[ \t]+([^\n \t]*)[ \t]*\n)"
 	},
 	{	&REreplace, // match <name>
 		"<[ \t]*([[:alpha:]][[:alnum:]-]*)[ \t]*>"
 	},
 	{	&REcheck,
 		"%[ \t]*(generate|define|set-tag)[^\n]*\n"
+	},
+	{	&RErelit,
+		"\\\\relit(\\[[ \t]*([^] \t]*)[ \t]*\\])?\{[ \t]*(((generate|define)[ \t]+([[:alpha:]][[:alnum:]\\.-]*)[ \t]*(/[^/]*/|\\.)([ \t]*[+-][ \t]*[0-9]+)?[ \t]*,[ \t]*(/[^/]*/|\\.)([ \t]*[+-][ \t]*[0-9]+)?)|(set-tag[ \t]+([^}]+))|ends)[ \t]*\\}"
+	},
+	{	&RErelitCheck,
+		"\\\\relit(\\[|\\{)[^\n]*\n"
 	}
 };
 
@@ -115,8 +127,8 @@ int recursivelyExpand(FILE *fd, char *filename, char *bp, char *tag, int tags)
 	{	char *name = allocString(&bp[offset+REmatch[1].rm_so], REmatch[1].rm_eo-REmatch[1].rm_so);
 		fprintf(fd, "%.*s", (int) REmatch[0].rm_so, &bp[offset]);
 		struct dictionary *d = dlookup(name);
-		if( d == NULL ) fprintf(stderr, "** %%generate %s: no value defined for <%s>\n", filename, name);
-		else if( d->expanding ) fprintf(stderr, "** %%generate %s: recursive call of <%s>\n", filename, name);
+		if( d == NULL ) fprintf(stderr, "** generate %s: no value defined for <%s>\n", filename, name);
+		else if( d->expanding ) fprintf(stderr, "** generate %s: recursive call of <%s>\n", filename, name);
 		else
 		{	d->expanding = d->used = 1;
 			usesTags |= recursivelyExpand(fd, filename, d->value, d->tag, tags);
@@ -147,20 +159,22 @@ void generateFiles(int listFileNames)
 						d->expanding = 0;
 						fclose(fd);
 					}
-					else  fprintf(stderr, "** %%generate %s: cannot create or open file \"%s\" for writing\n", d->name, tagfile);
+					else  fprintf(stderr, "** generate %s: cannot create or open file \"%s\" for writing\n", d->name, tagfile);
 				}
 				if( listFileNames ) printf("%s ", d->name);
 			}
-			else fprintf(stderr, "** %%generate %s: cannot create or open file \"%s\" for writing\n", d->name, d->name);
+			else fprintf(stderr, "** generate %s: cannot create or open file \"%s\" for writing\n", d->name, d->name);
 		}
 	if( listFileNames ) printf("\n");
 }
 
 void saySearch(int dot, char *re, int delta, char *prefix, char *tag, char *terminator)
-{	if( dot ) fprintf(stderr, ".");
-	else fprintf(stderr, "/%s/", re);
-	if( delta ) fprintf(stderr, "%s%d", delta < 0? "": "+", delta);
-	fprintf(stderr, "%s%s%s", prefix, tag, terminator);
+{	if( verbose )
+	{	if( dot ) fprintf(stderr, ".");
+		else fprintf(stderr, "/%s/", re);
+		if( delta ) fprintf(stderr, "%s%d", delta < 0? "": "+", delta);
+		fprintf(stderr, "%s%s%s", prefix, tag, terminator);
+	}
 }
 
 int search(char *type, char *name, char *reName, char *bp, int offset, int dot, char *re, int delta, char *terminator)
@@ -170,10 +184,13 @@ int search(char *type, char *name, char *reName, char *bp, int offset, int dot, 
 	if( !dot )
 	{	if( regcomp(&compiled_re, re, REG_EXTENDED) != 0 ) 
 		{	fprintf(stderr, "** %s %s: re syntax error (%s search): /%s/\n", type, name, reName, re);
-			exit(0);
+			return offset;
 		}
 		if( regexec(&compiled_re, &bp[offset], 1, REmatch, 0) == 0 ) offset = offset+REmatch[0].rm_eo-1;
-		else fprintf(stderr, "** %s %s: cannot find a match for (%s search): /%s/\n", type, name, reName, re);
+		else 
+		{	fprintf(stderr, "** %s %s: cannot find a match for (%s search): /%s/\n", type, name, reName, re);
+			return offset;
+		}
 	}
 	while( delta > 0 ) // advance a line
 	{	while( bp[offset] && bp[offset] != '\n' ) offset++;
@@ -188,31 +205,79 @@ int search(char *type, char *name, char *reName, char *bp, int offset, int dot, 
 	if( strcmp(reName, "start") ) while( bp[offset] && bp[offset] != '\n' ) offset++; // move to end of line
 	else while( offset > 0 && bp[offset-1] != '\n' ) offset--; // move to start of line
 	if( startOffset > offset ) 
-	{	fprintf(stderr, "** %s %s: search for (%s search) went backwards: /%s/%s%d\n", type, name, reName, re, startDelta < 0? "": "+", startDelta);
+	{	fprintf(stderr, "** %s %s: search for (%s search) failed: /%s/%s%d\n", type, name, reName, re, startDelta < 0? "": "+", startDelta);
 		return startOffset;
 	}
 	return offset;
 }
 
+char *defaultTag = "";
+
+long process(char *bp, long offset, regmatch_t *REmatch, int setTag, int setTagIndex, int typeIndex, int nameIndex, int startDotIndex, int startDeltaIndex, int endDotIndex, int endDeltaIndex, int usesTag, int tagIndex)
+{ 	char *type, *name, *start, *end, *tag;
+	long startChar, endChar;
+	int startDot, endDot, startDelta, endDelta;
+	if( 0 ) // print RE matches - useful for getting REmatch indices right
+	{	for( int i = 0; i < 14; i++ ) 
+			if( REmatch[i].rm_eo > 0 ) printf("%d = %.*s\n", i, (int) (REmatch[i].rm_eo-REmatch[i].rm_so), &bp[offset+REmatch[i].rm_so]);
+			else printf("%d = NONE %d\n", i, (int) REmatch[i].rm_eo );
+		//return offset+REmatch[0].rm_eo; // make progress
+	}
+	if( setTag ) // set-tag form
+	{	defaultTag = allocString(&bp[offset+REmatch[setTagIndex].rm_so], REmatch[setTagIndex].rm_eo-REmatch[setTagIndex].rm_so);
+		if( verbose ) fprintf(stderr, ":  set-tag %s\n", defaultTag);
+		offset += REmatch[0].rm_eo; // skip past the matched %keyword line
+		return offset;
+	} 
+	// else define or generate
+	type = allocString(&bp[offset+REmatch[typeIndex].rm_so], REmatch[typeIndex].rm_eo-REmatch[typeIndex].rm_so);
+	name = allocString(&bp[offset+REmatch[nameIndex].rm_so], REmatch[nameIndex].rm_eo-REmatch[nameIndex].rm_so);
+	if( !(startDot = bp[offset+REmatch[startDotIndex].rm_so] == '.') ) start = allocString(&bp[offset+REmatch[startDotIndex].rm_so+1], REmatch[startDotIndex].rm_eo-REmatch[startDotIndex].rm_so-2);
+	startDelta = getOffset(type, "start", name, (int) (REmatch[startDeltaIndex].rm_eo - REmatch[startDeltaIndex].rm_so), &bp[offset+REmatch[startDeltaIndex].rm_so]);
+	if( !(endDot = bp[offset+REmatch[endDotIndex].rm_so] == '.') ) end = allocString(&bp[offset+REmatch[endDotIndex].rm_so+1], REmatch[endDotIndex].rm_eo-REmatch[endDotIndex].rm_so-2);
+	endDelta = getOffset(type, "end", name, (int) (REmatch[endDeltaIndex].rm_eo - REmatch[endDeltaIndex].rm_so), &bp[offset+REmatch[endDeltaIndex].rm_so]);	
+	if( verbose ) fprintf(stderr, ":    %s %s %s ", strcmp(type, "generate")? "    ": "", type, name); 
+	tag = usesTag? allocString(&bp[offset+REmatch[tagIndex].rm_so], REmatch[tagIndex].rm_eo-REmatch[tagIndex].rm_so): defaultTag;
+	offset += REmatch[0].rm_eo; // skip past the matched command
+	saySearch(startDot, start, startDelta, "", "", ", ");
+	saySearch(endDot, end, endDelta, ", ", tag, "\n");
+	startChar = search(type, name, "start", bp, offset, startDot, start, startDelta, ", ");
+	endChar = search(type, name, "end", bp, startChar, endDot, end, endDelta, "");
+	if( endChar >= startChar )
+		define(type, name, allocString(&bp[startChar], endChar-startChar+1), tag);
+	return offset;
+}
+
 int main(int argc, char *argv[]) 
-{	int fp, opened = 0, allDefinitions = 0, createdFiles = 0, options = 1;
-	char *bp, *processedFileName, *tag, *defaultTag = "";
-	for( int i = 0; i < 3; i++ )
-    	if( regcomp(res[i].compiled, res[i].regex, REG_EXTENDED) != 0 )
+{	int fp, opened = 0, allDefinitions = 0, createdFiles = 0, options = 1, allNames = 0;
+	char *bp, *processedFileName;
+	for( int i = 0; i < REMAX; i++ )
+    {	if( regcomp(res[i].compiled, res[i].regex, REG_EXTENDED) != 0 )
     	{	fprintf(stderr, "** internal error: regcomp fail\n%s\n", res[i].regex);
     		exit(0);
     	}
+		if( 0 )
+		{	int bra = 0, ket = 0;
+			for( bp = res[i].regex; *bp; bp++ )
+				if( *bp == '(' ) bra++;
+				else if( *bp == ')' ) ket++;
+			fprintf(stderr, "RE %d: bra = %d, ket = %d\n", i, bra, ket);
+		}
+	}
 	for( int i = 1; i < argc; i++ ) // process all options first
 		if( options && !strcmp("-a", argv[i]) ) allDefinitions = 1;
+		else if( options && !strcmp("-v", argv[i]) ) verbose = 1;
+		else if( options && !strcmp("-n", argv[i]) ) allNames = 1;
 		else if( options && !strcmp("-f", argv[i]) ) createdFiles = 1;
 		else if( options && (bp = index(argv[i], '=')) != NULL ) define("command line name", allocString(argv[i], bp-argv[i]), &bp[1], "<command-line-tag>");
 		else if( !strcmp("--", argv[i]) ) options = 0;
 	options = 1;
 	for( int i = 1; i < argc; i++ ) // then process files
-		if( options && (!strcmp("-a", argv[i]) || !strcmp("-f", argv[i]) || index(argv[i], '=') != NULL) ) continue;
+		if( options && (!strcmp("-a", argv[i]) || !strcmp("-v", argv[i]) || !strcmp("-n", argv[i]) || !strcmp("-f", argv[i]) || index(argv[i], '=') != NULL) ) continue;
 		else if( !strcmp("--", argv[i]) ) options = 0;
 		else if( (fp = open(processedFileName = argv[i], O_RDONLY)) >= 0 )
-		{	struct stat stat_buf;
+		{	int TeXMode = 0, nonTeXMode = 0;
+			struct stat stat_buf;
 			fstat(fp, &stat_buf);
 			bp = safealloc(1+stat_buf.st_size);
 			if( read(fp, bp, stat_buf.st_size) != stat_buf.st_size )
@@ -223,51 +288,46 @@ int main(int argc, char *argv[])
 			opened = 1;
 			regmatch_t REmatch[16];
 			long offset = 0;
-			while( regexec(&REcheck, &bp[offset], 14, REmatch, 0) == 0 ) // find everything the form: % keyword 
+			// process any \relit[tag]{command} commands
+			while( regexec(&RErelitCheck, &bp[offset], 14, REmatch, 0) == 0 ) // find everything of the form: \relit([|{) 
 			{	long eo = REmatch[0].rm_eo, so = REmatch[0].rm_so;
-				if( regexec(&REkeyword, &bp[offset], 14, REmatch, 0) != 0 || REmatch[0].rm_so != so )
-				{	fprintf(stderr, "** Warning: line may have a syntax error\n");
-					fprintf(stderr, "%.*s", (int) (eo-so), &bp[offset+so]);
-					fprintf(stderr, "\n");
+				if( !TeXMode && verbose ) fprintf(stderr, ": \\relit style commands...\n");
+				TeXMode = 1;
+				if( regexec(&RErelit, &bp[offset], 14, REmatch, 0) != 0 || REmatch[0].rm_so != so ) // it matched \relit, but not the rest...
+				{	fprintf(stderr, "** Warning: line not in \\relit syntax (line ignored)\n%.*s", (int) (eo-so), &bp[offset+so]);
+					offset += eo;
+					continue;	
+				}
+				// matched definitions of the form: \relit[tag]{keyword name re, re} OR \relit{set-tag text}
+				if( !strncmp(&bp[offset+REmatch[3].rm_so], "ends", 4) ) // skip \relit{ends}
+					offset += eo;
+				else if( REmatch[1].rm_eo > 0 && REmatch[11].rm_eo > 0 )
+				{	fprintf(stderr, "** cannot use both [tag] and set-tag\n%.*s", (int) (eo-so), &bp[offset+so]);
+					offset += eo;
+				}
+				else offset = process(bp, offset, REmatch, REmatch[11].rm_eo > 0, 12, 5, 6, 7, 8, 9, 10, REmatch[1].rm_eo > 0, 2);
+			}
+			offset = 0;
+			while( regexec(&REcheck, &bp[offset], 14, REmatch, 0) == 0 ) // find everything of the form: % keyword... 
+			{	long eo = REmatch[0].rm_eo, so = REmatch[0].rm_so;
+				if( !nonTeXMode && verbose ) fprintf(stderr, ": %% style commands...\n");
+				nonTeXMode = 1;
+				if( regexec(&REkeyword, &bp[offset], 14, REmatch, 0) != 0 || REmatch[0].rm_so != so ) // it matched % keyword, but not the rest...
+				{	fprintf(stderr, "** Warning: line not in %% relit syntax (line ignored)\n%.*s", (int) (eo-so), &bp[offset+so]);
 					offset += eo;
 					continue;	
 				}
 				// matched definitions of the form: % keyword name re, re [, tag] OR % set-tag text
-				char *type, *name, *start, *end;
-				long startChar, endChar;
-				int startDot, endDot, startDelta, endDelta;
-					/* for( int i = 0; i < 12; i++ ) // print RE matches - useful for getting REmatch index right
-						  if( REmatch[i].rm_eo > 0 ) printf("%d = %.*s\n", i, (int) (REmatch[i].rm_eo-REmatch[i].rm_so), &bp[offset+REmatch[i].rm_so]);
-						  else printf("%d = NONE %d\n", i, (int) REmatch[i].rm_eo );
-					 */
-				if( REmatch[10].rm_eo > 0 ) // % set-tag
-				{	defaultTag = allocString(&bp[offset+REmatch[11].rm_so], REmatch[11].rm_eo-REmatch[11].rm_so);
-					fprintf(stderr, ":  %% set-tag %s\n", defaultTag);
-					offset += REmatch[0].rm_eo; // skip past the matched %keyword line
-					continue;
-				} // else % define or % generate	
-				type = allocString(&bp[offset+REmatch[2].rm_so], REmatch[2].rm_eo-REmatch[2].rm_so);
-				name = allocString(&bp[offset+REmatch[3].rm_so], REmatch[3].rm_eo-REmatch[3].rm_so);
-				if( !(startDot = bp[offset+REmatch[4].rm_so] == '.') ) start = allocString(&bp[offset+REmatch[4].rm_so+1], REmatch[4].rm_eo-REmatch[4].rm_so-2);
-				startDelta = getOffset(type, "start", name, (int) (REmatch[5].rm_eo - REmatch[5].rm_so), &bp[offset+REmatch[5].rm_so]);
-				if( !(endDot = bp[offset+REmatch[6].rm_so] == '.') ) end = allocString(&bp[offset+REmatch[6].rm_so+1], REmatch[6].rm_eo-REmatch[6].rm_so-2);
-				endDelta = getOffset(type, "end", name, (int) (REmatch[7].rm_eo - REmatch[7].rm_so), &bp[offset+REmatch[7].rm_so]);	
-				fprintf(stderr, ":    %s%% %s %s ", strcmp(type, "generate")? "    ": "", type, name); 
-				tag = REmatch[8].rm_eo > 0? allocString(&bp[offset+REmatch[9].rm_so], REmatch[9].rm_eo-REmatch[9].rm_so): defaultTag;
-				offset += REmatch[0].rm_eo; // skip past the matched %keyword line
-				saySearch(startDot, start, startDelta, "", "", ", ");
-				saySearch(endDot, end, endDelta, ", ", tag, "\n");
-				startChar = search(type, name, "start", bp, offset, startDot, start, startDelta, ", ");
-				endChar = search(type, name, "end", bp, startChar, endDot, end, endDelta, "");
-				define(type, name, allocString(&bp[startChar], endChar-startChar+1), tag);
+				offset = process(bp, offset, REmatch, REmatch[10].rm_eo > 0, 11, 2, 3, 4, 5, 6, 7, REmatch[8].rm_eo > 0, 9);
 			}
-			if( offset == 0 ) fprintf(stderr, "** no %%define or %%generate found in %s (which is OK but strangely pointless)\n", processedFileName);
+			if( TeXMode && nonTeXMode ) 
+				fprintf(stderr, "** Warning: file %s mixes both \\relit{...} and %%... forms of relit commands\n", processedFileName);
 			free(bp);
 			close(fp);
 		}
 		else fprintf(stderr, "** cannot open \"%s\"\n", processedFileName);
 	generateFiles(createdFiles);
-	checkDictionary(allDefinitions); 
-	if( !opened ) fprintf(stderr, "** did not process any files\nUsage: %s [-a] [-f] [--] [name=value...] files...\n       -a print all name and file definitions\n       -f list generated files to standard output\n       name=value define new names\n       -- treat all further parameters as filenames\n", argv[0]);
+	checkDictionary(allDefinitions, allNames);
+	if( !opened ) fprintf(stderr, "** did not process any files\nUsage: %s [-a] [-f] [-v] [--] [name=value...] files...\n       -a print all name and file definitions\n       -f list generated files to standard output\n       -v verbose mode\n       name=value define new names\n       -- treat all further parameters as filenames\n", argv[0]);
 	return 0;
 }

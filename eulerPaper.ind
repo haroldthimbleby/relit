@@ -1,0 +1,12 @@
+\begin{theindex}
+
+  \item \uppercase {R}elit define
+    \subitem {\texttt{demo}}, \manualrelitpage{16}
+  \item \uppercase {R}elit ends
+    \subitem {\texttt{ends}}, 24
+  \item \uppercase {R}elit generate
+    \subitem {\texttt{euler.c}}, \manualrelitpage{17}
+    \subitem {\texttt{hello.c}}, \manualrelitpage{16}
+    \subitem {\texttt{TeX-mode-demo.tex}}, 24
+
+\end{theindex}

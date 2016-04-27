@@ -1,0 +1,57 @@
+Test for relit tex mode
+
+\relit[tag]{define aName /a/, /c/}
+a
+b
+c
+d
+
+\relit[tag]{define aNameDotDotPlusTwo .+1, .+2}
+a
+b
+c
+d
+
+\relit{define noTagName /a/, /c/}
+a
+b
+c
+d
+
+\relit{set-tag value-of-the-tag}
+
+\relit[aTag]{set-tag should-not-be-allowed}
+
+\relit{generate file.c .,.+1}
+a
+b
+c
+d
+\relit{ends}
+
+\relit[]{define no-tag-should-be-ok .,.+1}
+a
+b
+c
+
+\relit[           ]{define blanks-only-tag-should-be-ok .,.+1}
+
+\relit{unrecognised stuff}
+
+\expandafter\def\csname relit\endcsanem{legit definitions are complicated!}
+
+relit[tag]{this should not even match as a macro}
+
+% an ordinary comment
+
+% set-tag hello!
+
+% define nothing-with-nothing
+
+\relit[shouldwork]{define me .,/relit.ends/-1}
+This should be the 
+body of me!
+\relit{ends}
+
+Ends!
+
