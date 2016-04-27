@@ -1,5 +1,5 @@
 .\" Harold Thimbleby
-.TH relit 1 "8 April 2016"
+.TH relit 1 "26 April 2016"
 .hw relit
 .SH NAME
 relit \- Reverse literate programming tool
@@ -7,20 +7,28 @@ relit \- Reverse literate programming tool
 .B relit 
 [\fB-a\fR]
 [\fB-f\fR]
+[\fB-n\fR]
+[\fB-v\fR]
 [\fIdefinitions...\fR]
 [\fB--\fR]
 .IR sourcefilenames...
 .SH DESCRIPTION
 .B relit
-is a 'reverse literate programming' tool. It is designed to process LaTeX and TeX files (or troff, etc) and flexibly extract and assemble complete source code. Reverse literate programming encourages putting the entire compilable source code in publishable documents (such as peer reviewed publications), in any suitable order, and perhaps with unit tests and other support (e.g., makefiles) in the same file but hidden from the reader. 
+is a 'reverse literate programming' tool. It is designed to process LaTeX and TeX files (or potentially troff, etc) and flexibly extract and assemble complete source code. Reverse literate programming encourages putting the entire compilable source code in publishable documents (such as peer reviewed publications), in any suitable order, and perhaps with unit tests and other support (e.g., makefiles) in the same file but hidden from the reader. 
 .SH OPTIONS
 Arguments can be in any order; the files are always processed last. Within files, definitions and uses of names can be in any order; name definitions do not need to be in the files where they are used.
 .TP
 -a 
-List all definitions
+List all definitions (overrides -n)
 .TP
 -f 
-List all files processed to standard output
+List all files generated to standard output
+.TP
+-n 
+List all names (more concise output than -a)
+.TP
+-v
+Verbose mode (show all \fBrelit\fR commands)
 .TP
 \fIname\fR=\fIvalue\fR
 Define a name. If there are spaces in the \fIvalue\fR it must be enclosed in quote marks.
@@ -30,51 +38,42 @@ Treat all subsequent parameters as file names, following the same convention as 
 .SH DESCRIPTION
 The
 .B relit 
-tool generally processes TeX or LaTeX files.
+tool generally processes TeX or LaTeX files. Commands are written either as comments (as text following the % character, so they are completely ignored by LaTeX) or they can be written as ordinary LaTeX commands, which LaTeX (or TeX) can then also process for any further purposes in the usual way. In normal use, \\relit can be defined to disappear, but if the author wishes it can be defined like \\marginpar, so that the author can easily keep track of where relit commands are used. The advantage of the % notation is that it requires no new LaTeX definitions to start using it immediately.
 .LP
-% define 
-.I name 
-.I re
-, 
-.I re 
-[ ,
-.I tag
-]
+% define \fIname\fR \fIre\fR, \fIre\fR [, \fItag\fR]
+\fBor\fR
+\\relit[\fItag\fR]{define \fIname\fR \fIre\fR, \fIre\fR}
 .IP
 Define 
 .I name 
-to be the following lines inclusive that match between the two regular expressions.
+to be the following lines that match between the two regular expressions inclusive. The name can be optionally tagged. (In the LaTeX form, if the tag is specified, the square brackets are required.)
 .LP
-% generate 
-.I name 
-.I re
-, 
-.I re 
-[
-.I tag
-]
+% generate \fIname\fR \fIre\fR, \fIre\fR [, \fItag\fR]
+\fBor\fR
+\\relit[\fItag\fR]{generate \fIname\fR \fIre\fR, \fIre\fR}
 .IP
-Generate a file, 
+Generate a file called 
 .I name 
-to be the following lines inclusive that match between the two regular expressions.
+to be the following lines that match between the two regular expressions inclusive.
 .IP
 Within the text matched for %define and %generate, names of the form <\fIname\fR> are expanded by their definitions. 
 .LP
-% set-tag 
-.I value
+% set-tag \fIvalue\fR
+\fBor\fR
+\\relit{set-tag \fIvalue\fR}
 .IP
-Define a default tag for any subsequent %define or %generate without an explicit tag. A tag value can 
+Define a default tag for any subsequent defines or generates without an explicit tag. A tag value can 
 include <\fInames\fR>. By using <\fIname\fR> as a tag, the name, and hence the tag, can be set in the command line. Default tags can be changed repeatedly as required.
 .PP
 Where \fIre\fR can have the form:
 .TP
 \&. 
-Match the current line (i.e., if the first \fIre\fR, the immediately next line after the % command, and if the second \fIre\fR, the line the first \fIre\fR matches).
+Match the current line (i.e., if the first \fIre\fR, the immediately next line after the % command, and if the second \fIre\fR, the line the first \fIre\fR matches). Hence the pair .,. means the next line. However, in the case of the \\relit command form, the first . includes all text from the closing } to the end of line: hence .+1,. would mean the next line.
 .TP
 / \fIregular expression\fR / 
 Match the regular expression, starting the search on the line the meaning of '.' (see above). See \fBre_format\fR (7).
 .LP
-REs can be followed by +\fInumber\fR or -\fInumber\fR, to adjust the line match (however it is an error to search backwards).
+REs can be followed by +\fInumber\fR or -\fInumber\fR, to adjust the line match.
 .SH EXAMPLE
 .nf
 %generate t.c /demo/, /define/-1
@@ -87,11 +86,8 @@ will create a file t.c containing "Hello world" and a file t.c-tagged.txt (which
 .PP
 Typically, a %generate command, placed after LaTeX's \\end{document}, will be used to create a makefile to keep track of how to make, compile and unit test the source code files. Typically, tags will be \\seen{} and \\unseen{}, appropriately defined.
 .SH BUGS
-Regular expressions cannot contain /
+Regular expressions cannot contain / (or } in the \\relit form)
 .PP
-% cannot be changed (it would be nice to be able to process makefiles or C programs too).
-.PP
-On second thoughts, if the \fBrelit\fR commands were in this format:
-.TP
-\\relit{command name re, re, tag} - say, in the original format
-they would look more like Latex. In normal use, the command could be defined to disappear, but if the author wished it could be defined like \\marginpar, so that the author can more easily keep track of where the commands are used. Perhaps we should have both? The advantage of the % notation is that it requires no new definitions to start using it.
+The fixed strings, and % and \\relit in particular, cannot be changed (it might be nice to be able to process files using other conventions, such as makefiles or C programs, too).
+.SH AUTHOR
+Harold Thimbleby, harold@thimbleby.net, 2016
