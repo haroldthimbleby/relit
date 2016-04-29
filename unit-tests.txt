@@ -1,4 +1,4 @@
-Test for relit tex mode
+Basic tests for relit
 
 \relit[tag]{define aName /a/, /c/}
 a

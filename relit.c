@@ -15,7 +15,7 @@
 #include <regex.h>
 #include <time.h>
 
-int verbose = 0;
+int verboseOption = 0, touchedFilesOption = 0, listFileNamesOption = 0, forceUpdateOption = 0, xOption = 0, allDefinitionsOption = 0, allNamesOption = 0;
 
 struct dictionary // there aren't going to be many names, so a linked list will work fine
 {	struct dictionary *next;
@@ -26,23 +26,23 @@ struct dictionary // there aren't going to be many names, so a linked list will 
 char *safealloc(size_t n)
 {	char *p = (char *) malloc(n);
 	if( p == NULL )
-	{	fprintf(stderr, "** run out of memory!!\n");
+	{	fprintf(stderr, "** run out of memory!\n");
 		exit(0);
 	}
 	return p;
 }
 
-void checkDictionary(int everything, int namesonly)
+void checkDictionary()
 {	for( struct dictionary *d = names; d != NULL; d = d->next )
     {	if( !d->used ) fprintf(stderr, "** unused %s %s\n%s", d->type, d->name, d->value);
 		else if( d->recursive ) fprintf(stderr, "** recursive definition: %s %s\n%s", d->type, d->name, d->value);
 		// printf %8s padding so generate and define align nicely
-        else if( everything ) fprintf(stderr, "%8s %s:\n%s", d->type, d->name, d->value);
-        if( !d->used || d->recursive || everything )
+        else if( allDefinitionsOption ) fprintf(stderr, "%8s %s:\n%s", d->type, d->name, d->value);
+        if( !d->used || d->recursive || allDefinitionsOption )
         {	char *p = index(d->value, '\0'); // adding a newline looks much better, but is it misleading?
         	fprintf(stderr, "%s-----\n", p > d->value && p[-1] != '\n'? "\n----(end of line added above for neater report)": "");
         }
-        else if( !everything && namesonly ) fprintf(stderr, "%8s %s\n", d->type, d->name);
+        else if( !allDefinitionsOption && allNamesOption ) fprintf(stderr, "%8s %s\n", d->type, d->name);
     }
 }
 
@@ -118,6 +118,47 @@ struct
 	}
 };
 
+enum { UPDATE, UNCHANGED } touchWriting;
+long touchLength;
+
+FILE *touchOpen(char *name)
+{	FILE *fd;
+	if( xOption ) return stderr; // any valid FILE* will do, as nothing will be done with it
+	touchLength = 0L;
+	if( forceUpdateOption || (fd = fopen(name, "r+")) == NULL ) // try creating the file
+	{	touchWriting = UPDATE;
+		return fopen(name, "w");
+	}
+	touchWriting = UNCHANGED; // file exists
+	return fd;
+}
+
+void touch(FILE *fd, char *s, long n) // write n bytes to file, but only update file if they are different
+{	if( xOption ) return;
+	touchLength += n;
+	if( touchWriting == UPDATE )
+	{	fwrite(s, 1, n, fd);
+		return;
+	}
+	char *bp = safealloc(n);
+	touchWriting = fread(bp, 1, n, fd) != n || strncmp(bp, s, n)? UPDATE: UNCHANGED;
+	free(bp);
+	if( touchWriting == UNCHANGED ) return; // they are the same; nothing to write
+	fseek(fd, -n, SEEK_CUR); // backup
+	fwrite(s, 1, n, fd); // write over and update
+}
+
+void touchClose(FILE *fd, char *fileName) // trim file to actual length
+{	if( xOption ) return;
+	fseek(fd, 0L, SEEK_END);
+	if( ftell(fd) != touchLength ) 
+	{	touchWriting = UPDATE; // in case new file is a shorter prefix (so not neeeding UPDATE so far)
+		ftruncate(fileno(fd), touchLength); // truncate to correct length
+	}
+	fclose(fd);
+	if( listFileNamesOption || (touchedFilesOption && touchWriting == UPDATE ) ) printf("%s\n", fileName); 
+}
+
 int recursivelyExpand(FILE *fd, char *filename, char *bp, char *tag, int tags)
 {	regmatch_t REmatch[2];
 	long offset;
@@ -125,7 +166,7 @@ int recursivelyExpand(FILE *fd, char *filename, char *bp, char *tag, int tags)
 	if( tags ) recursivelyExpand(fd, filename, tag, "", 0);
 	for( offset = 0; regexec(&REreplace, &bp[offset], 2, REmatch, 0) == 0; offset += REmatch[0].rm_eo )
 	{	char *name = allocString(&bp[offset+REmatch[1].rm_so], REmatch[1].rm_eo-REmatch[1].rm_so);
-		fprintf(fd, "%.*s", (int) REmatch[0].rm_so, &bp[offset]);
+		touch(fd, &bp[offset], (long) REmatch[0].rm_so);
 		struct dictionary *d = dlookup(name);
 		if( d == NULL ) fprintf(stderr, "** generate %s: no value defined for <%s>\n", filename, name);
 		else if( d->expanding ) fprintf(stderr, "** generate %s: recursive call of <%s>\n", filename, name);
@@ -136,40 +177,38 @@ int recursivelyExpand(FILE *fd, char *filename, char *bp, char *tag, int tags)
 			d->expanding = 0;
 		}
 	}
-	fprintf(fd, "%s", &bp[offset]);
+	touch(fd, &bp[offset], (long) strlen(&bp[offset]));
 	return usesTags || strcmp(tag, "");
 }
 
-void generateFiles(int listFileNames)
+void generateFiles()
 {	FILE *fd;
 	for( struct dictionary *d = names; d != NULL; d = d->next )
 		if( !strcmp(d->type, "generate") )
-		{	if( (fd = fopen(d->name, "w")) != NULL )
+		{	if( (fd = touchOpen(d->name)) != NULL )
 			{	d->used = d->expanding = 1;
 				int usesTags = recursivelyExpand(fd, d->name, d->value, d->tag, 0);
 				d->expanding = 0;
-				fclose(fd);
+				touchClose(fd, d->name);
 				if( usesTags )
 				{	char *tagSuffix = "-tagged.txt";
 					char *tagfile = safealloc(strlen(d->name)+strlen(tagSuffix)+1);
 					tagfile = strcat(strcpy(tagfile, d->name), tagSuffix);
-					if( (fd = fopen(tagfile, "w")) != NULL )
+					if( (fd = touchOpen(tagfile)) != NULL )
 					{	d->expanding = 1;
 						recursivelyExpand(fd, tagfile, d->value, d->tag, 1);
 						d->expanding = 0;
-						fclose(fd);
+						touchClose(fd, tagfile);
 					}
-					else  fprintf(stderr, "** generate %s: cannot create or open file \"%s\" for writing\n", d->name, tagfile);
+					else fprintf(stderr, "** generate %s: cannot create or open file \"%s\" for writing\n", d->name, tagfile);
 				}
-				if( listFileNames ) printf("%s ", d->name);
 			}
 			else fprintf(stderr, "** generate %s: cannot create or open file \"%s\" for writing\n", d->name, d->name);
 		}
-	if( listFileNames ) printf("\n");
 }
 
 void saySearch(int dot, char *re, int delta, char *prefix, char *tag, char *terminator)
-{	if( verbose )
+{	if( verboseOption )
 	{	if( dot ) fprintf(stderr, ".");
 		else fprintf(stderr, "/%s/", re);
 		if( delta ) fprintf(stderr, "%s%d", delta < 0? "": "+", delta);
@@ -225,7 +264,7 @@ long process(char *bp, long offset, regmatch_t *REmatch, int setTag, int setTagI
 	}
 	if( setTag ) // set-tag form
 	{	defaultTag = allocString(&bp[offset+REmatch[setTagIndex].rm_so], REmatch[setTagIndex].rm_eo-REmatch[setTagIndex].rm_so);
-		if( verbose ) fprintf(stderr, ":  set-tag %s\n", defaultTag);
+		if( verboseOption ) fprintf(stderr, ":  set-tag %s\n", defaultTag);
 		offset += REmatch[0].rm_eo; // skip past the matched %keyword line
 		return offset;
 	} 
@@ -236,7 +275,7 @@ long process(char *bp, long offset, regmatch_t *REmatch, int setTag, int setTagI
 	startDelta = getOffset(type, "start", name, (int) (REmatch[startDeltaIndex].rm_eo - REmatch[startDeltaIndex].rm_so), &bp[offset+REmatch[startDeltaIndex].rm_so]);
 	if( !(endDot = bp[offset+REmatch[endDotIndex].rm_so] == '.') ) end = allocString(&bp[offset+REmatch[endDotIndex].rm_so+1], REmatch[endDotIndex].rm_eo-REmatch[endDotIndex].rm_so-2);
 	endDelta = getOffset(type, "end", name, (int) (REmatch[endDeltaIndex].rm_eo - REmatch[endDeltaIndex].rm_so), &bp[offset+REmatch[endDeltaIndex].rm_so]);	
-	if( verbose ) fprintf(stderr, ":    %s %s %s ", strcmp(type, "generate")? "    ": "", type, name); 
+	if( verboseOption ) fprintf(stderr, ":    %s %s %s ", strcmp(type, "generate")? "    ": "", type, name); 
 	tag = usesTag? allocString(&bp[offset+REmatch[tagIndex].rm_so], REmatch[tagIndex].rm_eo-REmatch[tagIndex].rm_so): defaultTag;
 	offset += REmatch[0].rm_eo; // skip past the matched command
 	saySearch(startDot, start, startDelta, "", "", ", ");
@@ -249,7 +288,7 @@ long process(char *bp, long offset, regmatch_t *REmatch, int setTag, int setTagI
 }
 
 int main(int argc, char *argv[]) 
-{	int fp, opened = 0, allDefinitions = 0, createdFiles = 0, options = 1, allNames = 0;
+{	int fp, opened = 0, options = 1, TeXMode = 0, nonTeXMode = 0;
 	char *bp, *processedFileName;
 	for( int i = 0; i < REMAX; i++ )
     {	if( regcomp(res[i].compiled, res[i].regex, REG_EXTENDED) != 0 )
@@ -265,18 +304,17 @@ int main(int argc, char *argv[])
 		}
 	}
 	for( int i = 1; i < argc; i++ ) // process all options first
-		if( options && !strcmp("-a", argv[i]) ) allDefinitions = 1;
-		else if( options && !strcmp("-v", argv[i]) ) verbose = 1;
-		else if( options && !strcmp("-n", argv[i]) ) allNames = 1;
-		else if( options && !strcmp("-f", argv[i]) ) createdFiles = 1;
+		if( options && !strcmp("-a", argv[i]) ) allDefinitionsOption = 1;
+		else if( options && !strcmp("-v", argv[i]) ) verboseOption = 1;
+		else if( options && !strcmp("-n", argv[i]) ) allNamesOption = 1;
+		else if( options && !strcmp("-u", argv[i]) ) touchedFilesOption = 1;
+		else if( options && !strcmp("-f", argv[i]) ) forceUpdateOption = 1;
+		else if( options && !strcmp("-g", argv[i]) ) listFileNamesOption = 1;
+		else if( options && !strcmp("-x", argv[i]) ) xOption = 1;
 		else if( options && (bp = index(argv[i], '=')) != NULL ) define("command line name", allocString(argv[i], bp-argv[i]), &bp[1], "<command-line-tag>");
 		else if( !strcmp("--", argv[i]) ) options = 0;
-	options = 1;
-	for( int i = 1; i < argc; i++ ) // then process files
-		if( options && (!strcmp("-a", argv[i]) || !strcmp("-v", argv[i]) || !strcmp("-n", argv[i]) || !strcmp("-f", argv[i]) || index(argv[i], '=') != NULL) ) continue;
-		else if( !strcmp("--", argv[i]) ) options = 0;
-		else if( (fp = open(processedFileName = argv[i], O_RDONLY)) >= 0 )
-		{	int TeXMode = 0, nonTeXMode = 0;
+	    else if( (fp = open(processedFileName = argv[i], O_RDONLY)) >= 0 )
+		{	int thisfileTeXMode = 0, thisfilenonTeXmode = 0;
 			struct stat stat_buf;
 			fstat(fp, &stat_buf);
 			bp = safealloc(1+stat_buf.st_size);
@@ -288,11 +326,12 @@ int main(int argc, char *argv[])
 			opened = 1;
 			regmatch_t REmatch[16];
 			long offset = 0;
+			if( verboseOption ) fprintf(stderr, ": File %s\n", processedFileName);
 			// process any \relit[tag]{command} commands
 			while( regexec(&RErelitCheck, &bp[offset], 14, REmatch, 0) == 0 ) // find everything of the form: \relit([|{) 
 			{	long eo = REmatch[0].rm_eo, so = REmatch[0].rm_so;
-				if( !TeXMode && verbose ) fprintf(stderr, ": \\relit style commands...\n");
-				TeXMode = 1;
+				if( !thisfileTeXMode && verboseOption ) fprintf(stderr, ": \\relit style commands...\n");
+				thisfileTeXMode = TeXMode = 1;
 				if( regexec(&RErelit, &bp[offset], 14, REmatch, 0) != 0 || REmatch[0].rm_so != so ) // it matched \relit, but not the rest...
 				{	fprintf(stderr, "** Warning: line not in \\relit syntax (line ignored)\n%.*s", (int) (eo-so), &bp[offset+so]);
 					offset += eo;
@@ -310,8 +349,8 @@ int main(int argc, char *argv[])
 			offset = 0;
 			while( regexec(&REcheck, &bp[offset], 14, REmatch, 0) == 0 ) // find everything of the form: % keyword... 
 			{	long eo = REmatch[0].rm_eo, so = REmatch[0].rm_so;
-				if( !nonTeXMode && verbose ) fprintf(stderr, ": %% style commands...\n");
-				nonTeXMode = 1;
+				if( !thisfilenonTeXmode && verboseOption ) fprintf(stderr, ": %% style commands...\n");
+				thisfilenonTeXmode = nonTeXMode = 1;
 				if( regexec(&REkeyword, &bp[offset], 14, REmatch, 0) != 0 || REmatch[0].rm_so != so ) // it matched % keyword, but not the rest...
 				{	fprintf(stderr, "** Warning: line not in %% relit syntax (line ignored)\n%.*s", (int) (eo-so), &bp[offset+so]);
 					offset += eo;
@@ -320,14 +359,13 @@ int main(int argc, char *argv[])
 				// matched definitions of the form: % keyword name re, re [, tag] OR % set-tag text
 				offset = process(bp, offset, REmatch, REmatch[10].rm_eo > 0, 11, 2, 3, 4, 5, 6, 7, REmatch[8].rm_eo > 0, 9);
 			}
-			if( TeXMode && nonTeXMode ) 
-				fprintf(stderr, "** Warning: file %s mixes both \\relit{...} and %%... forms of relit commands\n", processedFileName);
 			free(bp);
 			close(fp);
 		}
 		else fprintf(stderr, "** cannot open \"%s\"\n", processedFileName);
-	generateFiles(createdFiles);
-	checkDictionary(allDefinitions, allNames);
-	if( !opened ) fprintf(stderr, "** did not process any files\nUsage: %s [-a] [-f] [-v] [--] [name=value...] files...\n       -a print all name and file definitions\n       -f list generated files to standard output\n       -v verbose mode\n       name=value define new names\n       -- treat all further parameters as filenames\n", argv[0]);
+	generateFiles();
+	checkDictionary();
+	if( TeXMode && nonTeXMode ) fprintf(stderr, "** Warning: mixes both \\relit[]{} and %% forms of relit command\n");
+			if( !opened ) fprintf(stderr, "** did not process any files\nUsage: %s [-a] [-f] [-g] [-n] [-u] [-v] [-x] [--] [name=value...] files...\n       -a list all name and file definitions (overrides -n)\n       -f force all generated files to be updated\n       -g list all generated files to standard output (overrides -u)\n       -n list all names and files\n       -u list only updated files to standard output\n       -v verbose mode\n       -x do not generate or update any files\n       name=value define new name\n       -- treat all further parameters as filenames\n", argv[0]);
 	return 0;
 }

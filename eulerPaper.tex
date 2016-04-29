@@ -83,7 +83,9 @@ which has important applications in the design of sequential experiments to effi
 
 The algorithm is presented in C and is written in a clear style to simplify porting to other languages. 
 
-To explain and present the algorithm rigorously, we use and describe an original and powerful ``reverse literate programming'' technique that generates the executable code directly from this manuscript for publication. The technique ensures that both the executable code and the published paper are synchronised, preventing transcription errors. The approach increases transparency, reproducibility, and accessibility --- and, more generally, encourages authors to publish details of working embodiments of algorithms rather than abstract or simplified descriptions. The approach can be used for any formal material: mathematics, proofs, or --- as in the present case --- algorithms and programs.
+To explain and present the algorithm rigorously, we use and describe an original and powerful ``reverse literate programming'' technique that generates the executable code directly from this manuscript for publication. The technique ensures that both the executable code and the published paper are synchronised, preventing transcription errors. The approach increases transparency, reproducibility, and accessibility --- and, more generally, encourages authors to publish details of working embodiments of algorithms rather than abstract or simplified descriptions. 
+
+The approach can be used for any formal material: mathematics, proofs, or --- as in the present case --- algorithms and programs. It can be used in papers (as here), in books or, with the same advantages, in student work.
 
 \vskip .5cm\noindent
 \textbf{Keywords}: Euler cycle algorithm; de Bruijn sequence; Combinatorics; Experimental design; Literate programming; Reproducibility.
@@ -129,7 +131,7 @@ Our \emph{complete\/} program, as will be fully described in this paper (shown i
 
 The Java reference algorithm is sophisticated, but there is an evident separation of the published book text \cite{sedgewickbook} from the published program \cite{sedgewickcode}, which allowed the program to develop into a sophisticated program independently of the published book. In fact, the book \cite{sedgewickcode} omits the code altogether as it is too long and complicated: it has to be downloaded from the web instead. Of course, this is entirely defensible: the web code has many details (e.g., features for teaching) that go far beyond what is needed in a book --- and the code is complete with unit tests and examples, which would be tedious to explain in a book, and even a source of error when readers try to copy something so long by hand. It is clear that normal publishing practices do not help the goal of finding easily reproducibe algorithms. 
 
-We describe our new algorithm and its applications next, in section~\ref{new-algorithm}, and subsequently describe our new approach to publishing algorithms, in section~\ref{new-approach}.
+We describe our new algorithm and its applications next, in section~\ref{new-algorithm}, and subsequently describe our new approach to publishing algorithms, in section~\ref{new-approach}. Section~\ref{benefits} reflects on the benefits of the approach, particularly for improving reproducibility, and the Conclusions (section~\ref{conclusions}) finish with a small concrete example of the benefits as they played out for this paper.
 
 \section{A new Euler cycle algorithm}\label{new-algorithm}
 Many apparently simple algorithms to generate Eulerian cycles have been described, such as Hierholzer's algorithm \cite{hierholzer} (invented in 1873, well before modern computers) which finds cycles in the graph and merges them together one by one. However their simple descriptions in English belie their comparatively complex implementations in software --- such as just saying ``depth first search'' to find cycles and doubly-linked lists to ``merge'' them. What are the details of depth first search or merging? This common but deceptive simplicity is a problem we also noted in our previous discussion of the Chinese Postman Tour \cite{cpp}. 
@@ -209,6 +211,7 @@ $}}\\
 \end{array}\right)
 $
 \end{tabular}
+\vskip .2ex
 \mycaption{Representations of the complete directed graph $K_3$, where there is an edge $u\rightarrow v$ for each directed pair of the $3$ vertices $u,v \in \{A,B,C\}$. As can be seen (left), the graph is composed from $6$ trivial cycles: 3 are single-arrow cycles (e.g., $\pair AA$), and 3 are double-arrow cycles (e.g., $\pair AB$). The corresponding cycle matrix is shown top right. The cycles represented by it are shown explicitly in the matrix below, which has one entry shown for each trivial cycle. The omitted entries in the matrix are implied by symmetry, as, for example, the top right would be $\pair AC$ but this is the same cycle as $\pair CA$, which is shown bottom left.}
 \label{completeg}
 \end{center}
@@ -255,7 +258,7 @@ Finally, the \texttt{walked} matrix needs declaring and initialising:
 %define declare-initialise /initialise/, /end{Verbatim/-1
 %define declare-walked .+1, .+1
 \begin{Verbatim}
-int walked[N][N]; // to represent a complete graph with N vertices
+int walked[N][N]; // represent a complete graph with N vertices
 
 void initialise() // initialisation; all edges initially unwalked
 {  for( int u = 0; u < N; u++ )
@@ -486,9 +489,13 @@ int main(int argc, const char *argv[])
 %end
 \end{verbatim}\end{quote}
 
-Of course it is unlikely that a paper would present the above code explicitly: in the present paper, this \texttt{\%{}generate} command could have appeared after \LaTeX's \verb|\end{document}| so it would disappear and not be typeset as part of the published paper, as can any ``hidden'' definitions for any details that need not be part of a typical published paper. As we will discuss in section~\ref{invisible-code} below \name{relit} can show that, even taking account of the full listing above, a declaration is still hidden from the reader.
+This code was written exactly as shown, and it is easy to check it actually works: it generates the file \texttt{euler.c} which was compiled and run, with the expected results. This implies the code \verb|<main-body>| and so on recursively also compiles and works. Using a makefile (also generated by \name{relit} from the same document) made it very easy to automatically update the code files and unit test them repeatedly as the publication evolved.\footnote{\name{Relit} only updates generated files when their content changes, which makes using \name{make} very efficient, as most edits to a document do not update any files generated from it.}
 
-There is no restriction on the order of generating files: they can be specified in any order that best suits the needs of the author. However, because the code was written above, as shown, it actually works \emph{exactly\/} as written: it generates the file \texttt{euler.c} which was used to check the code presented in this paper. 
+Of course it is unlikely that a normal paper (that is, one not explaining \name{relit}) would present the code shown explicitly above: usually, the \texttt{\%{}generate} command would have appeared after \LaTeX's \verb|\end{document}| so it would disappear and not be typeset as part of the published paper. Similarly any details that need not be part of a typical published paper can also be hidden. As we will discuss in section~\ref{invisible-code}, \name{relit} can tell the author what code is visible and what code has been hidden to avoid any uncertainties.
+
+Notice that the \name{relit} approach allows the generated program code to be put in the correct order required for a compiler, but the code it is assembled from --- here, \verb|<common-declarations>|, etc --- can be presented to the reader of the paper in any order, in particular in the order that is best for the narrative of the publication. For example, \verb|<main-body>| might be explained to the reader first \emph{then\/} followed by increasing levels of detail of the implementation. Furthermore, if the author decides to rearrange the structure of the paper to improve its exposition this has no effect on the order of the generated code for the compiler.
+
+Similarly, there is no restriction on the order of generating files: they can be specified in any order that best suits the needs of the author.  
 
 Name definitions in \name{relit} can occur before or after they are used; in this paper the definition of the common declarations (standard header files, etc) appears after the end of the \LaTeX\ document and is therefore not typeset anywhere in this paper: the headers are a detail we feel readers of the present paper do not need to see written out in detail, but they are necessary if the paper is to be able to automatically generate executable code. An alternative approach that could be used with C is to only generate ``interesting'' part of the code and use C's \texttt{\#include} from another C file to include the generated code made from \LaTeX\ into a bigger program that provides the correct context to compile and run them.
 
@@ -515,26 +522,36 @@ The authors of a paper should be able to check that the explicit code shown in t
 Tools like \name{warp} and \name{loom} help the authors ensure that code published has been obtained directly the working programs, but it is still possible to write code in the paper that has never been tested or compiled, and also to leave a lot of essential context in the program that \name{warp} or \name{loom} do not draw into the document. Figure \ref{fig:lp2} summarises the issues. 
 
 \begin{figure}
-\begin{center}\sf
+\begin{center}\sf\small
+\def\ast{\hskip 0.1pt{\lower .5ex\hbox{\large$\star$}\vphantom{\Large y}}}
 \newdimen\cola \setbox0=\hbox{programming} \cola=\wd0 \advance\cola by .5em
 \newdimen\colc \setbox0=\hbox{diagnostics} \colc=\wd0 \advance\colc by .5em
 \def\gap{\vskip .5ex\hrule\vskip .5ex}
 %\includegraphics[width=.9\textwidth]{figures/hiddenCode.pdf}
 \noindent\begin{tabular}{|p{\cola}|p{3.4in}|p{\colc}|}  \hline
-\bfseries Conventional approach& 
-Source code is hidden. There is no link between the source code and the published paper. Errors and inconsistencies are easy to introduce. No learning curve.&
-No \hbox{diagnostics} possible. \\ \hline
-
-\bfseries Literate \hbox{programming}& 
-No code is hidden and all the code and document is in one place, but there is usually so much code that not all can be reliably read by a human.  Steep learning curve; extra steps needed in writing and compiling processes. Better for documentation than peer reviewed publications.&
-No \hbox{diagnostics} needed. \gap \hbox{Fewer files} to maintain.\\ \hline
+\bfseries Reverse literate \hbox{programming}& 
+A negligible amount of code may be hidden, but only with deliberate effort. All code remains in the same file --- so it is easy to see and edit without introducing errors. Negligible learning curve; no extra steps. Intended for peer reviewed publications. &\hfil\ast\ast\ast\ast\hfil \gap Typically only one file to maintain. \\ \hline
 
 \bfseries \hbox{Loom} \hbox{and Warp}& 
 Some code is visible, but most is hidden --- it remains in separate code files. Small learning curve; extra step needed in writing process. Good for publications.&
-No \hbox{diagnostics}. \\ \hline
+\hfil\ast\ast\ast\hfil  \gap Any number of files. \\ \hline
 
-\bfseries Reverse literate \hbox{programming}& 
-A negligible amount of code may be hidden, but only with deliberate effort. All code remains in the same file --- so it is easy to see and edit without introducing errors. Negligible learning curve; no extra steps. Intended for peer reviewed publications. &Diagnostics. \gap \hbox{Fewer files} to maintain. \\ \hline
+\bfseries Literate \hbox{programming}& 
+No code is hidden and all the code and document is in one place, but there is usually so much code that not all can be reliably read by a human.  Steep learning curve; extra steps needed in writing and compiling processes. Ideal for internal documentation rather than peer reviewed publications.&
+\hfil\ast\ast\hfil \gap Typically few files to maintain.\\ \hline
+
+\bfseries Conventional approach& 
+Source code is hidden. There is no link between the source code and the published paper. Errors and inconsistencies are easy to introduce. No learning curve.&
+\hfil\ast\hfil \gap Any number of files. \\ \hline
+
+\end{tabular}
+
+\vskip .5cm
+\begin{tabular}{cp{4.75in}}
+\ast\ast\ast\ast & All source code and published paper in a single document. \par Diagnostics for both missing and defined but unused code. \par Flexible indexing, in published document and in command line. \\ \hline
+\ast\ast\ast & Some source code is published. \par Diagnostics for missing code, but some code can be defined (i.e., intended for use) but accidentally left unused. \par No indexing. \\ \hline
+\ast\ast & All source code is published. \par No diagnostics necessary. \par Sophisticated indexing in published document. \\ \hline
+\ast & No connection between published paper and program source code.\par No diagnostics possible. \par No indexing. \\ 
 \end{tabular}
 \end{center}
 \mycaption{The more code that is hidden, the more likely it will drift into complexity and concealed critical details. Conventional literate programming hides nothing, but typically makes the result too large to be publishable (\name{JavaDoc} only documents the API rather than the entire program). \name{Loom} and \name{Warp} help ensure code published is correct, but it may be incomplete. The present paper's reverse approach, as embodied by \name{relit}, ensures almost all the code is published, and what the authors may choose not to publish can easily be checked with simple diagnostics (see section~\ref{complete-program}) --- and what is not published remains in the original \LaTeX\ files, so the authors always remain aware of it.}
@@ -621,7 +638,7 @@ The \TeX-mode syntax corresponds directly to the original syntax, and is summari
 
 \name{Relit} warns if \TeX-mode and non-\TeX-mode commands are mixed in the same files: the point of \TeX-mode is that authors can use \TeX\ to keep track of \emph{all\/} \name{relit} commands, but using the \texttt{\%} \name{relit} notation as well (which of course \TeX\ completely ignores) would undermine reliable tracking.
 
-\relit[\seen{}]{generate TeX-mode-demo.tex ., /relit.ends/-1}\label{tex-mode-example}
+\relit[\seen{}]{generate TeX-mode-demo.tex /indent/, /relit.ends/-1}\label{tex-mode-example}
 \indent This and the next paragraph together make up a simple example that generates a file \texttt{TeX-mode-demo.tex} that will contain this text after \name{relit} is run. 
 
 Although normally ignored by \LaTeX\ and invisible to readers, the \name{relit} commands used to save these two paragraphs have been made clearly visible by defining {\tt \char'134relit} appropriately in \LaTeX, as can be seen highlighted on the two lines just before and just after the paragraphs.
@@ -641,10 +658,10 @@ The reason that \name{relit} makes \TeX-mode an option, rather than being the on
 \mycaption{A simple \TeX-mode index. For illustration purposes, only names and files explicitly defined in this paper have been shown (this simplified index excludes definitions where the normal \name{relit} process does not show names to the reader, including all other hidden material after the {\tt \char'134end\{document\}}).\copy0}
 \label{fig:index}
 \end{figure}
-\footnotetext{This paper, which is both a paper explaining an algorithm in the usual way and a paper explaining \name{relit} in detail, is complicated by unusually having to write \name{relit} commands \emph{inside\/} \LaTeX\ \texttt{verbatim} environments, so the reader can see them but where indexing is impossible. (In normal use, \name{relit} commands would be outside \texttt{verbatim} and similar commands and hence they would be processed by \LaTeX\ and would normally be invisible to the reader.) Thus, index entries marked~* in figure~\ref{fig:index} were provided by using duplicated \name{relit} commands written just outside the \texttt{verbatim} environments so \LaTeX\ could evaluate them to make the index entries as shown.}
+\footnotetext{This paper, which is both a paper explaining an algorithm in the usual way and a paper explaining \name{relit} in detail, is complicated by unusually having to write \name{relit} commands \emph{inside\/} \LaTeX\ \texttt{verbatim} environments, so the reader can see them but where simultaneous indexing is impossible. (In normal use, \name{relit} commands would be outside \texttt{verbatim} and similar commands and hence they would be processed by \LaTeX\ and would normally be invisible to the reader.) Thus, index entries marked~* in figure~\ref{fig:index} were provided by using duplicated \name{relit} commands written just outside the \texttt{verbatim} environments so \LaTeX\ could evaluate them to make the starred index entries as shown.}
 }
 
-\section{The benefits of automatic honesty}
+\section{The benefits of automatic honesty}\label{benefits}
 \def\startquote{\sf\raggedright\setbox0=\hbox{``}\hskip -\wd0 \copy0}
 \def\quoteend{''}
 
@@ -687,16 +704,16 @@ While the \emph{\TeX book} is an exceptional piece of writing, elsewhere Knuth h
 
 Our position is that if people are publishing scientific papers about algorithms that cannot ``be explained to computers'' --- they surely ought to work as described --- then their papers are too obscure to be called science. They are compromising reproducibility. Science advances when art becomes science; we hope, then, that ideas like reverse literate programming will help move the darker arts of publishing programming into an improving science of programming.
 
-\section{Conclusions}
+\section{Conclusions}\label{conclusions}
 We developed a neat algorithm to help perform reliable sequential experiments, and in the process of writing about it clearly we also developed a tool to help publish reliable papers about algorithms. This paper combined a description of the algorithm and a description of the tool that enabled us to write this paper.
 
 Our algorithm generates Euler cycles or randomised Euler cycles for complete directed graphs. It can be used to generate randomised $(N,2)$ de Bruijn sequences for efficient sequential experimental design which controls for random variation, systematic error, and carry-over effects. The simplicity of our algorithm, written in basic C, means that it is easy to understand and translate into other languages, which makes it accessible to those engaged in research. 
 
 Conventional literate programming prevents transcription errors by linking source code and manuscripts. Our novel ``reverse literate programming'' approach, which we have described and used in the preparation of the present paper, has allowed us to simultaneously edit the program code and description in the paper at will, and repeatedly automatically generate an executable program we could then run and use to confirm the integrity of the code we described in the paper. 
 
-Here is one example benefit from our approach. At the last moment, our colleague Paul Cairns pointed out that we had confused wine regions (e.g., Chianti) for grape varieties (e.g., Pinotage and Merlot). In the conventional approach to writing about algorithms, we could have edited the paper and the paper and the programs we had written about would have diverged, or at least we would have needed to edit a variety of files that would then have required tedious manual cross-checking (if we could be bothered to do it). We might have fooled ourselves: the program works even if it might get the names of the wines wrong. Certainly, explaining what needs doing is easier than doing it, and it is then but a short step to justifying to ourselves not doing it because it is easier imagined than done.
+Here is one example benefit from our approach. At the last moment, our colleague Paul Cairns pointed out that we had confused wine regions (e.g., Chianti) for grape varieties (e.g., Pinotage and Merlot). In the conventional approach to writing about algorithms, we would have edited the paper and the paper and the programs we had written about would have diverged, or at least we would have needed to edit a variety of files that would then have required tedious manual cross-checking (if we could be bothered to do it). We might have decided it was not worth the bother. We might have fooled ourselves: the program works even if it might get the names of the wine regions or grapes mixed up. Certainly, explaining what needs doing is easier than doing it, and it is then but a short step to justifying to ourselves not doing it because it is easier imagined than done.
 
-Instead, because we were using \name{relit}, we did \emph{one very trivial\/} global edit \emph{in a single file\/} which immediately replaced all our original dubious uses of the word Chianti with Shiraz. This was a very easy change. With no further effort, thanks to using \name{relit}, we had a new C program that used Shiraz, and its output from running it was then automatically inserted back into this paper so the example output (used in section~\ref{winelist}) was also updated  to say Shiraz instead of Chianti. Everything remained consistent with no effort. And it is obviously consistent with the code shown in the paper because it was generated by running exactly the code in the paper that you are reading. Doing it is easier than explaining it.
+Instead, because we were using \name{relit}, we did \emph{one very trivial\/} global edit \emph{in a single file\/} which immediately replaced all our original dubious uses of the word Chianti with Shiraz. This was a trivial change. With no further effort, thanks to using \name{relit}, we automatically had a new C program that used Shiraz, and the output from running it was then automatically inserted back into this paper so the example output (used in section~\ref{winelist}) was also updated to say Shiraz instead of Chianti. Everything remained consistent with no effort. And everything is obviously consistent with the code shown in the paper because it was generated by running exactly the code in the paper that you are reading. Doing it is easier than explaining it.
 
 This paper and the \name{relit} tool and documentation are available from \url{https://github.com/haroldthimbleby/relit}
 
@@ -960,18 +977,35 @@ s/\\seen{}\\endline\\\\/\\seen%/
 %end
 
 %generate Makefile ., /end/-1
-# generated on <date>
+# Makefile for relit
 
 run: eulerPaper.pdf
 	@echo "\n**" Ready! "**"
 	@echo "(You may need to re/run Latex to get cross-references etc right)"
+
+eulerPaper.pdf eulerPaper.aux eulerPaper.idx: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt
+	@echo Please run pdflatex eulerPaper.tex
+	@echo
 	
-test: euler randomised-euler winelist.tex
-	cat winelist.tex
+eulerPaper.bbl: eulerPaper.aux
+	bibtex eulerPaper.aux
 	
-# next line generated by ./relit -f eulerPaper.tex > t
-Makefile TeX-mode-demo.tex euler.c hello.c randomised-euler.c relit-def.tex sedcommands wine.c: eulerPaper.tex relit  
-	./relit "date=`date`" command-line-tag="" eulerPaper.tex
+index eulerPaper.ind: eulerPaper.idx
+	@if [ -e eulerPaper.ind ]; then cp eulerPaper.ind t; fi
+	makeindex eulerPaper.idx
+	@if cmp -s eulerPaper.ind t; then echo "**" Index not changed; else echo "**" Index updated, please rerun pdflatex eulerPaper.tex; fi
+	@rm -f t
+	
+test: euler randomised-euler wine
+	./euler
+	./randomised-euler
+	./wine
+	
+# next line generated by ./relit -f eulerPaper.tex (by hand!)
+Makefile Makefile-tagged.txt TeX-mode-demo.tex TeX-mode-demo.tex-tagged.txt euler.c euler.c-tagged.txt hello.c hello.c-tagged.txt randomised-euler.c randomised-euler.c-tagged.txt relit-def.tex relit-def.tex-tagged.txt sedcommands sedcommands-tagged.txt wine.c wine.c-tagged.txt: eulerPaper.tex relit  
+	./relit -f -u -v eulerPaper.tex > t
+	@echo Updated files: `cat t`
+	@rm t
 
 euler: euler.c
 	@echo " --" Check euler.c 
@@ -981,25 +1015,26 @@ euler: euler.c
 randomised-euler: randomised-euler.c
 	@echo " --" Check randomised-euler.c
 	cc randomised-euler.c -o randomised-euler
-	./randomised-euler
+	./randomised-euler 
 
 winelist.tex: wine
 	./wine > winelist.tex 
 
 wine: wine.c
 	@echo " --" Check wine.c 
-	cc wine.c -o wine
+	cc wine.c -o wine 
 	
-lastwine.tex: winelist.tex
+lastwine.tex: winelist.tex 
 	tail -n 1 winelist.tex > lastwine.tex
 	
 linesofcode.tex: euler.c uncom
-	./uncom < euler.c | wc -l > t; echo Euler.c has `cat t` lines of code
+	./uncom < euler.c | wc -l > t
+	@echo euler.c has `cat t` lines of code
 	echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > linesofcode.tex
 	rm t
 	
 sedgewickeslinesofcode.tex: java/DirectedEulerianCycle.java uncom
-	./uncom < java/DirectedEulerianCycle.java | wc -l > t;
+	./uncom < java/DirectedEulerianCycle.java | wc -l > t
 	echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
 	rm t
 	
@@ -1007,7 +1042,7 @@ e.txt: euler.c sedcommands euler.c-tagged.txt
 	sed -f sedcommands euler.c-tagged.txt > e.txt
 	
 allLinesofcode.tex: uncom 
-	cat java/*.java | ./uncom | wc -l > t;
+	cat java/*.java | ./uncom | wc -l > t
 	echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > allLinesofcode.tex
 	rm t
 	
@@ -1020,22 +1055,12 @@ linesofrelit.tex: relit.c
 uncom: uncom.c
 	cc uncom.c -o uncom
 	
-index eulerPaper.ind: eulerPaper.idx
-	makeindex eulerPaper.idx
-	
-eulerPaper.pdf eulerPaper.aux eulerPaper.idx: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt
-	@echo
-	@echo TRY RUNNING pdflatex eulerPaper.tex
-	
-eulerPaper.bbl: eulerPaper.aux
-	bibtex eulerPaper.aux
-	
 man: relit.1
 	man ./relit.1
 	
 clean: # leaves all the sources and the pdf file
-	-rm euler.c euler randomised-euler.c randomised-euler winelist.tex lastwine.tex linesofcode.tex sedgewickeslinesofcode.tex hello.c allLinesofcode.tex linesofrelit.tex e.txt uncom relit t *-tagged.txt wine.c wine allinesofcode.tex
-	-rm eulerPaper.aux eulerPaper.bbl eulerPaper.blg eulerPaper.log eulerPaper.synctex.gz 
-	-rm eulerPaper.idx eulerPaper.dvi eulerPaper.ilg sedcommands TeX-mode-demo.tex relit-def.tex
-	# -rm eulerPaper.ind  
+	-rm -f euler.c euler randomised-euler.c randomised-euler winelist.tex lastwine.tex linesofcode.tex sedgewickeslinesofcode.tex hello.c allLinesofcode.tex linesofrelit.tex e.txt uncom relit t *-tagged.txt wine.c wine allinesofcode.tex
+	-rm -f eulerPaper.aux eulerPaper.blg eulerPaper.log eulerPaper.synctex.gz 
+	-rm -f eulerPaper.idx eulerPaper.dvi eulerPaper.ilg sedcommands TeX-mode-demo.tex relit-def.tex
+	-rm -f t
 %end

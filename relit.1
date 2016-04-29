@@ -7,8 +7,11 @@ relit \- Reverse literate programming tool
 .B relit 
 [\fB-a\fR]
 [\fB-f\fR]
+[\fB-g\fR]
 [\fB-n\fR]
+[\fB-u\fR]
 [\fB-v\fR]
+[\fB-x\fR]
 [\fIdefinitions...\fR]
 [\fB--\fR]
 .IR sourcefilenames...
@@ -16,25 +19,34 @@ relit \- Reverse literate programming tool
 .B relit
 is a 'reverse literate programming' tool. It is designed to process LaTeX and TeX files (or potentially troff, etc) and flexibly extract and assemble complete source code. Reverse literate programming encourages putting the entire compilable source code in publishable documents (such as peer reviewed publications), in any suitable order, and perhaps with unit tests and other support (e.g., makefiles) in the same file but hidden from the reader. 
 .SH OPTIONS
-Arguments can be in any order; the files are always processed last. Within files, definitions and uses of names can be in any order; name definitions do not need to be in the files where they are used.
+Arguments are processed left-to-right. Within files, definitions and uses of names can be in any order; name definitions do not need to be in the files where they are used.
 .TP
 -a 
-List all definitions (overrides -n)
+List all name and file definitions (overrides -n)
 .TP
 -f 
-List all files generated to standard output
+Force all generated files to be updated (helps make!)
+.TP
+-g
+List all files generated to standard output (overrides -u)
 .TP
 -n 
-List all names (more concise output than -a)
+List all names and files (more concise output than -a)
+.TP
+-u
+List only updated (changed or touched) files to standard output
 .TP
 -v
-Verbose mode (show all \fBrelit\fR commands)
+Verbose mode (show \fBrelit\fR commands as they are processed)
+.TP
+-x
+Do not generate or update any files (run for filenames and diagnostics only; you probably want -x AND at least one other option: -a, -f, -g, -n, -u or -v)
 .TP
 \fIname\fR=\fIvalue\fR
 Define a name. If there are spaces in the \fIvalue\fR it must be enclosed in quote marks.
 .TP
 --
-Treat all subsequent parameters as file names, following the same convention as \fBrm\fR (1).
+Treat all subsequent parameters as file names, following the same convention as \fBrm\fR (1). This allows file names like -- etc.
 .SH DESCRIPTION
 The
 .B relit 
@@ -54,7 +66,7 @@ to be the following lines that match between the two regular expressions inclusi
 .IP
 Generate a file called 
 .I name 
-to be the following lines that match between the two regular expressions inclusive.
+to be the following lines that match between the two regular expressions inclusive. If the file already exists, it is only touched if its contents need changing.
 .IP
 Within the text matched for %define and %generate, names of the form <\fIname\fR> are expanded by their definitions. 
 .LP
