@@ -113,6 +113,11 @@ L.~Lamport.
   Reference Manual}.
 \newblock Addison Wesley, 2nd. edition, 1994.
 
+\bibitem{make}
+R.~Mecklenburg.
+\newblock {\em Managing Projects with GNU Make}.
+\newblock O'Reilly Media, 3rd. edition, 2004.
+
 \bibitem{a=b}
 M.~Petkov{\v s}ek, H.~S. Wilf, and D.~Zeilberger.
 \newblock {\em $A=B$}.

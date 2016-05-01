@@ -1,14 +1,9 @@
 # Makefile for relit
 
-run: eulerPaper.pdf
-	@echo "\n**" Ready! "**"
-	@echo "(You may need to re/run Latex to get cross-references etc right)"
-
-eulerPaper.pdf eulerPaper.aux eulerPaper.idx: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt
+run eulerPaper.pdf eulerPaper.aux eulerPaper.idx: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt eulerPaper.bbl eulerPaper.ind
 	@echo Please run pdflatex eulerPaper.tex
-	@echo
 	
-eulerPaper.bbl: eulerPaper.aux
+bib eulerPaper.bbl: eulerPaper.aux
 	bibtex eulerPaper.aux
 	
 index eulerPaper.ind: eulerPaper.idx
@@ -26,24 +21,18 @@ test: euler randomised-euler wine
 Makefile Makefile-tagged.txt TeX-mode-demo.tex TeX-mode-demo.tex-tagged.txt euler.c euler.c-tagged.txt hello.c hello.c-tagged.txt randomised-euler.c randomised-euler.c-tagged.txt relit-def.tex relit-def.tex-tagged.txt sedcommands sedcommands-tagged.txt wine.c wine.c-tagged.txt: eulerPaper.tex relit  
 	./relit -f -u -v eulerPaper.tex > t
 	@echo Updated files: `cat t`
-	@rm t
+	@rm -f t
 
 euler: euler.c
-	@echo " --" Check euler.c 
 	cc euler.c -o euler
 	./euler
 
 randomised-euler: randomised-euler.c
-	@echo " --" Check randomised-euler.c
 	cc randomised-euler.c -o randomised-euler
 	./randomised-euler 
 
 winelist.tex: wine
 	./wine > winelist.tex 
-
-wine: wine.c
-	@echo " --" Check wine.c 
-	cc wine.c -o wine 
 	
 lastwine.tex: winelist.tex 
 	tail -n 1 winelist.tex > lastwine.tex
@@ -51,31 +40,34 @@ lastwine.tex: winelist.tex
 linesofcode.tex: euler.c uncom
 	./uncom < euler.c | wc -l > t
 	@echo euler.c has `cat t` lines of code
-	echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > linesofcode.tex
-	rm t
+	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > linesofcode.tex
+	@rm -f t
 	
 sedgewickeslinesofcode.tex: java/DirectedEulerianCycle.java uncom
 	./uncom < java/DirectedEulerianCycle.java | wc -l > t
-	echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
-	rm t
+	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
+	@rm -f t
 	
 e.txt: euler.c sedcommands euler.c-tagged.txt
 	sed -f sedcommands euler.c-tagged.txt > e.txt
 	
 allLinesofcode.tex: uncom 
 	cat java/*.java | ./uncom | wc -l > t
-	echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > allLinesofcode.tex
-	rm t
-	
-relit: relit.c
-	cc relit.c -o relit
+	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > allLinesofcode.tex
+	@rm -f t
 	
 linesofrelit.tex: relit.c
 	expr `cat relit.c|wc -l` / 10 "*" 10 > linesofrelit.tex
 	
+relit: relit.c
+	cc relit.c -o relit
+	
 uncom: uncom.c
 	cc uncom.c -o uncom
 	
+wine: wine.c
+	cc wine.c -o wine 
+
 man: relit.1
 	man ./relit.1
 	
@@ -83,4 +75,3 @@ clean: # leaves all the sources and the pdf file
 	-rm -f euler.c euler randomised-euler.c randomised-euler winelist.tex lastwine.tex linesofcode.tex sedgewickeslinesofcode.tex hello.c allLinesofcode.tex linesofrelit.tex e.txt uncom relit t *-tagged.txt wine.c wine allinesofcode.tex
 	-rm -f eulerPaper.aux eulerPaper.blg eulerPaper.log eulerPaper.synctex.gz 
 	-rm -f eulerPaper.idx eulerPaper.dvi eulerPaper.ilg sedcommands TeX-mode-demo.tex relit-def.tex
-	-rm -f t

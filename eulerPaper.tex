@@ -102,20 +102,22 @@ With only three wines, the best sequence of experiments is not too hard to work 
 
 Our problem, then, is to write a computer program to generate an efficient sequence of experiments for the general case. 
 
-For simple cases the problem can be solved by hand by drawing a graph with one vertex for each of the $N$ types of experiment (i.e., in this case, types of wine on our list), and with $N^2$ arrows linking each type to each of the others. (This creates a complete graph, usually denoted $K_N$; the background in graph theory is explained in section~\ref{graphtheory} below.) Each arrow then represents a possible sequence of experiments. Figure~\ref{completeg} shows the graph for $N=3$. 
+For simple cases the problem can be solved by hand by drawing a graph with one vertex for each of the $N$ types of experiment (e.g., testing a type of wine) with $N^2$ arrows to represent each possible sequence of two experiments. This creates a \emph{complete graph}, usually denoted $K_N$; the background in graph theory is explained in section~\ref{graphtheory} below. Figure~\ref{completeg} shows the complete graph for $N=3$.  
 
-A sequence of experiments forms a path in this graph following appropriate arrows, and an optimal sequence is a shortest such path. It is a standard graph theory result that for a complete graph that the shortest sequence only needs to follow each arrow exactly once, and will also end up where it started --- obviously, if it followed any arrow more than once, it would be repeating an experiment unnecessarily. An optimal sequence is called an \emph{Euler cycle}, after Leonard Euler who first studied paths in graphs (but not sequential experiments). Finding Euler cycles is a well-known programming problem, which has been solved many times. Our problem now reduces to finding an Euler cycle algorithm.
+A sequence of several experiments forms a path following arrows in this graph. In our problem we want to find a shortest path that visits every vertex at least once. It is a standard graph theory result for a complete graph that a shortest sequence only needs to follow each arrow exactly once, and it will also end up where it started --- obviously, if it followed any arrow more than once, it would be repeating an experiment and take longer. An optimal sequence is called an \emph{Euler cycle}, after Leonard Euler who first studied paths in graphs (but not sequential experiments). Our problem now reduces to finding an Euler cycle algorithm. 
 
-Unfortunately, it turns out that programming textbooks typically leave this problem as an exercise for the reader, and that does not help if your aim is to do the experiment, rather than learn how to program algorithms! The definitive algorithms textbook by Cormen, Leiserson, Rivest and Stein \cite[p623]{cormen} just says: 
+Finding Euler cycles is a well-known programming problem, which has been solved many times.
+
+Unfortunately, it turns out that programming textbooks typically leave this problem as an exercise for the reader, and that does not help if your aim is to do the experiment, rather than learn how to program algorithms! The definitive algorithms textbook by Cormen, Leiserson, Rivest and Stein \cite{cormen} just says: % [p623]
 
 \begin{quote}
 \textbf{Exercise 22-3} [\ldots]
 Describe an $O(E)$-time algorithm to find an Euler tour of $G$ if one exists. (\emph{Hint:\/} Merge edge-disjoint cycles.)
 \end{quote}
 
-Elsewhere Cormen estimates that writing up the solutions to their exercises would run to between 2,000 and 3,000 pages \cite{cormen-web}: it is just not going to happen. Other books do not show answers to exercises in case students might cheat. At least it is pretty clear where we stand. 
+Elsewhere Cormen estimates that writing up the solutions to the book's exercises would run to between 2,000 and 3,000 pages \cite{cormen-web}: it is just not going to happen. Other books do not show answers to exercises in case students might cheat. At least it is pretty clear where we stand. 
 
-But worse than not providing an algorithm, in many textbooks and published papers, the Euler cycle algorithm --- if presented at all ---  is presented as a sketch or in a simplifying pseudo-language. It is ``sort of'' how it works. While this may be sufficient to explain some principles or to estimate the time complexity of the algorithm, or to do other things programmers are interested in, it is inadequate to convert into a working program in an executable language such as C or Java. To get a working program, often a lot of extra detail needs carefully working out: how should a graph be represented in a language with type checking, for instance? If vertices are numbered, are they numbered from 0 or 1? Or should you use a standard package, and then have to convert the pseudo-program into the programming conventions of the package?
+But worse than not providing an algorithm, in many textbooks and published papers, the Euler cycle algorithm --- if presented at all ---  is presented as a sketch or in a simplifying pseudo-language. It is ``sort of'' how it works. While this may be sufficient to explain some principles or to estimate the time complexity of the algorithm, or to do other things programmers are interested in, it is inadequate to convert into a working program in a real, executable, language such as C or Java. To get a working program, often a lot of extra detail needs carefully working out: how should a graph be represented in a language with type checking, for instance? If vertices are numbered, are they numbered from 0 or 1? Or should you use a standard package, and then have to convert the pseudo-program into the programming conventions of the package?
 
 Furthermore, Euler cycle programs assume the graph is arbitrary (and there are different algorithms for directed and undirected graphs). In our case, the graph happens to be both directed and complete, and we discovered that these facts can be used to simplify the problem. In fact, inventing and implementing a new algorithm for our special case took less time than correctly implementing a standard algorithm. 
 
@@ -143,9 +145,11 @@ Graph theory can be applied to our problem of experimental design to generate a 
 
 Leonard Euler effectively invented graph theory in 1736 with his solution to the famous K\"onigsberg\footnote{K\"onigsberg was in Prussia and is now Kaliningrad, Russia.} bridge problem \cite{euler,wilson}: is it possible to walk a cycle across each of the seven bridges in K\"onigsberg exactly once? In modern graph terminology, a bridge is an \emph{edge\/} and the land a bridge ends on is a \emph{vertex\/}; if bridges are one-way to traffic, then the graph is a \emph{directed graph\/} as opposed to an \emph{undirected graph\/}. An \emph{Euler\/} (or \emph{Eulerian\/}) \emph{cycle\/} is a walk that traverses each edge of a graph exactly once, starting and ending at the same vertex.%\footnote{cf.~an \emph{Euler(ian) path\/} is a walk that traverses every edge of the graph exactly once, but need not start and end at the same vertex.}
 
-This paper is concerned specifically with directed graphs. A \emph{complete\/} directed graph is a graph in which every pair of distinct vertices is connected by two edges, one in each direction. (A complete graph of 3 vertices is shown in figure~\ref{completeg}.) A directed graph is \emph{(strongly) connected\/} if it contains a directed path $u \rightsquigarrow v$ (i.e., from vertex $u$ to vertex $v$) and a directed path $v \rightsquigarrow u$ for every pair of vertices $u,v$. Since edges are paths of length 1, complete graphs are strongly connected.
+This paper is concerned specifically with directed graphs. A \emph{complete\/} directed graph is a graph in which each pair of distinct vertices is connected by two directed edges, one in each direction. A complete graph of 3 vertices is shown in figure~\ref{completeg}. 
 
-\begin{quote}\raggedright\emph{Notation}. We use $u \rightarrow v$ for the directed edge connecting vertex $u$ to vertex $v$, and $u \rightsquigarrow v$ for a directed path, consisting of one or more edges, connecting $u$ to $v$. A \emph{cycle\/} is a path that starts and ends at the same vertex.\end{quote}
+\begin{quote}\raggedright\emph{Notation}. We use $u \rightarrow v$ for the directed edge (arrow) connecting vertex $u$ to vertex $v$, and $u \rightsquigarrow v$ for a directed path, consisting of one or more edges, connecting $u$ to $v$. A \emph{cycle\/} is a path that starts and ends at the same vertex.\end{quote}
+
+A directed graph is \emph{(strongly) connected\/} if it contains a directed path $u \rightsquigarrow v$ and a directed path $v \rightsquigarrow u$ for every pair of vertices $u,v$. Since edges are paths of length 1, complete graphs are strongly connected.
 
 %Graphs represent relations. A complete graph relates every vertex to every other vertex, and therefore represents an \emph{equivalence\/} relation. When every vertex in a graph is connected to itself via an edge, this represents a \emph{reflexive\/} relation; and when all pairs of adjacent vertices $u \rightarrow v$ are linked by reciprocally directed edges $v \rightarrow u$, this represents a \emph{symmetric\/} relation. If for all paths $u \rightsquigarrow v$ there is an edge $u \rightarrow v$, then the graph represents a \emph{transitive\/} relation.
 
@@ -155,7 +159,7 @@ Although the sequences were named after Dutch mathematician Nicolaas Govert de B
 
 The Sanskrit poet Pingala employed a $(2,3)$ de Bruijn sequence over $1,000$ years ago to permute poetic meters and drum rhythms \cite{hall,knuth4a}. Modern applications of de Bruijn sequences include: gene-sequencing, magic tricks, optimal strategies for opening combination locks, and cryptography (including generation of one-time pads, and the Data Encryption Standard algorithm). Since each sublist occurs exactly once in the sequence, two-dimensional de Bruijn arrays may be used to identify the position of industrial robots on a warehouse floor, or the position of an infrared-sensing pen on specially marked paper \cite{diaconis}.
 
-An Eulerian cycle may be used to generate de Bruijn sequences \cite{fleury,hierholzer}. An Eulerian cycle of a complete graph with $N$ vertices will follow every edge $u \rightarrow v$ exactly once for all $u$ and $v$, which is precisely the definition of an $(N,2)$ de Bruijn sequence. More generally, a \emph{de Bruijn graph\/} is a graph whose Euler tour is an Euler cycle generating the corresponding de Bruijn sequence; as a special case, the complete graph is a de Bruijn graph --- reference \cite{good} gives some examples. Other approaches for generating de Bruijn sequences include feedback shift registers and genetic algorithms \cite{turan,knuth4a}.%\cite{lempel}
+An Eulerian cycle may be used to generate de Bruijn sequences \cite{fleury,hierholzer}. An Eulerian cycle of a complete graph with $N$ vertices will follow every edge $u \rightarrow v$ exactly once for all $u$ and $v$, which is precisely the definition of an $(N,2)$ de Bruijn sequence. More generally, a \emph{de Bruijn graph\/} is a graph whose Euler cycle generates the corresponding de Bruijn sequence. As a special case, the complete graph is a de Bruijn graph --- reference \cite{good} gives some examples. Other approaches for generating de Bruijn sequences include feedback shift registers and genetic algorithms \cite{turan,knuth4a}.%\cite{lempel}
 
 Fisher proposed the application of randomised Latin Squares to balance and equalise sampling error and bias in the design of experiments into soil fertility \cite{fisher}. 
 %Similarly, a randomised $(N,2)$ de Bruijn sequence may be used to generate an optimal sequence of experimental tests which minimises unnecessary tests and balances the effects of random and systematic error.
@@ -489,7 +493,7 @@ int main(int argc, const char *argv[])
 %end
 \end{verbatim}\end{quote}
 
-This code was written exactly as shown, and it is easy to check it actually works: it generates the file \texttt{euler.c} which was compiled and run, with the expected results. This implies the code \verb|<main-body>| and so on recursively also compiles and works. Using a makefile (also generated by \name{relit} from the same document) made it very easy to automatically update the code files and unit test them repeatedly as the publication evolved.\footnote{\name{Relit} only updates generated files when their content changes, which makes using \name{make} very efficient, as most edits to a document do not update any files generated from it.}
+This code was written exactly as shown, and it is easy to check it actually works: it generates the file \texttt{euler.c} which was compiled and run, with the expected results. This implies the code \verb|<main-body>| and so on recursively also compiles and works. Using \name{make} \cite{make} with a makefile (also generated by \name{relit} from the same document) made it very easy to automatically update the code files and unit test them repeatedly as the publication evolved.\footnote{By default \name{relit} only updates files when their content changes, which makes using \name{make} very efficient, as most edits to a document do not update any files generated from it.}
 
 Of course it is unlikely that a normal paper (that is, one not explaining \name{relit}) would present the code shown explicitly above: usually, the \texttt{\%{}generate} command would have appeared after \LaTeX's \verb|\end{document}| so it would disappear and not be typeset as part of the published paper. Similarly any details that need not be part of a typical published paper can also be hidden. As we will discuss in section~\ref{invisible-code}, \name{relit} can tell the author what code is visible and what code has been hidden to avoid any uncertainties.
 
@@ -661,6 +665,22 @@ The reason that \name{relit} makes \TeX-mode an option, rather than being the on
 \footnotetext{This paper, which is both a paper explaining an algorithm in the usual way and a paper explaining \name{relit} in detail, is complicated by unusually having to write \name{relit} commands \emph{inside\/} \LaTeX\ \texttt{verbatim} environments, so the reader can see them but where simultaneous indexing is impossible. (In normal use, \name{relit} commands would be outside \texttt{verbatim} and similar commands and hence they would be processed by \LaTeX\ and would normally be invisible to the reader.) Thus, index entries marked~* in figure~\ref{fig:index} were provided by using duplicated \name{relit} commands written just outside the \texttt{verbatim} environments so \LaTeX\ could evaluate them to make the starred index entries as shown.}
 }
 
+\subsection{Thoughts on further work}
+The experience of developing and using a tool drives new ideas, creating a tension between polishing the legacy or generalising and extending the scope and reach of the ideas. Here are several key potential developments:
+
+\begin{enumerate}\raggedright
+\item
+The syntax of \name{relit} could be improved. For example, instead of generating files, \name{relit} commands can be considered as creating text from an expression, which can then be processed. Like \name{loom}, commands could pipe their output to files or other Unix processes. This would generalise \name{relit}. At present, the same effect can be achieved, albeit after one extra step, by using makefiles and other external processes filtering the files that are generated --- but this is ``bad practice'' as it involves creating an arbitrary namespace, specifically the names of the temporary files.
+
+\item
+\name{Relit}'s syntax is fixed, and needs internationalising and making appropriate for  languages other than \LaTeX\ (which itself is grafted into \TeX). At present, \name{relit} is open source and available for any such improvements.
+
+\item
+\name{Relit} is an example of a ``parallel'' language: a language grafted into an existing language, in this case, \LaTeX. Parallel languages are very common, but all of them are \emph{ad hoc\/} and are compromises. Think of HTML, CSS, PHP and JavaScript that have developed conventions so that they can co-exist; or Java and JavaDoc; C and its \texttt{\#define} macro-language which defies C's own syntax; or XML and its metadata. Conversely, JSON has no parallel language.  More research is needed on parallel languages, so that when new languages are introduced they can be extended in the future without unnecessary and perhaps fragile compromises.
+\item
+Finally, in this paper we have taken the value of tools like \name{relit} for granted. For good reasons, we believe it enormously helps reproducibility and dependability of publications. Whether it \emph{actually\/} helps other scientists, and whether it can be improved to help more authors to achieve their publication goals, is an open question. Our final section, next, explores these bigger issues. 
+\end{enumerate}
+
 \section{The benefits of automatic honesty}\label{benefits}
 \def\startquote{\sf\raggedright\setbox0=\hbox{``}\hskip -\wd0 \copy0}
 \def\quoteend{''}
@@ -670,7 +690,7 @@ Richard Feynman's opening sentence for his 1965 Physics Nobel Prize lecture~\cit
 \begin{quote}\startquote We have a habit in writing articles published in scientific journals to make the work as finished as possible, to cover all the tracks, to not worry about the blind alleys or to describe how you had the wrong idea first, and so on.\quoteend
 \end{quote} 
 
-Here Feynman recalls the common habit we are also prone to in Computer Science when writing articles about algorithms (and when using other formal languages). As we refine and improve our articles, their connection with the orginal programs becomes tenuous. We ourselves encountered this problem in very early drafts of this paper before we had invented \name{relit}: improving the paper led us to talk about variables $u,v$ yet the program we were writing about really had variables $i,j$. The original programs had many details, including essential declarations, that never made it into the working paper. It is too easy to slip from clarifying your writing to simply making it up.
+Here Feynman recalls the common habit we are also prone to in Computer Science when writing articles about algorithms (and when using other formal languages). As we refine and improve our articles, their connection with the orginal programs becomes tenuous. We ourselves encountered this problem in very early drafts of this paper before we had invented \name{relit}: improving the paper led us to talk about variables $u,v$ yet the program we were writing about really had variables $i,j$. Our original programs had many details, including essential declarations, that never made it into the working paper. It is too easy to slip from clarifying your writing to simply making it up.
 
 There is a legitimate stage in drafting papers where authors can freely write about what they hope and intend will be true as placeholders for future work. ``Our program \emph{will\/} work like this~\ldots'' But if what they write has no rigorous connection with reality it will never be straightforward to know when the aspirational gap has been closed, and the authors thus risk eventually publishing misleading and time-wasting papers. Readers generally have no way to distinguish sketches and visionary ideas from actual achievements. 
 
@@ -715,7 +735,7 @@ Here is one example benefit from our approach. At the last moment, our colleague
 
 Instead, because we were using \name{relit}, we did \emph{one very trivial\/} global edit \emph{in a single file\/} which immediately replaced all our original dubious uses of the word Chianti with Shiraz. This was a trivial change. With no further effort, thanks to using \name{relit}, we automatically had a new C program that used Shiraz, and the output from running it was then automatically inserted back into this paper so the example output (used in section~\ref{winelist}) was also updated to say Shiraz instead of Chianti. Everything remained consistent with no effort. And everything is obviously consistent with the code shown in the paper because it was generated by running exactly the code in the paper that you are reading. Doing it is easier than explaining it.
 
-This paper and the \name{relit} tool and documentation are available from \url{https://github.com/haroldthimbleby/relit}
+This paper and the open source \name{relit} tool and documentation are available from \url{https://github.com/haroldthimbleby/relit}
 
 %The reason for literate programming (reverse or not) is that people want to talk and write about programs in a different way from how compilers need them. There are various automated schemes (such as \name{loom\/} and  \name{warp\/}) and this paper's new approach that make writing \emph{reliably\/} about programs much easier. 
 
@@ -979,15 +999,10 @@ s/\\seen{}\\endline\\\\/\\seen%/
 %generate Makefile ., /end/-1
 # Makefile for relit
 
-run: eulerPaper.pdf
-	@echo "\n**" Ready! "**"
-	@echo "(You may need to re/run Latex to get cross-references etc right)"
-
-eulerPaper.pdf eulerPaper.aux eulerPaper.idx: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt
+run eulerPaper.pdf eulerPaper.aux eulerPaper.idx: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt eulerPaper.bbl eulerPaper.ind
 	@echo Please run pdflatex eulerPaper.tex
-	@echo
 	
-eulerPaper.bbl: eulerPaper.aux
+bib eulerPaper.bbl: eulerPaper.aux
 	bibtex eulerPaper.aux
 	
 index eulerPaper.ind: eulerPaper.idx
@@ -1005,24 +1020,18 @@ test: euler randomised-euler wine
 Makefile Makefile-tagged.txt TeX-mode-demo.tex TeX-mode-demo.tex-tagged.txt euler.c euler.c-tagged.txt hello.c hello.c-tagged.txt randomised-euler.c randomised-euler.c-tagged.txt relit-def.tex relit-def.tex-tagged.txt sedcommands sedcommands-tagged.txt wine.c wine.c-tagged.txt: eulerPaper.tex relit  
 	./relit -f -u -v eulerPaper.tex > t
 	@echo Updated files: `cat t`
-	@rm t
+	@rm -f t
 
 euler: euler.c
-	@echo " --" Check euler.c 
 	cc euler.c -o euler
 	./euler
 
 randomised-euler: randomised-euler.c
-	@echo " --" Check randomised-euler.c
 	cc randomised-euler.c -o randomised-euler
 	./randomised-euler 
 
 winelist.tex: wine
 	./wine > winelist.tex 
-
-wine: wine.c
-	@echo " --" Check wine.c 
-	cc wine.c -o wine 
 	
 lastwine.tex: winelist.tex 
 	tail -n 1 winelist.tex > lastwine.tex
@@ -1030,31 +1039,34 @@ lastwine.tex: winelist.tex
 linesofcode.tex: euler.c uncom
 	./uncom < euler.c | wc -l > t
 	@echo euler.c has `cat t` lines of code
-	echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > linesofcode.tex
-	rm t
+	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > linesofcode.tex
+	@rm -f t
 	
 sedgewickeslinesofcode.tex: java/DirectedEulerianCycle.java uncom
 	./uncom < java/DirectedEulerianCycle.java | wc -l > t
-	echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
-	rm t
+	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
+	@rm -f t
 	
 e.txt: euler.c sedcommands euler.c-tagged.txt
 	sed -f sedcommands euler.c-tagged.txt > e.txt
 	
 allLinesofcode.tex: uncom 
 	cat java/*.java | ./uncom | wc -l > t
-	echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > allLinesofcode.tex
-	rm t
-	
-relit: relit.c
-	cc relit.c -o relit
+	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > allLinesofcode.tex
+	@rm -f t
 	
 linesofrelit.tex: relit.c
 	expr `cat relit.c|wc -l` / 10 "*" 10 > linesofrelit.tex
 	
+relit: relit.c
+	cc relit.c -o relit
+	
 uncom: uncom.c
 	cc uncom.c -o uncom
 	
+wine: wine.c
+	cc wine.c -o wine 
+
 man: relit.1
 	man ./relit.1
 	
@@ -1062,5 +1074,4 @@ clean: # leaves all the sources and the pdf file
 	-rm -f euler.c euler randomised-euler.c randomised-euler winelist.tex lastwine.tex linesofcode.tex sedgewickeslinesofcode.tex hello.c allLinesofcode.tex linesofrelit.tex e.txt uncom relit t *-tagged.txt wine.c wine allinesofcode.tex
 	-rm -f eulerPaper.aux eulerPaper.blg eulerPaper.log eulerPaper.synctex.gz 
 	-rm -f eulerPaper.idx eulerPaper.dvi eulerPaper.ilg sedcommands TeX-mode-demo.tex relit-def.tex
-	-rm -f t
 %end
