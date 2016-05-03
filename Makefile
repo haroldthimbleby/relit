@@ -40,12 +40,12 @@ lastwine.tex: winelist.tex
 linesofcode.tex: euler.c uncom
 	./uncom < euler.c | wc -l > t
 	@echo euler.c has `cat t` lines of code
-	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > linesofcode.tex
+	@echo "\\linesofcode"=`cat t` > linesofcode.tex
 	@rm -f t
 	
 sedgewickeslinesofcode.tex: java/DirectedEulerianCycle.java uncom
 	./uncom < java/DirectedEulerianCycle.java | wc -l > t
-	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
+	@echo "\\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
 	@rm -f t
 	
 e.txt: euler.c sedcommands euler.c-tagged.txt
@@ -53,7 +53,7 @@ e.txt: euler.c sedcommands euler.c-tagged.txt
 	
 allLinesofcode.tex: uncom 
 	cat java/*.java | ./uncom | wc -l > t
-	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > allLinesofcode.tex
+	@echo "\\linesofcode"=`cat t` > allLinesofcode.tex
 	@rm -f t
 	
 linesofrelit.tex: relit.c

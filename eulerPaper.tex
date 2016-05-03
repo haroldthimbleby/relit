@@ -13,6 +13,8 @@
 \makeindex
 %set-tag \seen{}
 
+\def\myinput#1{\IfFileExists{./#1}{\input #1}{\textcolor{red}{Warning: ``#1'' does not exist. Please run make to create the files that are needed!}}}
+
 %==========================================================================================================
 % Additional Packages (Dave)
 \usepackage{siunitx, booktabs, cancel, csquotes, mathpazo} % Allows correct typesetting of SI Units
@@ -121,14 +123,15 @@ But worse than not providing an algorithm, in many textbooks and published paper
 
 Furthermore, Euler cycle programs assume the graph is arbitrary (and there are different algorithms for directed and undirected graphs). In our case, the graph happens to be both directed and complete, and we discovered that these facts can be used to simplify the problem. In fact, inventing and implementing a new algorithm for our special case took less time than correctly implementing a standard algorithm. 
 
-Our \emph{complete\/} program, as will be fully described in this paper (shown in full section~\ref{complete-program}), is just \input linesofcode.tex
+\newcount\linesofcode
+Our \emph{complete\/} program, as will be fully described in this paper (shown in full section~\ref{complete-program}), is just \myinput{linesofcode.tex}
 \newcount\testcode 
 \testcode=5 \advance\linesofcode by -\testcode
 \the\linesofcode\ lines of code  (plus \the\testcode\ lines of test code); moreover, deleting a purely diagnostic routine would save 3 or 4 lines, leaving just
-\advance \linesofcode by -4 \the\linesofcode\ ``real'' lines. This compares favourably to the reference algorithm \cite{sedgewickcode} that has \input sedgewickeslinesofcode.tex
+\advance \linesofcode by -4 \the\linesofcode\ ``real'' lines. This compares favourably to the reference algorithm \cite{sedgewickcode} that has \myinput{sedgewickeslinesofcode.tex}
 \testcode=49 \advance\linesofcode by -\testcode
 \the\linesofcode\ lines of code (plus \the\testcode\ lines of test code); and even then this reference algorithm will not work ``out of the box'' without also finding  and compiling it  with the various Java and data files it depends on --- the total code needed runs to   
-\input allLinesofcode.tex
+\myinput{allLinesofcode.tex}
 \the\linesofcode\ lines.\footnote{Line counts ignore comments and blank lines.} This reference code also requires minor work to edit the Java and local Java environment to compile it, as well as to define the graph and print the desired solution (details that are already included in our algorithm). Furthermore, while Java may be a fine language, it is hard to translate algorithms written in it into other languages; whereas our code, written in basic C, is easy to translate into any language that has arrays (Fortran, PHP, JavaScript, Mathematica, Matlab, Java itself~\ldots), which will be a considerable advantage for experimenters who are not familiar with Java
 
 The Java reference algorithm is sophisticated, but there is an evident separation of the published book text \cite{sedgewickbook} from the published program \cite{sedgewickcode}, which allowed the program to develop into a sophisticated program independently of the published book. In fact, the book \cite{sedgewickcode} omits the code altogether as it is too long and complicated: it has to be downloaded from the web instead. Of course, this is entirely defensible: the web code has many details (e.g., features for teaching) that go far beyond what is needed in a book --- and the code is complete with unit tests and examples, which would be tedious to explain in a book, and even a source of error when readers try to copy something so long by hand. It is clear that normal publishing practices do not help the goal of finding easily reproducibe algorithms. 
@@ -159,11 +162,11 @@ Although the sequences were named after Dutch mathematician Nicolaas Govert de B
 
 The Sanskrit poet Pingala employed a $(2,3)$ de Bruijn sequence over $1,000$ years ago to permute poetic meters and drum rhythms \cite{hall,knuth4a}. Modern applications of de Bruijn sequences include: gene-sequencing, magic tricks, optimal strategies for opening combination locks, and cryptography (including generation of one-time pads, and the Data Encryption Standard algorithm). Since each sublist occurs exactly once in the sequence, two-dimensional de Bruijn arrays may be used to identify the position of industrial robots on a warehouse floor, or the position of an infrared-sensing pen on specially marked paper \cite{diaconis}.
 
-An Eulerian cycle may be used to generate de Bruijn sequences \cite{fleury,hierholzer}. An Eulerian cycle of a complete graph with $N$ vertices will follow every edge $u \rightarrow v$ exactly once for all $u$ and $v$, which is precisely the definition of an $(N,2)$ de Bruijn sequence. More generally, a \emph{de Bruijn graph\/} is a graph whose Euler cycle generates the corresponding de Bruijn sequence. As a special case, the complete graph is a de Bruijn graph --- reference \cite{good} gives some examples. Other approaches for generating de Bruijn sequences include feedback shift registers and genetic algorithms \cite{turan,knuth4a}.%\cite{lempel}
-
 Fisher proposed the application of randomised Latin Squares to balance and equalise sampling error and bias in the design of experiments into soil fertility \cite{fisher}. 
 %Similarly, a randomised $(N,2)$ de Bruijn sequence may be used to generate an optimal sequence of experimental tests which minimises unnecessary tests and balances the effects of random and systematic error.
 In a similar way, if a sequence of experimental tests is prescribed by a randomised $(N,2)$ de Bruijn sequence, every element in the series will be tested $N$ times in random order, and will be immediately preceded by every other element in the series in the set exactly once. This approach allows the most efficient means of testing multiple items balancing and equalising the effects of systematic bias, drift, serial carry-over effects, hysteresis and random error. Thus a simple algorithm to generate randomised de Bruijn sequences has applications in experimental design in many areas of scientific and statistical research,  and can also be used in signal processing to improve the signal to noise ratio, for instance in Magnetic Resonance Imaging (MRI) scan \cite{aguirre}.
+
+An Eulerian cycle may be used to generate de Bruijn sequences \cite{fleury,hierholzer}. An Eulerian cycle of a complete graph with $N$ vertices will follow every edge $u \rightarrow v$ exactly once for all $u$ and $v$, which is precisely the definition of an $(N,2)$ de Bruijn sequence. More generally, a \emph{de Bruijn graph\/} is a graph whose Euler cycle generates the corresponding de Bruijn sequence. As a special case, the complete graph is a de Bruijn graph --- reference \cite{good} gives some examples. Other approaches for generating de Bruijn sequences include feedback shift registers and genetic algorithms \cite{turan,knuth4a}.%\cite{lempel}
 
 \subsection{The new algorithm}
 
@@ -364,9 +367,9 @@ void recordEdge(int u, int v)
 \end{Verbatim}
 
 \label{winelist}
-\ldots\ and finishing with a final \verb|printf("%s\n", wines[0])|, which was otherwise lost in changing the \verb|recordEdge| to only print one vertex rather than pairs. Note how we used \LaTeX's \texttt{\$\char'134rightarrow\$} to generate a ``$\rightarrow$'' symbol to make the experiment sequence look a bit neater when typeset by \LaTeX\@. With these changes, the code generates the following sequence: \input winelist.tex\unskip.
+\ldots\ and finishing with a final \verb|printf("%s\n", wines[0])|, which was otherwise lost in changing the \verb|recordEdge| to only print one vertex rather than pairs. Note how we used \LaTeX's \texttt{\$\char'134rightarrow\$} to generate a ``$\rightarrow$'' symbol to make the experiment sequence look a bit neater when typeset by \LaTeX\@. With these changes, the code generates the following sequence: \myinput{winelist.tex}\unskip.
 
-It is easy to confirm by hand that this is indeed an Euler cycle (perhaps by mapping wines to the letters $A,B,C$ and ticking off the edges in figure \ref{completeg}). Note that, as an Eulerian cycle ends at the starting vertex, an additional drink of \input lastwine.tex\unskip\ (in this worked example)\footnote{The wine experiment sequence was generated automatically from the code shown in this paper; it was run and the results saved to a file \texttt{winelist.tex}, the last line of which was extracted (several times) for this paragraph by using Unix's \texttt{tail -n 1 winelist.tex}.} is required: thus a balanced scientific experiment would repeat sequential experiments with randomly selected starting vertices each time, using the ideas of section~\ref{randomise}. Randomisation avoids the potential bias caused by drinking too much \input lastwine.tex\unskip\ --- in the sequence above \input lastwine.tex\unskip\ happens to be drunk both first and last, and hence once more than any other wine. Randomisation also avoids the possible bias caused by always starting with \input lastwine.tex\unskip, which might, for instance, be somebody's favourite wine. After enough randomised sequential experiments, these biases will be evened out.
+It is easy to confirm by hand that this is indeed an Euler cycle (perhaps by mapping wines to the letters $A,B,C$ and ticking off the edges in figure \ref{completeg}). Note that, as an Eulerian cycle ends at the starting vertex, an additional drink of \myinput{lastwine.tex}\unskip\ (in this worked example)\footnote{The wine experiment sequence was generated automatically from the code shown in this paper; it was run and the results saved to a file \texttt{winelist.tex}, the last line of which was extracted (several times) for this paragraph by using Unix's \texttt{tail -n 1 winelist.tex}.} is required: thus a balanced scientific experiment would repeat sequential experiments with randomly selected starting vertices each time, using the ideas of section~\ref{randomise}. Randomisation avoids the potential bias caused by drinking too much \myinput{lastwine.tex}\unskip\ --- in the sequence above \myinput{lastwine.tex}\unskip\ happens to be drunk both first and last, and hence once more than any other wine. Randomisation also avoids the possible bias caused by always starting with \myinput{lastwine.tex}\unskip, which might, for instance, be somebody's favourite wine. After enough randomised sequential experiments, these biases will be evened out.
 
 %An Euler cycle of a complete graph gives us all pairs or 2-tuples of vertices. We note that the generalisation to all sequences of $k$ varieties of wine requires $k$-tipples.
 
@@ -513,7 +516,7 @@ Our reverse literate programming tool \name{relit} provides all the normal check
 %\name{Relit} also warns if a name is used more than once, since this may indicate an error (if the same piece of code is needed twice in a paper, it probably needs explaining). 
 Indeed, some authors have used deliberate ``errors'' as a way of providing metacomments: defining an unused name results in its name and value being reported to the user --- so the text is highlighted, which can be used as a reminder to the author to fix a problem with the document. 
 
-\name{Relit} is a short C program, \input linesofrelit.tex\ lines long.
+\name{Relit} is a short C program, \myinput{linesofrelit.tex}\ lines long.
 
 \subsection{Checking hidden code}\label{invisible-code}
 \def\seen{\color{black}\ttfamily\fontseries{l}\selectfont\global\def\endline{}}
@@ -610,7 +613,7 @@ The code shown next, below, is one of the example algorithms as already discusse
 The authors of this paper are happy that these standard declarations are not taking up space in the published paper --- in any case, if a reader of this paper faithfully copies the published code and omits these lines, good compilers will provide helpful error messages such as ``Note: include the header \texttt{<stdio.h>} or explicitly provide a declaration for \texttt{printf}.''
 
 {\label{complete-program}\tt \vskip .3cm \begin{verse}\small
-\input e.txt
+\myinput{e.txt}
 \end{verse}
 }
 
@@ -657,7 +660,7 @@ The reason that \name{relit} makes \TeX-mode an option, rather than being the on
 \begin{figure}
 \renewenvironment{theindex}{\begin{list}{\relax}{}\item \hskip0pt \vdots}{\item \hskip0pt \vdots\end{list}}
 \begin{center}\small
-\input eulerPaper.ind
+\myinput{eulerPaper.ind}
 \end{center}
 \mycaption{A simple \TeX-mode index. For illustration purposes, only names and files explicitly defined in this paper have been shown (this simplified index excludes definitions where the normal \name{relit} process does not show names to the reader, including all other hidden material after the {\tt \char'134end\{document\}}).\copy0}
 \label{fig:index}
@@ -676,7 +679,7 @@ The syntax of \name{relit} could be improved. For example, instead of generating
 \name{Relit}'s syntax is fixed, and needs internationalising and making appropriate for  languages other than \LaTeX\ (which itself is grafted into \TeX). At present, \name{relit} is open source and available for any such improvements.
 
 \item
-\name{Relit} is an example of a ``parallel'' language: a language grafted into an existing language, in this case, \LaTeX. Parallel languages are very common, but all of them are \emph{ad hoc\/} and are compromises. Think of HTML, CSS, PHP and JavaScript that have developed conventions so that they can co-exist; or Java and JavaDoc; C and its \texttt{\#define} macro-language which defies C's own syntax; or XML and its metadata. Conversely, JSON has no parallel language.  More research is needed on parallel languages, so that when new languages are introduced they can be extended in the future without unnecessary and perhaps fragile compromises.
+\name{Relit} is an example of a ``parallel language'': a language grafted into an existing language, in this case, \name{relit}'s simple commands squeezed into \LaTeX. Parallel languages are very common, but all of them are \emph{ad hoc\/} and are compromises. Think of HTML, CSS, PHP and JavaScript that have developed conventions so that they can co-exist; or Java and JavaDoc; C and its \texttt{\#define} macro-language which defies C's own syntax; or XML and its metadata; even \LaTeX\ and \TeX\@. Conversely, JSON has no parallel language.  More research is needed on parallel languages, so that when new languages are introduced they can be extended in the future without unnecessary and perhaps fragile compromises.
 \item
 Finally, in this paper we have taken the value of tools like \name{relit} for granted. For good reasons, we believe it enormously helps reproducibility and dependability of publications. Whether it \emph{actually\/} helps other scientists, and whether it can be improved to help more authors to achieve their publication goals, is an open question --- a more profound question, which is harder but more useful to answer is: of several \name{relit}-like systems, which are more effective and why? We currently lack the theories and principles of doing computer science so these critical questions are hard. Our final section, next, explores these bigger issues. 
 \end{enumerate}
@@ -724,16 +727,16 @@ While the \emph{\TeX book} is an exceptional piece of writing, elsewhere Knuth h
 
 Our position is that if people are publishing scientific papers about algorithms that cannot ``be explained to computers'' --- they surely ought to work as described --- then their papers are too obscure to be called science. They are compromising reproducibility. Science advances when art becomes science; we hope, then, that ideas like reverse literate programming will help move the darker arts of publishing programming into an improving science of programming.
 
+Feynman's radical integrity is discouragingly hard work unless tools help make it automatic. Here is an example of automatic integrity achieved with the help of \name{relit}. At the last moment, our colleague Paul Cairns pointed out that we had confused wine regions (e.g., Chianti) for grape varieties (e.g., Pinotage and Merlot). In the conventional approach to writing about algorithms, we would have edited the paper and the paper and the programs we had written about would have diverged, or at least we would have needed to edit a variety of files that would then have required tedious manual cross-checking (if we could be bothered to do it). We might have decided it was not worth the bother. We might have fooled ourselves: the program works even if it might get the names of the wine regions or grapes mixed up. Certainly, explaining what needs doing is easier than doing it, and it is then but a short step to justifying to ourselves not doing it because it is easier imagined than done.
+
+Instead, because we were using \name{relit}, we did \emph{one very trivial\/} global edit \emph{in a single file\/} which immediately replaced all our original dubious uses of the word Chianti with Shiraz. This was a trivial change. With no further effort, thanks to using \name{relit}, we automatically had a new C program that used Shiraz, and the output from running it was then automatically inserted back into this paper so the example output (used in section~\ref{winelist}) was also updated to say Shiraz instead of Chianti. Everything remained consistent with no effort. And everything is obviously consistent with the code shown in the paper because it was generated by running exactly the code in the paper that you are reading. Doing it is easier than explaining it.
+
 \section{Conclusions}\label{conclusions}
 We developed a neat algorithm to help perform reliable sequential experiments, and in the process of writing about it clearly we also developed a tool to help publish reliable papers about algorithms. This paper combined a description of the algorithm and a description of the tool that enabled us to write this paper.
 
 Our algorithm generates Euler cycles or randomised Euler cycles for complete directed graphs. It can be used to generate randomised $(N,2)$ de Bruijn sequences for efficient sequential experimental design which controls for random variation, systematic error, and carry-over effects. The simplicity of our algorithm, written in basic C, means that it is easy to understand and translate into other languages, which makes it accessible to those engaged in research. 
 
 Conventional literate programming prevents transcription errors by linking source code and manuscripts. Our novel ``reverse literate programming'' approach, which we have described and used in the preparation of the present paper, has allowed us to simultaneously edit the program code and description in the paper at will, and repeatedly automatically generate an executable program we could then run and use to confirm the integrity of the code we described in the paper. 
-
-Here is one example benefit from our approach. At the last moment, our colleague Paul Cairns pointed out that we had confused wine regions (e.g., Chianti) for grape varieties (e.g., Pinotage and Merlot). In the conventional approach to writing about algorithms, we would have edited the paper and the paper and the programs we had written about would have diverged, or at least we would have needed to edit a variety of files that would then have required tedious manual cross-checking (if we could be bothered to do it). We might have decided it was not worth the bother. We might have fooled ourselves: the program works even if it might get the names of the wine regions or grapes mixed up. Certainly, explaining what needs doing is easier than doing it, and it is then but a short step to justifying to ourselves not doing it because it is easier imagined than done.
-
-Instead, because we were using \name{relit}, we did \emph{one very trivial\/} global edit \emph{in a single file\/} which immediately replaced all our original dubious uses of the word Chianti with Shiraz. This was a trivial change. With no further effort, thanks to using \name{relit}, we automatically had a new C program that used Shiraz, and the output from running it was then automatically inserted back into this paper so the example output (used in section~\ref{winelist}) was also updated to say Shiraz instead of Chianti. Everything remained consistent with no effort. And everything is obviously consistent with the code shown in the paper because it was generated by running exactly the code in the paper that you are reading. Doing it is easier than explaining it.
 
 This paper and the open source \name{relit} tool and documentation are available from \url{https://github.com/haroldthimbleby/relit}
 
@@ -1039,12 +1042,12 @@ lastwine.tex: winelist.tex
 linesofcode.tex: euler.c uncom
 	./uncom < euler.c | wc -l > t
 	@echo euler.c has `cat t` lines of code
-	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > linesofcode.tex
+	@echo "\\linesofcode"=`cat t` > linesofcode.tex
 	@rm -f t
 	
 sedgewickeslinesofcode.tex: java/DirectedEulerianCycle.java uncom
 	./uncom < java/DirectedEulerianCycle.java | wc -l > t
-	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
+	@echo "\\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
 	@rm -f t
 	
 e.txt: euler.c sedcommands euler.c-tagged.txt
@@ -1052,7 +1055,7 @@ e.txt: euler.c sedcommands euler.c-tagged.txt
 	
 allLinesofcode.tex: uncom 
 	cat java/*.java | ./uncom | wc -l > t
-	@echo "\\\\newcount\\linesofcode \\linesofcode"=`cat t` > allLinesofcode.tex
+	@echo "\\linesofcode"=`cat t` > allLinesofcode.tex
 	@rm -f t
 	
 linesofrelit.tex: relit.c

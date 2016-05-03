@@ -1,9 +1,7 @@
 // Inverted literate programming
 // March 2016 (c) Harold Thimbleby harold@thimbleby.net 
-// Version 3.0
-		// BUG regex cannot use /, since that's the terminator
-		// BUG if a line is not fully matched, it is ignored - we don't report any syntax error
-		// \relit{define name ., .} goes wrong because of backing up over a non-existent newline. Doh
+// Version 3.1
+		// \relit{define name ., .} goes wrong because of backing up over a non-existent newline. 
 		
 #include <stdlib.h>
 #include <stdio.h>
@@ -15,7 +13,10 @@
 #include <regex.h>
 #include <time.h>
 
-int verboseOption = 0, touchedFilesOption = 0, listFileNamesOption = 0, forceUpdateOption = 0, xOption = 0, allDefinitionsOption = 0, allNamesOption = 0;
+int verboseOption = 0, touchedFilesOption = 0, listFileNamesOption = 0, forceUpdateOption = 0, xOption = 0, allDefinitionsOption = 0, allNamesOption = 0, optionsOption = 0;
+char *defaultTag = "";
+enum { UPDATE, UNCHANGED } touchWriting;
+long touchLength;
 
 struct dictionary // there aren't going to be many names, so a linked list will work fine
 {	struct dictionary *next;
@@ -117,9 +118,6 @@ struct
 		"\\\\relit(\\[|\\{)[^\n]*\n"
 	}
 };
-
-enum { UPDATE, UNCHANGED } touchWriting;
-long touchLength;
 
 FILE *touchOpen(char *name)
 {	FILE *fd;
@@ -250,8 +248,6 @@ int search(char *type, char *name, char *reName, char *bp, int offset, int dot, 
 	return offset;
 }
 
-char *defaultTag = "";
-
 long process(char *bp, long offset, regmatch_t *REmatch, int setTag, int setTagIndex, int typeIndex, int nameIndex, int startDotIndex, int startDeltaIndex, int endDotIndex, int endDeltaIndex, int usesTag, int tagIndex)
 { 	char *type, *name, *start, *end, *tag;
 	long startChar, endChar;
@@ -287,33 +283,55 @@ long process(char *bp, long offset, regmatch_t *REmatch, int setTag, int setTagI
 	return offset;
 }
 
+struct structOption
+{	char *option, *usage;
+	int *optionFlag;
+} options[] =
+{	{"-a", "list all name and file definitions (overrides -n)", &allDefinitionsOption},
+	{"-f", "force all generated files to be updated", &forceUpdateOption},
+	{"-g", "list all generated files to standard output (overrides -u)", &listFileNamesOption},
+	{"-n", "list all names and files", &allNamesOption},
+	{"-u", "list only updated files to standard output", &touchedFilesOption},
+	{"-v", "verbose mode", &verboseOption},
+	{"-x", "do not generate or update any files", &xOption},
+	{"--", "treat all further parameters as filenames", &optionsOption},
+};
+
+int setOption(char *argvi)
+{	if( !optionsOption )
+		for( int o = 0; o < sizeof options/sizeof(struct structOption); o++ )
+			if( !strcmp(options[o].option, argvi) ) return *options[o].optionFlag = 1;
+	return 0;
+}
+
+void usage(char *process)
+{	fprintf(stderr, "** did not process any files\nUsage: %s ", process);
+	for( int o = 0; o < sizeof options/sizeof(struct structOption); o++ )
+		fprintf(stderr, "[%s] ", options[o].option);
+	fprintf(stderr, "[name=value] files...\n");
+	for( int o = 0; o < sizeof options/sizeof(struct structOption); o++ )
+		fprintf(stderr, "       %s %s\n", options[o].option, options[o].usage);
+	fprintf(stderr, "       name=value define name\n");
+}
+
 int main(int argc, char *argv[]) 
-{	int fp, opened = 0, options = 1, TeXMode = 0, nonTeXMode = 0;
+{	int fp, opened = 0, TeXMode = 0, nonTeXMode = 0;
 	char *bp, *processedFileName;
 	for( int i = 0; i < REMAX; i++ )
     {	if( regcomp(res[i].compiled, res[i].regex, REG_EXTENDED) != 0 )
     	{	fprintf(stderr, "** internal error: regcomp fail\n%s\n", res[i].regex);
-    		exit(0);
-    	}
-		if( 0 )
-		{	int bra = 0, ket = 0;
+    		int bra = 0, ket = 0;
 			for( bp = res[i].regex; *bp; bp++ )
 				if( *bp == '(' ) bra++;
 				else if( *bp == ')' ) ket++;
 			fprintf(stderr, "RE %d: bra = %d, ket = %d\n", i, bra, ket);
+			exit(0);
 		}
 	}
-	for( int i = 1; i < argc; i++ ) // process all options first
-		if( options && !strcmp("-a", argv[i]) ) allDefinitionsOption = 1;
-		else if( options && !strcmp("-v", argv[i]) ) verboseOption = 1;
-		else if( options && !strcmp("-n", argv[i]) ) allNamesOption = 1;
-		else if( options && !strcmp("-u", argv[i]) ) touchedFilesOption = 1;
-		else if( options && !strcmp("-f", argv[i]) ) forceUpdateOption = 1;
-		else if( options && !strcmp("-g", argv[i]) ) listFileNamesOption = 1;
-		else if( options && !strcmp("-x", argv[i]) ) xOption = 1;
-		else if( options && (bp = index(argv[i], '=')) != NULL ) define("command line name", allocString(argv[i], bp-argv[i]), &bp[1], "<command-line-tag>");
-		else if( !strcmp("--", argv[i]) ) options = 0;
-	    else if( (fp = open(processedFileName = argv[i], O_RDONLY)) >= 0 )
+	for( int i = 1; i < argc; i++ ) 
+		if( setOption(argv[i]) ) continue;
+		else if( !optionsOption && (bp = index(argv[i], '=')) != NULL ) define("command line name", allocString(argv[i], bp-argv[i]), &bp[1], "<command-line-tag>");
+		else if( (fp = open(processedFileName = argv[i], O_RDONLY)) >= 0 )
 		{	int thisfileTeXMode = 0, thisfilenonTeXmode = 0;
 			struct stat stat_buf;
 			fstat(fp, &stat_buf);
@@ -335,10 +353,8 @@ int main(int argc, char *argv[])
 				if( regexec(&RErelit, &bp[offset], 14, REmatch, 0) != 0 || REmatch[0].rm_so != so ) // it matched \relit, but not the rest...
 				{	fprintf(stderr, "** Warning: line not in \\relit syntax (line ignored)\n%.*s", (int) (eo-so), &bp[offset+so]);
 					offset += eo;
-					continue;	
-				}
-				// matched definitions of the form: \relit[tag]{keyword name re, re} OR \relit{set-tag text}
-				if( !strncmp(&bp[offset+REmatch[3].rm_so], "ends", 4) ) // skip \relit{ends}
+				} // else matched definitions of the form: \relit[tag]{keyword name re, re} OR \relit{set-tag text}
+				else if( !strncmp(&bp[offset+REmatch[3].rm_so], "ends", 4) ) // skip \relit{ends}
 					offset += eo;
 				else if( REmatch[1].rm_eo > 0 && REmatch[11].rm_eo > 0 )
 				{	fprintf(stderr, "** cannot use both [tag] and set-tag\n%.*s", (int) (eo-so), &bp[offset+so]);
@@ -354,10 +370,8 @@ int main(int argc, char *argv[])
 				if( regexec(&REkeyword, &bp[offset], 14, REmatch, 0) != 0 || REmatch[0].rm_so != so ) // it matched % keyword, but not the rest...
 				{	fprintf(stderr, "** Warning: line not in %% relit syntax (line ignored)\n%.*s", (int) (eo-so), &bp[offset+so]);
 					offset += eo;
-					continue;	
-				}
-				// matched definitions of the form: % keyword name re, re [, tag] OR % set-tag text
-				offset = process(bp, offset, REmatch, REmatch[10].rm_eo > 0, 11, 2, 3, 4, 5, 6, 7, REmatch[8].rm_eo > 0, 9);
+				} // else matched definitions of the form: % keyword name re, re [, tag] OR % set-tag text
+				else offset = process(bp, offset, REmatch, REmatch[10].rm_eo > 0, 11, 2, 3, 4, 5, 6, 7, REmatch[8].rm_eo > 0, 9);
 			}
 			free(bp);
 			close(fp);
@@ -366,6 +380,6 @@ int main(int argc, char *argv[])
 	generateFiles();
 	checkDictionary();
 	if( TeXMode && nonTeXMode ) fprintf(stderr, "** Warning: mixes both \\relit[]{} and %% forms of relit command\n");
-			if( !opened ) fprintf(stderr, "** did not process any files\nUsage: %s [-a] [-f] [-g] [-n] [-u] [-v] [-x] [--] [name=value...] files...\n       -a list all name and file definitions (overrides -n)\n       -f force all generated files to be updated\n       -g list all generated files to standard output (overrides -u)\n       -n list all names and files\n       -u list only updated files to standard output\n       -v verbose mode\n       -x do not generate or update any files\n       name=value define new name\n       -- treat all further parameters as filenames\n", argv[0]);
+	if( !opened ) usage(argv[0]);
 	return 0;
 }
