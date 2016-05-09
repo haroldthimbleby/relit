@@ -178,6 +178,8 @@ Furthermore, Euler cycle programs assume the graph is arbitrary, and there are d
 \newcount\linesofcode
 Our \emph{complete\/} working program, as will be fully described in this paper (shown in full section~\ref{complete-program}), is just \myinput{linesofcode.tex}
 \newcount\denom \denom=\linesofcode
+\ifnum \denom=0 \denom=1 % in case the file doesn't exist
+\fi
 \newcount\testcode 
 \testcode=5 \advance\linesofcode by -\testcode
 \the\linesofcode\ lines of code  (plus \the\testcode\ lines of test code); moreover, deleting a diagnostic routine would save 3 or 4 lines, leaving just
