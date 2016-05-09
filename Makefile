@@ -1,10 +1,12 @@
 # Makefile for relit
 
+.PHONY: man clean bib run index test
+
 run eulerPaper.pdf eulerPaper.aux eulerPaper.idx: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt eulerPaper.bbl eulerPaper.ind
 	@echo Please run pdflatex eulerPaper.tex
 	
 bib eulerPaper.bbl: eulerPaper.aux
-	bibtex eulerPaper.aux
+	-bibtex eulerPaper.aux
 	
 index eulerPaper.ind: eulerPaper.idx
 	@if [ -e eulerPaper.ind ]; then cp eulerPaper.ind t; fi
