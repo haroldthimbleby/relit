@@ -68,7 +68,7 @@ Generate a file called
 .I name 
 to be the following lines that match between the two regular expressions inclusive. If the file already exists, it is only touched if its contents need changing.
 .IP
-Within the text matched for %define and %generate, names of the form <\fIname\fR> are expanded by their definitions. 
+Within the text matched for %define and %generate, names of the form <\fIname\fR> are expanded by their definitions.  There is only one name space for both %define and %generate, so a file name can be used in the form <\fIfilename\fR> as well; this allows files to be built up from smaller files that, for instance, might be analysed separately, e.g., by \fBwc\fR (1).
 .LP
 % set-tag \fIvalue\fR
 \fBor\fR
