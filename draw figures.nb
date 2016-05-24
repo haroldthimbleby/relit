@@ -10,45 +10,22 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    147475,       3501]
-NotebookOptionsPosition[    144760,       3405]
-NotebookOutlinePosition[    145150,       3422]
-CellTagsIndexPosition[    145107,       3419]
+NotebookDataLength[     83363,       2040]
+NotebookOptionsPosition[     82028,       1998]
+NotebookOutlinePosition[     82418,       2015]
+CellTagsIndexPosition[     82375,       2012]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
-
-Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"DateString", "[", "]"}]], "Input",
  CellChangeTimes->{{3.6567701280730133`*^9, 3.656770132255333*^9}}],
-
-Cell[BoxData["\<\"Wed 20 Apr 2016 08:32:48\"\>"], "Output",
- CellChangeTimes->{3.656770132515695*^9, 3.657614105056116*^9, 
-  3.65782300604531*^9, 3.65789369988653*^9, 3.667043577055331*^9, 
-  3.667066877611927*^9, 3.668850736522621*^9, 3.669021788648032*^9, 
-  3.669054974558531*^9, 3.6690550069965963`*^9, 3.669288915615649*^9, 
-  3.6701263680709457`*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"SetDirectory", "[", 
   RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input",
  CellChangeTimes->{{3.6561798295483503`*^9, 3.656179845192265*^9}}],
-
-Cell[BoxData["\<\"/Users/harold/Organised/Active \
-papers/Euler/Distribution\"\>"], "Output",
- CellChangeTimes->{3.6561798456504383`*^9, 3.656263260225585*^9, 
-  3.6562686274841146`*^9, 3.656268931628717*^9, 3.6564135154576817`*^9, 
-  3.656749430029627*^9, 3.65676973396211*^9, 3.657614106823251*^9, 
-  3.6578230080224667`*^9, 3.6578937010582457`*^9, 3.667043578942926*^9, 
-  3.667066878926*^9, 3.6687493395034657`*^9, 3.668850738821946*^9, 
-  3.6690217890051117`*^9, 3.669054974919944*^9, 3.669055007390111*^9, 
-  3.669288916146769*^9, 3.670126370075245*^9}]
-}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -67,21 +44,9 @@ Cell[BoxData[
  CellChangeTimes->{{3.668749560338254*^9, 3.66874956044664*^9}, {
   3.668749647237605*^9, 3.668749720946514*^9}}],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[
  RowBox[{"multiString", "[", "\"\<x\>\"", "]"}]], "Input",
  CellChangeTimes->{{3.668749695928897*^9, 3.6687497020910997`*^9}}],
-
-Cell[BoxData["\<\"\
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\
-xxxxxxxxxxxxxxxxxxxxxx\"\>"], "Output",
- CellChangeTimes->{{3.6687497026103687`*^9, 3.6687497101101847`*^9}, 
-   3.668850747844548*^9, 3.66902178915847*^9, 3.6690549751172667`*^9, 
-   3.6690550075593777`*^9, 3.6692889162994623`*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
@@ -212,264 +177,6 @@ Cell[BoxData[{
    3.668749760081852*^9}, {3.6687498043967533`*^9, 3.668750330413085*^9}, 
    3.668856956911878*^9, 3.669054972780637*^9, {3.669055005676071*^9, 
    3.669055005872293*^9}}],
-
-Cell[BoxData[
- GraphicsBox[
-  {GrayLevel[0], LineBox[{{0, 0}, {0, 1}}], {{
-     {GrayLevel[0], 
-      LineBox[{{2.65, 0.028846153846153848`}, {2.65, 
-       0.04807692307692308}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\
-bbbbbbbbbbbbbbbbbbbbbb\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[1, 26]}, {
-        0, 0.038461538461538464`}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{2.65, 0.06730769230769232}, {2.65, 0.08653846153846154}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\
-dddddddddddddddddddddd\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[1, 13]}, {0, 0.07692307692307693}], {-1, 0}]}}, {
-     {GrayLevel[0], LineBox[{{2.65, 0.10576923076923078`}, {2.65, 0.125}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\
-ffffffffffffffffffffff\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[3, 26]}, {0, 0.11538461538461539`}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{2.65, 0.14423076923076925`}, {2.65, 
-       0.16346153846153846`}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\
-hhhhhhhhhhhhhhhhhhhhhh\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[2, 13]}, {0, 0.15384615384615385`}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{1.1, 0.1826923076923077}, {1.1, 0.20192307692307693`}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj\
-jjjjjjjjjjjjjjjjjjjjjj\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[5, 26]}, {0, 0.19230769230769232`}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{1.1, 0.22115384615384617`}, {1.1, 0.2403846153846154}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll\
-llllllllllllllllllllll\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[3, 13]}, {0, 0.23076923076923078`}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{2.65, 0.2596153846153846}, {2.65, 0.27884615384615385`}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\
-nnnnnnnnnnnnnnnnnnnnnn\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[7, 26]}, {0, 0.2692307692307692}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{2.65, 0.2980769230769231}, {2.65, 0.31730769230769235`}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp\
-pppppppppppppppppppppp\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[4, 13]}, {0, 0.3076923076923077}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{2.65, 0.3365384615384615}, {2.65, 0.3557692307692308}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr\
-rrrrrrrrrrrrrrrrrrrrrr\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[9, 26]}, {0, 0.34615384615384615`}], {-1, 0}]}}, {
-     {GrayLevel[0], LineBox[{{2.65, 0.375}, {2.65, 0.3942307692307693}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt\
-tttttttttttttttttttttt\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[5, 13]}, {0, 0.38461538461538464`}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{2.65, 0.41346153846153844`}, {2.65, 0.4326923076923077}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\
-vvvvvvvvvvvvvvvvvvvvvv\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[11, 26]}, {0, 0.4230769230769231}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{2.65, 0.4519230769230769}, {2.65, 0.4711538461538462}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\
-xxxxxxxxxxxxxxxxxxxxxx\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[6, 13]}, {0, 0.46153846153846156`}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{2.65, 0.49038461538461536`}, {2.65, 0.5096153846153846}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\
-zzzzzzzzzzzzzzzzzzzzzz\"\>",
-        StripOnInput->False,
-        FontSize->12], NCache[{0, Rational[1, 2]}, {0, 0.5}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.5288461538461539}, {
-       3.2000000000000006`, 0.548076923076923}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\
-BBBBBBBBBBBBBBBBBBBBBB\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[7, 13]}, {0, 0.5384615384615384}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.5673076923076923}, {
-       3.2000000000000006`, 0.5865384615384615}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\
-DDDDDDDDDDDDDDDDDDDDDD\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[15, 26]}, {0, 0.5769230769230769}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.6057692307692308}, {
-       3.2000000000000006`, 0.625}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\
-FFFFFFFFFFFFFFFFFFFFFF\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[8, 13]}, {0, 0.6153846153846154}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.6442307692307693}, {
-       3.2000000000000006`, 0.6634615384615384}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\
-HHHHHHHHHHHHHHHHHHHHHH\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[17, 26]}, {0, 0.6538461538461539}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.6826923076923077}, {
-       3.2000000000000006`, 0.7019230769230769}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ\
-JJJJJJJJJJJJJJJJJJJJJJ\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[9, 13]}, {0, 0.6923076923076923}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.7211538461538461}, {
-       3.2000000000000006`, 0.7403846153846153}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\
-LLLLLLLLLLLLLLLLLLLLLL\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[19, 26]}, {0, 0.7307692307692307}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.7596153846153847}, {
-       3.2000000000000006`, 0.7788461538461539}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN\
-NNNNNNNNNNNNNNNNNNNNNN\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[10, 13]}, {0, 0.7692307692307693}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.7980769230769231}, {
-       3.2000000000000006`, 0.8173076923076923}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP\
-PPPPPPPPPPPPPPPPPPPPPP\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[21, 26]}, {0, 0.8076923076923077}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.8365384615384616}, {
-       3.2000000000000006`, 0.8557692307692307}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR\
-RRRRRRRRRRRRRRRRRRRRRR\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[11, 13]}, {0, 0.8461538461538461}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.875}, {3.2000000000000006`, 
-       0.8942307692307692}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT\
-TTTTTTTTTTTTTTTTTTTTTT\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[23, 26]}, {0, 0.8846153846153846}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.9134615384615385}, {
-       3.2000000000000006`, 0.9326923076923077}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\
-VVVVVVVVVVVVVVVVVVVVVV\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[12, 13]}, {0, 0.9230769230769231}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.951923076923077}, {3.2000000000000006`,
-        0.9711538461538461}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\
-XXXXXXXXXXXXXXXXXXXXXX\"\>",
-        StripOnInput->False,
-        FontSize->12], 
-       NCache[{0, Rational[25, 26]}, {0, 0.9615384615384616}], {-1, 0}]}}, {
-     {GrayLevel[0], 
-      LineBox[{{3.2000000000000006`, 0.9903846153846154}, {
-       3.2000000000000006`, 1.0096153846153846`}}]}, 
-     {RGBColor[1, 0, 0], InsetBox[
-       StyleBox["\<\"\
-ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ\
-ZZZZZZZZZZZZZZZZZZZZZZ\"\>",
-        StripOnInput->False,
-        FontSize->12], {0, 1}, {-1, 0}]}}}},
-  ImageSize->{Automatic, 300}]], "Output",
- CellChangeTimes->{{3.668749614604498*^9, 3.6687496253984423`*^9}, {
-   3.668749736509574*^9, 3.6687497606384287`*^9}, {3.66874986174883*^9, 
-   3.6687500816912937`*^9}, {3.66875012317619*^9, 3.668750226182572*^9}, {
-   3.6687502663438396`*^9, 3.6687503315270653`*^9}, 3.668850749101062*^9, 
-   3.668856957830102*^9, 3.669021789302915*^9, 3.669054975242919*^9, 
-   3.66905500771515*^9, 3.669288916495494*^9}]
-}, Open  ]],
 
 Cell[BoxData[{
  RowBox[{
@@ -731,8 +438,6 @@ Cell[BoxData[{
    3.656768792544263*^9, 3.656768812041175*^9}, {3.656769914719146*^9, 
    3.656769915306682*^9}, {3.667066899650779*^9, 3.667066937658526*^9}, 
    3.6670670060060787`*^9}],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
@@ -1099,195 +804,6 @@ the\\npublished document is\\nunrestricted.\>\"", ",",
    3.667067082101635*^9}, 3.667067202727373*^9, {3.66874855661357*^9, 
    3.66874856919594*^9}, {3.668751125077188*^9, 3.668751214751647*^9}}],
 
-Cell[BoxData[
- GraphicsBox[
-  {Arrowheads[Medium], InsetBox[
-    StyleBox["\<\"(b) Literate programming\"\>",
-     StripOnInput->False,
-     FontSize->17,
-     FontWeight->Bold], {0, 0.42000000000000004`}], 
-   ArrowBox[{{0, 0}, {0.25, -0.36}}], ArrowBox[{{0, 0}, {-0.25, -0.36}}], 
-   {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-    EdgeForm[GrayLevel[0]], {}, 
-    RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
-     RoundingRadius->0.015], 
-    {GrayLevel[0], InsetBox[
-      StyleBox["\<\"WEB file\"\>",
-       StripOnInput->False,
-       FontSize->12], {0, 0}]}}, 
-   {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-    RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
-     RoundingRadius->0.015], 
-    {GrayLevel[0], InsetBox[
-      StyleBox["\<\"Source code\"\>",
-       StripOnInput->False,
-       FontSize->12], {-0.35, -0.5}]}}, 
-   ArrowBox[{{0.35, -0.5}, {0.35, -0.86}}], 
-   {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-    RectangleBox[{0.05879999999999996, -0.64}, {0.6412, -0.36},
-     RoundingRadius->0.015], 
-    {GrayLevel[0], InsetBox[
-      StyleBox["\<\"Latex file\"\>",
-       StripOnInput->False,
-       FontSize->12], {0.35, -0.5}]}}, 
-   {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-    RectangleBox[{0.05879999999999996, -1.1400000000000001`}, {0.6412, -0.86},
-     
-     RoundingRadius->0.015], 
-    {GrayLevel[0], InsetBox[
-      StyleBox["\<\"Publish\"\>",
-       StripOnInput->False,
-       FontSize->12], {0.35, -1}]}}, InsetBox[
-    StyleBox["\<\"The published document\\nmust be formatted in\\nan \
-idiosyncratic \[OpenCurlyDoubleQuote]literate\\nprogramming\
-\[CloseCurlyDoubleQuote] style.\"\>",
-     StripOnInput->False,
-     FontSize->14], {0, -1.5}], GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(c) Loom & Warp\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{-0.25, 0}, {-0.1, -0.36}}], 
-     ArrowBox[{{0.25, 0}, {0.1, -0.36}}], 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6412, -0.14}, {-0.05879999999999996, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Latex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, 0}]}}, 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.05879999999999996, -0.14}, {0.6412, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, 0}]}}, ArrowBox[{{0, -0.5}, {0, -0.86}}], 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.2912, -0.64}, {0.2912, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Temporary\\nLatex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, -0.5}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.2912, -1.1400000000000001`}, {0.2912, -0.86},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, -1}]}}, InsetBox[
-      StyleBox["\<\"The published document\\nis unrestricted, but at \
-the\\nexpense of managing\\nseveral source files.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {1.5, 0}], 
-   GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(a) Conventional\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{-0.35, 0}, {-0.35, -0.36}}], 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6412, -0.14}, {-0.05879999999999996, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Latex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, 0}]}}, 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.05879999999999996, -0.14}, {0.6412, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, 0}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, -0.5}]}}, InsetBox[
-      StyleBox["\<\"The published document\\nand the source code\\nare \
-independent and\\nprobably inconsistent.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {-1.5, 0}], 
-   GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(d) This paper\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{0, 0}, {0.25, -0.36}}], ArrowBox[{{0, 0}, {-0.25, -0.36}}], 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Single\\nLatex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, 0}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, -0.5}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.05879999999999996, -0.64}, {0.6412, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, -0.5}]}}, InsetBox[
-      StyleBox["\<\"There is only one source\\nfile to manage, and \
-the\\npublished document is\\nunrestricted.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {3, 0}], 
-   {Thickness[Large], LineBox[{{-2.2, 0.28}, {-2.2, -1.2}}], 
-    LineBox[{{-0.74, 0.28}, {-0.74, -1.2}}], 
-    LineBox[{{0.8, 0.28}, {0.8, -1.2}}], 
-    LineBox[{{2.25, 0.28}, {2.25, -1.2}}]}, 
-   {Thickness[Medium], Dashing[{Small, Small}], 
-    LineBox[{{-2.95, -0.25}, {3.5, -0.25}}], InsetBox[
-     StyleBox["\<\"Editable files\\nare shaded\"\>",
-      StripOnInput->False,
-      FontSize->14], {-2.65, 0}, {0, 0}], InsetBox[
-     StyleBox["\<\"Generated\\nfiles\"\>",
-      StripOnInput->False,
-      FontSize->14], {-2.65, -0.5}, {0, 0}]}},
-  ImageSize->{Automatic, 300}]], "Output",
- CellChangeTimes->{
-  3.656836359258449*^9, {3.6568364025292177`*^9, 3.6568364212215137`*^9}, 
-   3.6568364557430477`*^9, 3.65683650552556*^9, {3.65683672740368*^9, 
-   3.656836801241695*^9}, {3.656857839721711*^9, 3.6568578653597717`*^9}, 
-   3.656858296646943*^9, {3.65685833840335*^9, 3.6568583551728373`*^9}, {
-   3.656858396210958*^9, 3.656858421765229*^9}, {3.657614140958913*^9, 
-   3.65761420989816*^9}, {3.657614260508223*^9, 3.657614275022794*^9}, {
-   3.657892592449979*^9, 3.657892601652664*^9}, {3.65791177343128*^9, 
-   3.657911800373068*^9}, {3.667042111261305*^9, 3.66704213156948*^9}, 
-   3.667042176460129*^9, 3.667042239734355*^9, 3.6670422755697737`*^9, {
-   3.667042315498632*^9, 3.667042365859165*^9}, 3.6670424788240557`*^9, {
-   3.667042568294648*^9, 3.667042584939501*^9}, 3.667042648502886*^9, {
-   3.667042684145982*^9, 3.667042703429084*^9}, {3.667042735117502*^9, 
-   3.6670428297142143`*^9}, {3.6670428892651587`*^9, 
-   3.6670429261959352`*^9}, {3.667042991298668*^9, 3.667043130456915*^9}, {
-   3.6670431714206333`*^9, 3.66704317963306*^9}, {3.6670432260581827`*^9, 
-   3.667043234708407*^9}, {3.667043274869287*^9, 3.667043343995686*^9}, 
-   3.667043379150931*^9, 3.667043588901394*^9, 3.667066892103014*^9, {
-   3.6670669968327293`*^9, 3.667067082739005*^9}, 3.667067203868641*^9, 
-   3.668748577350463*^9, {3.6687486651182404`*^9, 3.6687486796961412`*^9}, 
-   3.668748730737177*^9, 3.668749227092453*^9, 3.6687503433677464`*^9, {
-   3.66875114162823*^9, 3.6687512159176064`*^9}, 3.668850753917387*^9, 
-   3.6688569618919277`*^9, 3.669019202940096*^9, 3.6690216762841187`*^9, 
-   3.6690217895085897`*^9, 3.66905497548005*^9, 3.669055007967284*^9, 
-   3.669288916744783*^9}]
-}, Open  ]],
-
 Cell["\<\
 \[LineSeparator]Various sorts of writing about programs. Approach (a) is very \
 common: a paper is written about a program, but there is no automatic \
@@ -1308,8 +824,6 @@ Cell[BoxData[
  CellChangeTimes->{{3.6567697204415216`*^9, 3.6567697266414948`*^9}, {
   3.656836809852418*^9, 3.656836809941183*^9}, {3.669288752061013*^9, 
   3.669288782979706*^9}}],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"cg", "=", 
@@ -1365,161 +879,6 @@ Cell[BoxData[
   3.670216121048264*^9, 3.670216193357382*^9}}],
 
 Cell[BoxData[
- GraphicsBox[
-  NamespaceBox["NetworkGraphics",
-   DynamicModuleBox[{Typeset`graph = HoldComplete[
-     Graph[{1, 2, 3, 
-      4}, {{{1, 1}, {1, 2}, {1, 3}, {1, 4}, {2, 1}, {2, 2}, {2, 3}, {2, 4}, {
-       3, 1}, {3, 2}, {3, 3}, {3, 4}, {4, 1}, {4, 2}, {4, 3}, {4, 4}}, 
-       Null}, {EdgeShapeFunction -> {
-         GraphElementData[{"Arrow", "ArrowSize" -> 0.05}]}, EdgeStyle -> {
-         GrayLevel[0]}, ImageSize -> 400, VertexLabels -> {3 -> Placed[
-           Style["B", Italic, FontFamily -> "Times", Bold, 20], Center], 4 -> 
-         Placed[
-           Style["A", Italic, FontFamily -> "Times", Bold, 20], Center], 2 -> 
-         Placed[
-           Style["C", Italic, FontFamily -> "Times", Bold, 20], Center], 1 -> 
-         Placed[
-           Style["D", Italic, FontFamily -> "Times", Bold, 20], Center]}, 
-       VertexSize -> {Medium}, VertexStyle -> {
-         GrayLevel[1]}}]]}, 
-    TagBox[GraphicsGroupBox[{
-       {GrayLevel[0], Opacity[0.7], 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.880095814601738, 
-          0.013156064124647815`}, {1.0764159499248285`, 
-          0.08855725340085496}, {1.2584669019747863`, -0.00937453841900357}, {
-          1.3087414006422797`, -0.14022093558232734`}, {
-          1.0467246733630633`, -0.41051405035010624`}, {
-          0.9143785587162393, -0.36433168569886965`}, {
-          0.8108343924515315, -0.18541329473837953`}, {0.880095814601738, 
-          0.013156064124647815`}},
-          SplineDegree->7]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.880095814601738, 
-          0.013156064124647815`}, {
-          0.44883264576791826`, -0.13596794329641698`}, {
-          0.013242690904806398`, 0.}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.880095814601738, 
-          0.013156064124647815`}, {0.7309949895486002, 0.4433180284956463}, {
-          0.8663279571038569, 0.8780079864151075}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.880095814601738, 
-          0.013156064124647815`}, {0.29986003504833547`, 
-          0.2946889433269365}, {0., 0.8656690492208879}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.013242690904806398`, 0.}, {
-          0.4445058597386266, 0.14912400742106555`}, {0.880095814601738, 
-          0.013156064124647815`}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.013242690904806398`, 0.}, {
-          0.08858286662443193, -0.19634355808143775`}, \
-{-0.009405495983804552, -0.37836406732339356`}, {-0.14026751050852576`, \
--0.4285979007568645}, {-0.4104791859437885, -0.16649718781726325`}, \
-{-0.36425569465282215`, -0.034165431538719065`}, {-0.18530513417138003`, 
-          0.06932312770684132}, {0.013242690904806398`, 0.}},
-          SplineDegree->7]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.013242690904806398`, 0.}, {
-          0.29540503468548973`, 0.5792859717922063}, {0.8663279571038569, 
-          0.8780079864151075}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.013242690904806398`, 
-          0.}, {-0.1357299198147777, 0.4306568866233442}, {0., 
-          0.8656690492208879}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.8663279571038569, 0.8780079864151075}, {
-          1.0154287821569952`, 0.44784602204377333`}, {0.880095814601738, 
-          0.013156064124647815`}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.8663279571038569, 0.8780079864151075}, {
-          0.5841656133231781, 0.29872201462287473`}, {0.013242690904806398`, 
-          0.}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.8663279571038569, 0.8780079864151075}, {
-          0.7910184384156768, 1.0743633053461148`}, {0.889035219612561, 
-          1.2563685129505848`}, {1.0199050758047656`, 1.3065819136233312`}, {
-          1.2900758248359945`, 1.044439014362482}, {1.2438316724818133`, 
-          0.9121144768045016}, {1.0648649559892611`, 0.8086538592767748}, {
-          0.8663279571038569, 0.8780079864151075}},
-          SplineDegree->7]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.8663279571038569, 0.8780079864151075}, {
-          0.43519300260359495`, 0.7293789012466422}, {0., 
-          0.8656690492208879}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0., 0.8656690492208879}, {
-          0.5802357795534063, 0.5841361700185372}, {0.880095814601738, 
-          0.013156064124647815`}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0., 0.8656690492208879}, {
-          0.1489726107195836, 0.4350121625975511}, {0.013242690904806398`, 
-          0.}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0., 0.8656690492208879}, {
-          0.4311349545002647, 1.014298134389481}, {0.8663279571038569, 
-          0.8780079864151075}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0., 
-          0.8656690492208879}, {-0.19637871319941708`, 
-          0.7904205550187842}, {-0.37835345158615874`, 
-          0.8884938927840558}, {-0.42852617973752954`, 
-          1.0193793473492545`}, {-0.166299332849681, 
-          1.2894686178437262`}, {-0.03398917286054787, 1.2431833455582566`}, {
-          0.06941582263406185, 1.064184485511317}, {0., 0.8656690492208879}},
-          SplineDegree->7]]}}, 
-       {GrayLevel[1], EdgeForm[{GrayLevel[0], Opacity[
-        0.7]}], {
-         DiskBox[{0.880095814601738, 0.013156064124647815`}, 
-          0.08649615028367362], InsetBox[
-          StyleBox["\<\"D\"\>",
-           StripOnInput->False,
-           FontFamily->"Times",
-           FontSize->20,
-           FontWeight->Bold,
-           FontSlant->Italic], {0.880095814601738, 0.013156064124647815`},
-          BaseStyle->"Graphics"]}, {
-         DiskBox[{0.013242690904806398`, 0.}, 0.08649615028367362], InsetBox[
-          StyleBox["\<\"C\"\>",
-           StripOnInput->False,
-           FontFamily->"Times",
-           FontSize->20,
-           FontWeight->Bold,
-           FontSlant->Italic], {0.013242690904806398`, 0.},
-          BaseStyle->"Graphics"]}, {
-         DiskBox[{0.8663279571038569, 0.8780079864151075}, 
-          0.08649615028367362], InsetBox[
-          StyleBox["\<\"B\"\>",
-           StripOnInput->False,
-           FontFamily->"Times",
-           FontSize->20,
-           FontWeight->Bold,
-           FontSlant->Italic], {0.8663279571038569, 0.8780079864151075},
-          BaseStyle->"Graphics"]}, {
-         DiskBox[{0., 0.8656690492208879}, 0.08649615028367362], InsetBox[
-          StyleBox["\<\"A\"\>",
-           StripOnInput->False,
-           FontFamily->"Times",
-           FontSize->20,
-           FontWeight->Bold,
-           FontSlant->Italic], {0., 0.8656690492208879},
-          BaseStyle->"Graphics"]}}}],
-     MouseAppearanceTag["NetworkGraphics"]],
-    AllowKernelInitialization->False]],
-  DefaultBaseStyle->{
-   "NetworkGraphics", FrontEnd`GraphicsHighlightColor -> Hue[0.8, 1., 0.6]},
-  FrameTicks->None,
-  GridLinesStyle->Directive[
-    GrayLevel[0.5, 0.4]],
-  ImagePadding->15,
-  ImageSize->400]], "Output",
- CellChangeTimes->{{3.6702161306773643`*^9, 3.6702161945096083`*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
  RowBox[{"cg", "=", 
   RowBox[{"Graph", "[", 
    RowBox[{
@@ -1571,144 +930,14 @@ Cell[BoxData[
   3.656770267547927*^9}, {3.67021605199152*^9, 3.67021605810445*^9}}],
 
 Cell[BoxData[
- GraphicsBox[
-  NamespaceBox["NetworkGraphics",
-   DynamicModuleBox[{Typeset`graph = HoldComplete[
-     Graph[{1, 2, 
-      3}, {{{1, 1}, {1, 2}, {1, 3}, {2, 1}, {2, 2}, {2, 3}, {3, 1}, {3, 2}, {
-       3, 3}}, Null}, {EdgeShapeFunction -> {
-         GraphElementData[{"Arrow", "ArrowSize" -> 0.05}]}, EdgeStyle -> {
-         GrayLevel[0]}, ImageSize -> 400, VertexLabels -> {3 -> Placed[
-           Style["A", Italic, FontFamily -> "Times", Bold, 20], Center], 2 -> 
-         Placed[
-           Style["B", Italic, FontFamily -> "Times", Bold, 20], Center], 1 -> 
-         Placed[
-           Style["C", Italic, FontFamily -> "Times", Bold, 20], Center]}, 
-       VertexSize -> {Medium}, VertexStyle -> {
-         GrayLevel[1]}}]]}, 
-    TagBox[GraphicsGroupBox[{
-       {GrayLevel[0], Opacity[0.7], 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.4969222153812606, 0.}, {
-          0.6873904251757703, -0.08915602018494104}, {
-          0.7430802511242329, -0.2882334630989339}, {
-          0.6836720610015965, -0.4151939759099758}, {
-          0.30722904122918515`, -0.413857514310497}, {
-          0.2487238169004704, -0.2864783810384543}, {
-          0.3058257650517279, -0.08780137555297982}, {0.4969222153812606, 0.}},
-          SplineDegree->7]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.4969222153812606, 0.}, {
-          0.6063408523521697, 0.514847913886857}, {0.9999936568025142, 
-          0.8642449403459487}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.4969222153812606, 0.}, {
-          0.1057602456031444, 0.3521832514257624}, {0., 
-          0.8677950236298684}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.9999936568025142, 0.8642449403459487}, {
-          0.8905750198316025, 0.3493970264591557}, {0.4969222153812606, 
-          0.}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.9999936568025142, 0.8642449403459487}, {
-          0.981970912857964, 1.0737732572347456`}, {1.126532110476953, 
-          1.2215407947194983`}, {1.2661872339094185`, 1.233572060901945}, {
-          1.4532513612710862`, 0.9068946274612545}, {1.3721904176215585`, 
-          0.7925380435601159}, {1.1715801137970816`, 0.7426512618359438}, {
-          0.9999936568025142, 0.8642449403459487}},
-          SplineDegree->7]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.9999936568025142, 0.8642449403459487}, {
-          0.4994130500534916, 0.7015802778846691}, {0., 
-          0.8677950236298684}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0., 0.8677950236298684}, {
-          0.3911619697781157, 0.5156117722041118}, {0.4969222153812606, 
-          0.}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0., 0.8677950236298684}, {
-          0.5005806067490268, 1.0304596860909105`}, {0.9999936568025142, 
-          0.8642449403459487}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0., 
-          0.8677950236298684}, {-0.1724454776055367, 
-          0.747422717300957}, {-0.37269651588156283`, 
-          0.7987326253180023}, {-0.4529434556078141, 
-          0.9136618797811782}, {-0.26356455135602697`, 
-          1.2390028761056062`}, {-0.12399837325238695`, 1.22598032656901}, {
-          0.019509993581533297`, 1.0771900928841167`}, {0., 
-          0.8677950236298684}},
-          SplineDegree->7]]}}, 
-       {GrayLevel[1], EdgeForm[{GrayLevel[0], Opacity[
-        0.7]}], {DiskBox[{0.4969222153812606, 0.}, 0.09999999455880904], 
-         InsetBox[
-          StyleBox["\<\"C\"\>",
-           StripOnInput->False,
-           FontFamily->"Times",
-           FontSize->20,
-           FontWeight->Bold,
-           FontSlant->Italic], {0.4969222153812606, 0.},
-          BaseStyle->"Graphics"]}, {
-         DiskBox[{0.9999936568025142, 0.8642449403459487}, 
-          0.09999999455880904], InsetBox[
-          StyleBox["\<\"B\"\>",
-           StripOnInput->False,
-           FontFamily->"Times",
-           FontSize->20,
-           FontWeight->Bold,
-           FontSlant->Italic], {0.9999936568025142, 0.8642449403459487},
-          BaseStyle->"Graphics"]}, {
-         DiskBox[{0., 0.8677950236298684}, 0.09999999455880904], InsetBox[
-          StyleBox["\<\"A\"\>",
-           StripOnInput->False,
-           FontFamily->"Times",
-           FontSize->20,
-           FontWeight->Bold,
-           FontSlant->Italic], {0., 0.8677950236298684},
-          BaseStyle->"Graphics"]}}}],
-     MouseAppearanceTag["NetworkGraphics"]],
-    AllowKernelInitialization->False]],
-  DefaultBaseStyle->{
-   "NetworkGraphics", FrontEnd`GraphicsHighlightColor -> Hue[0.8, 1., 0.6]},
-  FrameTicks->None,
-  GridLinesStyle->Directive[
-    GrayLevel[0.5, 0.4]],
-  ImagePadding->15,
-  ImageSize->400]], "Output",
- CellChangeTimes->{{3.6553576002595673`*^9, 3.655357614837409*^9}, 
-   3.655357656653695*^9, {3.6553577201957903`*^9, 3.65535775020046*^9}, {
-   3.655357825042865*^9, 3.655357859988562*^9}, {3.6553578951326647`*^9, 
-   3.655357933383532*^9}, 3.655357981785385*^9, 3.655358037254826*^9, 
-   3.655358114780003*^9, {3.6553581525009413`*^9, 3.6553581880110693`*^9}, {
-   3.655358229381278*^9, 3.655358350034048*^9}, {3.655358418274425*^9, 
-   3.655358465264862*^9}, 3.6553585036522827`*^9, 3.655358545756727*^9, {
-   3.6553585767512302`*^9, 3.6553587895914793`*^9}, {3.655358871952448*^9, 
-   3.655358925726358*^9}, 3.655360880249805*^9, 3.655361305161231*^9, {
-   3.656687714885141*^9, 3.656687724615089*^9}, {3.656770249940769*^9, 
-   3.656770281969014*^9}, 3.669021790066236*^9, 3.669054977115078*^9, 
-   3.6690550103649673`*^9, 3.669288917005925*^9, {3.670216055427046*^9, 
-   3.670216058542864*^9}, 3.67021681659527*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
  RowBox[{"Export", "[", 
   RowBox[{"\"\<figures/K3.pdf\>\"", ",", "cg"}], "]"}]], "Input",
  CellChangeTimes->{{3.655360882288003*^9, 3.655360897994679*^9}, {
    3.656770270957954*^9, 3.6567702712435207`*^9}, {3.6692887613643227`*^9, 
    3.669288762148747*^9}, 3.669288797247075*^9}],
 
-Cell[BoxData["\<\"figures/K3.pdf\"\>"], "Output",
- CellChangeTimes->{3.669021790383037*^9, 3.669054977663266*^9, 
-  3.669055011087565*^9, 3.6692889173078117`*^9, 3.6702160636374807`*^9, 
-  3.6702168190041637`*^9}]
-}, Open  ]],
-
 Cell["Merlot, Pinotage and Shiraz", "Text",
  CellChangeTimes->{{3.670126401701193*^9, 3.670126430917604*^9}}],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"cg", "=", 
@@ -1759,123 +988,9 @@ Cell[BoxData[
    3.67021607690373*^9}}],
 
 Cell[BoxData[
- GraphicsBox[
-  NamespaceBox["NetworkGraphics",
-   DynamicModuleBox[{Typeset`graph = HoldComplete[
-     Graph[{1, 2, 
-      3}, {{{1, 1}, {1, 2}, {1, 3}, {2, 1}, {2, 2}, {2, 3}, {3, 1}, {3, 2}, {
-       3, 3}}, Null}, {EdgeShapeFunction -> {
-         GraphElementData[{"Arrow", "ArrowSize" -> 0.05}]}, EdgeStyle -> {
-         GrayLevel[0]}, ImageSize -> 400, VertexLabels -> {3 -> Placed[
-           Style["Shiraz", FontFamily -> "Times", Bold, 14], Center], 2 -> 
-         Placed[
-           Style["Pinotage", FontFamily -> "Times", Bold, 14], Center], 1 -> 
-         Placed[
-           Style["Merlot", FontFamily -> "Times", Bold, 14], Center]}, 
-       VertexSize -> {{"Nearest", 0.3}}, VertexStyle -> {
-         GrayLevel[1]}}]]}, 
-    TagBox[GraphicsGroupBox[{
-       {GrayLevel[0], Opacity[0.7], 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.4969222153812606, 0.}, {
-          0.6873904251757703, -0.08915602018494104}, {
-          0.7430802511242329, -0.2882334630989339}, {
-          0.6836720610015965, -0.4151939759099758}, {
-          0.30722904122918515`, -0.413857514310497}, {
-          0.2487238169004704, -0.2864783810384543}, {
-          0.3058257650517279, -0.08780137555297982}, {0.4969222153812606, 0.}},
-          SplineDegree->7]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.4969222153812606, 0.}, {
-          0.6063408523521697, 0.514847913886857}, {0.9999936568025142, 
-          0.8642449403459487}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.4969222153812606, 0.}, {
-          0.1057602456031444, 0.3521832514257624}, {0., 
-          0.8677950236298684}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.9999936568025142, 0.8642449403459487}, {
-          0.8905750198316025, 0.3493970264591557}, {0.4969222153812606, 
-          0.}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.9999936568025142, 0.8642449403459487}, {
-          0.981970912857964, 1.0737732572347456`}, {1.126532110476953, 
-          1.2215407947194983`}, {1.2661872339094185`, 1.233572060901945}, {
-          1.4532513612710862`, 0.9068946274612545}, {1.3721904176215585`, 
-          0.7925380435601159}, {1.1715801137970816`, 0.7426512618359438}, {
-          0.9999936568025142, 0.8642449403459487}},
-          SplineDegree->7]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0.9999936568025142, 0.8642449403459487}, {
-          0.4994130500534916, 0.7015802778846691}, {0., 
-          0.8677950236298684}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0., 0.8677950236298684}, {
-          0.3911619697781157, 0.5156117722041118}, {0.4969222153812606, 
-          0.}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0., 0.8677950236298684}, {
-          0.5005806067490268, 1.0304596860909105`}, {0.9999936568025142, 
-          0.8642449403459487}}]]}, 
-        {Arrowheads[{{0.05, 0.8}}], 
-         ArrowBox[BezierCurveBox[{{0., 
-          0.8677950236298684}, {-0.1724454776055367, 
-          0.747422717300957}, {-0.37269651588156283`, 
-          0.7987326253180023}, {-0.4529434556078141, 
-          0.9136618797811782}, {-0.26356455135602697`, 
-          1.2390028761056062`}, {-0.12399837325238695`, 1.22598032656901}, {
-          0.019509993581533297`, 1.0771900928841167`}, {0., 
-          0.8677950236298684}},
-          SplineDegree->7]]}}, 
-       {GrayLevel[1], EdgeForm[{GrayLevel[0], Opacity[
-        0.7]}], {DiskBox[{0.4969222153812606, 0.}, 0.14999999183821353`], 
-         InsetBox[
-          StyleBox["\<\"Merlot\"\>",
-           StripOnInput->False,
-           FontFamily->"Times",
-           FontSize->14,
-           FontWeight->Bold], {0.4969222153812606, 0.},
-          BaseStyle->"Graphics"]}, {
-         DiskBox[{0.9999936568025142, 0.8642449403459487}, 
-          0.14999999183821353`], InsetBox[
-          StyleBox["\<\"Pinotage\"\>",
-           StripOnInput->False,
-           FontFamily->"Times",
-           FontSize->14,
-           FontWeight->Bold], {0.9999936568025142, 0.8642449403459487},
-          BaseStyle->"Graphics"]}, {
-         DiskBox[{0., 0.8677950236298684}, 0.14999999183821353`], InsetBox[
-          StyleBox["\<\"Shiraz\"\>",
-           StripOnInput->False,
-           FontFamily->"Times",
-           FontSize->14,
-           FontWeight->Bold], {0., 0.8677950236298684},
-          BaseStyle->"Graphics"]}}}],
-     MouseAppearanceTag["NetworkGraphics"]],
-    AllowKernelInitialization->False]],
-  DefaultBaseStyle->{
-   "NetworkGraphics", FrontEnd`GraphicsHighlightColor -> Hue[0.8, 1., 0.6]},
-  FrameTicks->None,
-  GridLinesStyle->Directive[
-    GrayLevel[0.5, 0.4]],
-  ImagePadding->15,
-  ImageSize->400]], "Output",
- CellChangeTimes->{{3.670126435179775*^9, 3.670126442117639*^9}, {
-   3.670126475202838*^9, 3.6701264963721523`*^9}, {3.670126541880126*^9, 
-   3.670126560081633*^9}, 3.670215896650483*^9, {3.6702160051456842`*^9, 
-   3.670216077328933*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
  RowBox[{"Export", "[", 
   RowBox[{"\"\<figures/K3wines.pdf\>\"", ",", "cg"}], "]"}]], "Input",
  CellChangeTimes->{{3.670126569821834*^9, 3.670126570492433*^9}}],
-
-Cell[BoxData["\<\"figures/K3wines.pdf\"\>"], "Output",
- CellChangeTimes->{3.6701265754883747`*^9, 3.670216103842574*^9}]
-}, Open  ]],
 
 Cell[BoxData[
  RowBox[{
@@ -1922,8 +1037,6 @@ Cell[BoxData[
    3.668851187334629*^9}, {3.6688512174012623`*^9, 3.66885126065783*^9}, {
    3.668856132824643*^9, 3.66885620658992*^9}, {3.668856373105756*^9, 
    3.668856398547872*^9}, 3.668856548607114*^9}],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
@@ -2295,216 +1408,12 @@ the\\npublished document is\\nunrestricted.\>\"", ",",
    3.668857597531487*^9, 3.668857620846854*^9}, 3.66905489868112*^9}],
 
 Cell[BoxData[
- GraphicsBox[
-  {Arrowheads[Medium], GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(a) Conventional\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{-0.35, 0}, {-0.35, -0.36}}], 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6412, -0.14}, {-0.05879999999999996, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Latex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, 0}]}}, 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.05879999999999996, -0.14}, {0.6412, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, 0}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, -0.5}]}}, InsetBox[
-      StyleBox["\<\"The published document\\nand the source code\\nare \
-independent and\\nprobably inconsistent.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {-1.4, 0}], 
-   GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(b) Literate programming\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{0, 0}, {0.25, -0.36}}], ArrowBox[{{0, 0}, {-0.25, -0.36}}], 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"WEB file\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, 0}]}}, 
-     ArrowBox[{{-0.35, -0.5}, {-0.35, -0.86}}], 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Latex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, -0.5}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.05879999999999996, -0.64}, {0.6412, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, -0.5}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6412, -1.1400000000000001`}, {-0.05879999999999996, -0.86},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, -1}]}}, InsetBox[
-      StyleBox["\<\"The published document\\nmust be formatted in\\nan \
-idiosyncratic \[OpenCurlyDoubleQuote]literate\\nprogramming\
-\[CloseCurlyDoubleQuote] style.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {0.25, 0}], 
-   GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(c) Loom & Warp\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{-0.25, -0.14}, {-0.1, -0.36}}], 
-     ArrowBox[{{0.25, -0.14}, {0.1, -0.36}}], 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6412, -0.14}, {-0.05879999999999996, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Latex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, 0}]}}, 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.05879999999999996, -0.14}, {0.6412, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, 0}]}}, ArrowBox[{{0, -0.5}, {0, -0.86}}], 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.2912, -0.64}, {0.2912, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Temporary\\nLatex files\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, -0.5}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.2912, -1.1400000000000001`}, {0.2912, -0.86},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, -1}]}}, InsetBox[
-      StyleBox["\<\"The published document\\nis unrestricted, but at \
-the\\nexpense of managing\\nseveral source files.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {-1.4, -2.5}], 
-   GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(d) This paper\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{0, 0}, {0.25, -0.36}}], ArrowBox[{{0, 0}, {-0.25, -0.36}}], 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Latex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, 0}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, -0.5}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.05879999999999996, -0.64}, {0.6412, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, -0.5}]}}, InsetBox[
-      StyleBox["\<\"There is only one source\\nfile to manage, and \
-the\\npublished document is\\nunrestricted.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {0.25, -2.5}], 
-   {Thickness[
-    Tiny], {LineBox[{{-2.2, 0.48000000000000004`}, {-2.2, -4.3}}], 
-     LineBox[{{-0.65, 0.48000000000000004`}, {-0.65, -4.3}}]}, 
-    LineBox[{{-2.95, -1.925}, {1.1, -1.925}}], 
-    {Thickness[Medium], Dashing[{Small, Small}], 
-     LineBox[{{-2.95, -0.25}, {1.1, -0.25}}], InsetBox[
-      StyleBox["\<\"Editable files\\nare shaded\"\>",
-       StripOnInput->False,
-       FontSize->14], {-2.65, 0}, {0, 0}], InsetBox[
-      StyleBox["\<\"Generated\\nfiles\"\>",
-       StripOnInput->False,
-       FontSize->14], {-2.65, -0.5}, {0, 0}]}, 
-    {Thickness[Medium], Dashing[{Small, Small}], 
-     LineBox[{{-2.95, -2.75}, {1.1, -2.75}}], InsetBox[
-      StyleBox["\<\"Editable files\\nare shaded\"\>",
-       StripOnInput->False,
-       FontSize->14], {-2.65, -2.5}, {0, 0}], InsetBox[
-      StyleBox["\<\"Generated\\nfiles\"\>",
-       StripOnInput->False,
-       FontSize->14], {-2.65, -3.}, {0, 0}]}}},
-  ImageSize->{Automatic, 600}]], "Output",
- CellChangeTimes->{{3.668850881344247*^9, 3.6688508932849483`*^9}, {
-   3.668850948030139*^9, 3.668850993800219*^9}, {3.668851102365614*^9, 
-   3.6688511229517403`*^9}, 3.668851153993656*^9, {3.668851192310775*^9, 
-   3.668851262201635*^9}, {3.668856061773848*^9, 3.668856104895015*^9}, {
-   3.668856138244093*^9, 3.6688563996778193`*^9}, {3.668856552230338*^9, 
-   3.6688565784320507`*^9}, {3.668856611361454*^9, 3.668856653149197*^9}, {
-   3.668856694390712*^9, 3.6688567530770082`*^9}, {3.668856823183383*^9, 
-   3.6688568334892187`*^9}, 3.668856972354417*^9, 3.6688570328653584`*^9, 
-   3.668857072550714*^9, {3.668857103001713*^9, 3.6688571398633547`*^9}, 
-   3.668857208305375*^9, {3.668857261231966*^9, 3.668857315661583*^9}, 
-   3.6688573925618258`*^9, 3.6688574405990257`*^9, 3.668857621368745*^9, 
-   3.669019208219439*^9, {3.669021660321212*^9, 3.669021671238453*^9}, 
-   3.669021790625311*^9, {3.669054903490571*^9, 3.669054912805806*^9}, 
-   3.669054978092025*^9, 3.669055011450655*^9, 3.66928891749679*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
  RowBox[{"Export", "[", 
   RowBox[{"\"\<figures/literateProgramming.pdf\>\"", ",", 
    RowBox[{"c", "[", "]"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.6567697204415216`*^9, 3.6567697266414948`*^9}, {
    3.656836809852418*^9, 3.656836809941183*^9}, {3.669288765043824*^9, 
    3.6692887659075317`*^9}, 3.669288836794998*^9}],
-
-Cell[BoxData["\<\"figures/literateProgramming.pdf\"\>"], "Output",
- CellChangeTimes->{
-  3.656769740059627*^9, 3.656833859157134*^9, 3.656833937395238*^9, {
-   3.6568367982151413`*^9, 3.6568368131881447`*^9}, 3.656858302167116*^9, 
-   3.6568584542996483`*^9, 3.657614222636239*^9, 3.657614286321756*^9, 
-   3.667043441730215*^9, 3.667043595442211*^9, 3.667067089439212*^9, 
-   3.667067237026729*^9, 3.668750357873385*^9, 3.668751243266062*^9, 
-   3.668856408621662*^9, 3.668856756933261*^9, 3.668856843376957*^9, 
-   3.6688569857993937`*^9, 3.668857509551477*^9, 3.668857633129157*^9, 
-   3.669021791250196*^9, 3.669054917331649*^9, 3.6690549784421473`*^9, 
-   3.6690550117289467`*^9, 3.6692889179272137`*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
@@ -2949,268 +1858,12 @@ with effort and it\\nis still in the same file.\>\"", ",",
    3.669037514156576*^9}}],
 
 Cell[BoxData[
- GraphicsBox[
-  {Arrowheads[Medium], GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(a) Conventional\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{-0.35, 0}, {-0.35, -0.36}}], 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Latex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, 0}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
-       
-       RoundingRadius->0.015]}, 
-     {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, 0}]}}, 
-     {EdgeForm[{GrayLevel[1], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
-       RoundingRadius->0.015]}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, -0.5}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
-       
-       RoundingRadius->0.015]}, InsetBox[
-      StyleBox["\<\"The source code is hidden.\\nThere is no link \
-between\\nthe source code\\nand the published paper.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {-1.4, 0}], 
-   GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(b) Literate programming\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{0, 0}, {0.25, -0.36}}], ArrowBox[{{0, 0}, {-0.25, -0.36}}], 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.31870000000000004`, -0.14}, {0.31870000000000004`, 0.14},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"WEB file\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, 0}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{-0.31870000000000004`, -0.14}, {0.31870000000000004`, 0.14},
-       
-       RoundingRadius->0.015]}, ArrowBox[{{-0.35, -0.5}, {-0.35, -0.86}}], 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Latex file\\nplus full code\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, -0.5}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
-       
-       RoundingRadius->0.015]}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, -0.5}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
-       RoundingRadius->0.015]}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6687000000000001, -1.1400000000000001`}, {-0.03129999999999994, -0.86},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, -1}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{-0.6687000000000001, -1.1400000000000001`}, {-0.03129999999999994, -0.86},
-       
-       RoundingRadius->0.015]}, InsetBox[
-      StyleBox["\<\"Although no code is hidden,\\nthere is usually so much of\
-\\nit that not all can be\\nreliably read by a human.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {0.25, 0}], 
-   GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(c) Loom & Warp\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{-0.25, -0.14}, {-0.1, -0.36}}], 
-     ArrowBox[{{0.25, -0.14}, {0.1, -0.36}}], 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Latex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, 0}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
-       
-       RoundingRadius->0.015]}, 
-     {EdgeForm[GrayLevel[0]], FaceForm[None], 
-      {EdgeForm[None], FaceForm[RGBColor[
-       0.7777777777777778, 0.7777777777777778, 0.7777777777777778]], 
-       RectangleBox[{0.03129999999999994, -0.14}, \
-{0.15877999999999998`, 0.14}], 
-       RectangleBox[{0.22252, -0.14}, {0.31813, 0.14}], 
-       RectangleBox[{0.3818700000000001, -0.14}, {0.47748, 0.14}], 
-       RectangleBox[{0.54122, -0.14}, {0.6687000000000001, 0.14}]}, 
-      RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, 0}]}}, 
-     {EdgeForm[{GrayLevel[1], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
-       RoundingRadius->0.015]}, ArrowBox[{{0, -0.64}, {0, -0.86}}], 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.31870000000000004`, -0.64}, {0.31870000000000004`, -0.36},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Temporary\\nLatex files\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, -0.5}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{-0.31870000000000004`, -0.64}, {0.31870000000000004`, -0.36},
-       
-       RoundingRadius->0.015]}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.31870000000000004`, -1.1400000000000001`}, {0.31870000000000004`, -0.86},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, -1}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{-0.31870000000000004`, -1.1400000000000001`}, {0.31870000000000004`, -0.86},
-       
-       RoundingRadius->0.015]}, InsetBox[
-      StyleBox["\<\"Some code is visible\\nbut the bulk needed to \
-get\\nthings to work is hidden\\neven from the authors.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {-1.4, -2.5}], 
-   GeometricTransformationBox[{InsetBox[
-      StyleBox["\<\"(d) This paper\"\>",
-       StripOnInput->False,
-       FontSize->17,
-       FontWeight->Bold], {0, 0.42000000000000004`}], 
-     ArrowBox[{{0.14, -0.14}, {0.25, -0.36}}], 
-     ArrowBox[{{-0.14, -0.14}, {-0.25, -0.36}}], 
-     {EdgeForm[GrayLevel[0]], FaceForm[None], 
-      {EdgeForm[None], FaceForm[RGBColor[
-       0.7777777777777778, 0.7777777777777778, 0.7777777777777778]], 
-       RectangleBox[{0.28683, -0.14}, {0.31870000000000004`, 0.14}]}, 
-      RectangleBox[{-0.31870000000000004`, -0.14}, {0.31870000000000004`, 0.14},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Latex file\"\>",
-         StripOnInput->False,
-         FontSize->12], {0, 0}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{-0.31870000000000004`, -0.14}, {0.31870000000000004`, 0.14},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[1], Thickness[0.01], 
-       LineBox[{{0.28683, -0.14}, {0.31870000000000004`, -0.14}, {
-        0.31870000000000004`, 0.14}, {0.28683, 0.14}}]}}, 
-     {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
-       
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Publish\"\>",
-         StripOnInput->False,
-         FontSize->12], {-0.35, -0.5}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
-       
-       RoundingRadius->0.015]}, 
-     {EdgeForm[GrayLevel[0]], FaceForm[None], 
-      {EdgeForm[None], FaceForm[RGBColor[
-       0.7777777777777778, 0.7777777777777778, 0.7777777777777778]], 
-       RectangleBox[{0.63683, -0.64}, {0.6687000000000001, -0.36}]}, 
-      RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[0], InsetBox[
-        StyleBox["\<\"Source code\"\>",
-         StripOnInput->False,
-         FontSize->12], {0.35, -0.5}]}}, 
-     {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-      RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
-       RoundingRadius->0.015], 
-      {GrayLevel[1], Thickness[0.01], 
-       LineBox[{{0.63683, -0.64}, {0.6687000000000001, -0.64}, {
-        0.6687000000000001, -0.36}, {0.63683, -0.36}}]}}, InsetBox[
-      StyleBox["\<\"A negligible amount\\nof code may be hidden,\\n but only \
-with effort and it\\nis still in the same file.\"\>",
-       StripOnInput->False,
-       FontSize->14], {0, -1.5}]}, {0.25, -2.5}], 
-   {Thickness[
-    Tiny], {LineBox[{{-2.2, 0.48000000000000004`}, {-2.2, -4.3}}], 
-     LineBox[{{-0.65, 0.48000000000000004`}, {-0.65, -4.3}}]}, 
-    LineBox[{{-2.2, -1.925}, {1.1, -1.925}}], {InsetBox[
-      StyleBox["\<\"Hidden code\\nis shaded\"\>",
-       StripOnInput->False,
-       FontSize->14], {-2.65, -1.5}, {0, 0}], InsetBox[
-      StyleBox["\<\"Published\\nmaterial\\nshown in\\nhighlighted\\nboxes\"\>",
-       StripOnInput->False,
-       FontSize->14], {-2.65, -2.5}, {0, 0}]}}},
-  ImageSize->{Automatic, 600}]], "Output",
- CellChangeTimes->{
-  3.66903143319178*^9, 3.669031735634515*^9, {3.669031792578658*^9, 
-   3.6690318090720453`*^9}, 3.669031949899329*^9, 3.669032164447811*^9, 
-   3.669032277683893*^9, 3.669032328553145*^9, {3.66903238934587*^9, 
-   3.669032438097969*^9}, {3.6690325151551323`*^9, 3.66903254100206*^9}, {
-   3.669037442472953*^9, 3.669037461048358*^9}, {3.669037504603818*^9, 
-   3.669037514605857*^9}, 3.6690549787880783`*^9, 3.669055011884449*^9, 
-   3.669288918268478*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
  RowBox[{"Export", "[", 
   RowBox[{"\"\<figures/hiddenCode.pdf\>\"", ",", 
    RowBox[{"c", "[", "]"}]}], "]"}]], "Input",
  CellChangeTimes->{
   3.669017640266762*^9, {3.6692887683951797`*^9, 3.669288773111496*^9}, {
    3.669288874246517*^9, 3.669288877594204*^9}}],
-
-Cell[BoxData["\<\"figures/hiddenCode.pdf\"\>"], "Output",
- CellChangeTimes->{3.669021655007016*^9, 3.6690217919583273`*^9, 
-  3.669023671470841*^9, 3.6690323498828087`*^9, 3.669032548923781*^9, 
-  3.669037555832768*^9, 3.669054979076544*^9, 3.669055012296568*^9, 
-  3.6692889186114893`*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Graphics", "[", 
@@ -3243,21 +1896,6 @@ Cell[BoxData[
   3.670323343039115*^9, 3.6703233574935513`*^9}}],
 
 Cell[BoxData[
- GraphicsBox[{CircleBox[{0, 0}, 0.25], CircleBox[{0, 0}, 0.5], InsetBox[
-    StyleBox["\<\"Code\"\>",
-     StripOnInput->False,
-     FontSize->20], {0, 0}], InsetBox[
-    StyleBox["\<\"Publication\"\>",
-     StripOnInput->False,
-     FontSize->20], {0, 0.35}]},
-  ImageSize->500]], "Output",
- CellChangeTimes->{{3.670323091184353*^9, 3.670323223056602*^9}, {
-  3.670323346862537*^9, 3.670323357885562*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
  RowBox[{"Graphics", "[", 
   RowBox[{
    RowBox[{"{", 
@@ -3287,20 +1925,6 @@ Cell[BoxData[
  CellChangeTimes->{{3.670323254823647*^9, 3.670323300397171*^9}}],
 
 Cell[BoxData[
- GraphicsBox[{CircleBox[{0, 0}, 0.5], CircleBox[{0.75, 0}, 0.5], InsetBox[
-    StyleBox["\<\"Publication\"\>",
-     StripOnInput->False,
-     FontSize->20], {0, 0}], InsetBox[
-    StyleBox["\<\"Code\"\>",
-     StripOnInput->False,
-     FontSize->20], {0.75, 0}]},
-  ImageSize->500]], "Output",
- CellChangeTimes->{{3.670323261082539*^9, 3.6703233009611673`*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
  RowBox[{"Graphics", "[", 
   RowBox[{
    RowBox[{"{", 
@@ -3328,20 +1952,6 @@ Cell[BoxData[
         RowBox[{"1.2", ",", "0"}], "}"}]}], "]"}]}], "}"}], ",", 
    RowBox[{"ImageSize", "\[Rule]", "500"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.670323316946102*^9, 3.6703233246246967`*^9}}],
-
-Cell[BoxData[
- GraphicsBox[{CircleBox[{0, 0}, 0.5], CircleBox[{1.2, 0}, 0.5], InsetBox[
-    StyleBox["\<\"Publication\"\>",
-     StripOnInput->False,
-     FontSize->20], {0, 0}], InsetBox[
-    StyleBox["\<\"Code\"\>",
-     StripOnInput->False,
-     FontSize->20], {1.2, 0}]},
-  ImageSize->500]], "Output",
- CellChangeTimes->{{3.670323317476287*^9, 3.6703233251270533`*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Graphics", "[", 
@@ -3383,24 +1993,7 @@ Cell[BoxData[
         RowBox[{"0.75", ",", "0"}], "}"}]}], "]"}]}], "}"}], ",", 
    RowBox[{"ImageSize", "\[Rule]", "500"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.670323463228898*^9, 3.670323485289475*^9}, {
-  3.670323530466546*^9, 3.67032357467167*^9}}],
-
-Cell[BoxData[
- GraphicsBox[{CircleBox[{0, 0}, 0.5], CircleBox[{0.75, 0}, 0.5], 
-   CircleBox[{0.375, 0}], InsetBox[
-    StyleBox["\<\"Publication\"\>",
-     StripOnInput->False,
-     FontSize->20], {0, 0}], InsetBox[
-    StyleBox["\<\"LaTeX source\"\>",
-     StripOnInput->False,
-     FontSize->20], {0.375, 0.75}], InsetBox[
-    StyleBox["\<\"Code\"\>",
-     StripOnInput->False,
-     FontSize->20], {0.75, 0}]},
-  ImageSize->500]], "Output",
- CellChangeTimes->{{3.670323459550131*^9, 3.670323486118816*^9}, {
-  3.670323541950235*^9, 3.6703235757047453`*^9}}]
-}, Open  ]]
+  3.670323530466546*^9, 3.67032357467167*^9}}]
 }, Open  ]]
 },
 WindowSize->{1498, 1147},
@@ -3421,87 +2014,33 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
+Cell[558, 20, 126, 2, 36, "Input"],
+Cell[687, 24, 172, 3, 36, "Input"],
 Cell[CellGroupData[{
-Cell[580, 22, 126, 2, 36, "Input"],
-Cell[709, 26, 357, 5, 36, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[1103, 36, 172, 3, 36, "Input"],
-Cell[1278, 41, 559, 8, 36, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[1874, 54, 174, 2, 81, "Chapter"],
-Cell[2051, 58, 349, 9, 36, "Input"],
-Cell[CellGroupData[{
-Cell[2425, 71, 140, 2, 36, "Input"],
-Cell[2568, 75, 332, 5, 35, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[2937, 85, 5799, 128, 582, "Input"],
-Cell[8739, 215, 11139, 255, 393, "Output"]
-}, Open  ]],
-Cell[19893, 473, 9946, 233, 708, "Input"],
-Cell[29842, 708, 826, 24, 57, "Input"],
-Cell[CellGroupData[{
-Cell[30693, 736, 15066, 363, 1065, "Input"],
-Cell[45762, 1101, 8664, 186, 393, "Output"]
-}, Open  ]],
-Cell[54441, 1290, 608, 10, 109, "Text"],
-Cell[55052, 1302, 327, 7, 36, "Input"],
-Cell[CellGroupData[{
-Cell[55404, 1313, 2381, 51, 99, "Input"],
-Cell[57788, 1366, 7352, 150, 517, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[65177, 1521, 2291, 49, 99, "Input"],
-Cell[67471, 1572, 5811, 117, 459, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[73319, 1694, 296, 5, 36, "Input"],
-Cell[73618, 1701, 213, 3, 36, "Output"]
-}, Open  ]],
-Cell[73846, 1707, 109, 1, 37, "Text"],
-Cell[CellGroupData[{
-Cell[73980, 1712, 1836, 46, 99, "Input"],
-Cell[75819, 1760, 5064, 105, 459, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[80920, 1870, 175, 3, 36, "Input"],
-Cell[81098, 1875, 120, 1, 36, "Output"]
-}, Open  ]],
-Cell[81233, 1879, 1660, 44, 120, "Input"],
-Cell[CellGroupData[{
-Cell[82918, 1927, 15540, 367, 1023, "Input"],
-Cell[98461, 2296, 8487, 184, 768, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[106985, 2485, 338, 6, 36, "Input"],
-Cell[107326, 2493, 709, 10, 36, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[108072, 2508, 18607, 440, 1149, "Input"],
-Cell[126682, 2950, 11241, 242, 768, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[137960, 3197, 278, 6, 36, "Input"],
-Cell[138241, 3205, 290, 4, 36, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[138568, 3214, 1006, 28, 78, "Input"],
-Cell[139577, 3244, 420, 10, 642, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[140034, 3259, 957, 27, 78, "Input"],
-Cell[140994, 3288, 375, 9, 385, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[141406, 3302, 958, 27, 78, "Input"],
-Cell[142367, 3331, 373, 9, 315, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[142777, 3345, 1392, 40, 78, "Input"],
-Cell[144172, 3387, 560, 14, 642, "Output"]
-}, Open  ]]
+Cell[884, 31, 174, 2, 81, "Chapter"],
+Cell[1061, 35, 349, 9, 36, "Input"],
+Cell[1413, 46, 140, 2, 36, "Input"],
+Cell[1556, 50, 5799, 128, 582, "Input"],
+Cell[7358, 180, 9946, 233, 708, "Input"],
+Cell[17307, 415, 826, 24, 71, "Input"],
+Cell[18136, 441, 15066, 363, 1331, "Input"],
+Cell[33205, 806, 608, 10, 136, "Text"],
+Cell[33816, 818, 327, 7, 45, "Input"],
+Cell[34146, 827, 2381, 51, 123, "Input"],
+Cell[36530, 880, 2291, 49, 123, "Input"],
+Cell[38824, 931, 296, 5, 45, "Input"],
+Cell[39123, 938, 109, 1, 46, "Text"],
+Cell[39235, 941, 1836, 46, 123, "Input"],
+Cell[41074, 989, 175, 3, 45, "Input"],
+Cell[41252, 994, 1660, 44, 150, "Input"],
+Cell[42915, 1040, 15540, 367, 1278, "Input"],
+Cell[58458, 1409, 338, 6, 45, "Input"],
+Cell[58799, 1417, 18607, 440, 1436, "Input"],
+Cell[77409, 1859, 278, 6, 45, "Input"],
+Cell[77690, 1867, 1006, 28, 97, "Input"],
+Cell[78699, 1897, 957, 27, 97, "Input"],
+Cell[79659, 1926, 958, 27, 97, "Input"],
+Cell[80620, 1955, 1392, 40, 97, "Input"]
 }, Open  ]]
 }
 ]

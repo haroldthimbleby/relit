@@ -140,12 +140,12 @@ Authors' address: H. Thimbleby and D. Williams, University of Swansea, SWANSEA, 
 \section{Introduction}
 Getting software to work is often harder than it ought to be. When we needed a standard ``off the shelf'' algorithm we found it was quicker to invent a new one from scratch than get published algorithms to work. 
 
-This paper first introduces our brief, elegant new algorithm and its use and applications in experimental methods. It was hard to find a working solution in the literature --- even when we had searched both peer reviewed publications and textbooks --- and we suspect this is a widespread problem. Therefore we propose a new tool to help write more reproducible publications about algorithms. In fact, we used this tool in the present paper: the new algorithm we present in this paper works exactly as shown.
+This paper first introduces our brief, elegant new algorithm and its use and applications in experimental methods. It was hard to find a working solution in the literature --- even when we had searched both peer reviewed publications and textbooks --- and we suspect this is a widespread problem. Therefore we propose a new approach to help write more reproducible publications about algorithms, for which we built a tool \name{relit} (so called because it implements ``reverse literate programming''). In fact, we used \name{relit} in the present paper: the new algorithm we present in this paper works exactly as shown.
 
 Finally, we relate our new, lightweight tool-based approach to Richard Feynman's exhortation to avoid what he calls ``cargo cult science'': when we have the right tools to help us, his challenge becomes easy. We show how our approach makes publishing working software easier and more likely. It helps improve the quality of not just of publications but also of the underlying algorithms themselves: authors can now easily improve their algorithms and their papers as a tightly integrated process.
 
 \section{Algorithms for sequential experiments}
-In a sequential experiment, such as generation of sensor calibration curves, a number of random and systematic errors may occur. Errors can include: bias, drift of sensor readings  with time, and carry-over effect where the previous reading influences the next reading. Good experimental design therefore uses a sequence of calibration values that are arranged in such a way the sequence will normalise and cancel out random and systematic errors. Ideally the sequence will be as short as possible in order to minimise unnecessary work and expense in the collection of data. 
+In a sequential experiment, such as generation of sensor calibration curves, a number of random and systematic errors may occur. Errors can include: bias, drift of sensor readings  with time, and carry-over effect where the previous reading influences the next reading. Good experimental design therefore uses a sequence of calibration values arranged in such a way the sequence will normalise and cancel out random and systematic errors. Ideally the sequence will be as short as possible in order to minimise unnecessary work and expense in the collection of data. 
 
 The problem may be illustrated by a familiar example. We might want to know which of $N$ types of wine tastes best, but, as is well known, the flavour of a wine is affected by the last wine just tasted. We therefore want to design a systematic experiment for wine tasting that tries every sequential combination of pairs of the set of $N$ wine types available in our cellar, and of course we want the shortest such cycle, because experiments with wine are expensive. 
 
@@ -170,7 +170,7 @@ Elsewhere Cormen estimates that writing up the solutions to the book's exercises
 
 But worse than not providing an algorithm, in many textbooks and published papers, the Euler cycle algorithm --- if presented at all ---  is presented as a described in high-level English, as a sketch, or in a simplifying pseudo-language. It is also easy to find numerous lecture notes online that describe the Euler cycle algorithm in English.  
 
-While English may be sufficient to explain some principles or to estimate the time complexity of the algorithm or other properties, and to do other things programmers are interested in, it is inadequate to convert into a working program in a real, executable, language such as C or Java. To get a working program, a lot of detail needs carefully working out: how should a graph be represented in a language with type checking, for instance? If vertices are numbered, are they numbered from 0 or 1? Or should you use a standard package, and then have to convert the pseudo-program into the programming conventions of the package? Unfortunately, the necessary detail makes explanations unwieldy. In the worst case, the detail never existed, and the presented algorithm is not even an abstraction of anything that was ever executable.
+While English may be sufficient to explain some principles or to estimate the time complexity of the algorithm or other properties, and to do other things programmers are interested in, it is inadequate to convert into a working program in a real, executable, language such as C or Java. To get a working program, a lot of detail needs careful consideration: how should a graph be represented in a language with type checking, for instance? If vertices are numbered, are they numbered from 0 or 1? Or should you use a standard package, and then have to convert the pseudo-program into the programming conventions of the package? Unfortunately, the necessary detail makes explanations unwieldy. In the worst case, the detail never existed, and the presented algorithm is not even an abstraction of anything that was ever executable.
 
 Furthermore, Euler cycle programs assume the graph is arbitrary, and there are different algorithms for directed, undirected and mixed graphs. In our case, the graph happens to be both directed and complete, and we discovered that these facts can be used to simplify the problem. In fact, inventing and implementing a new algorithm for our special case took less time than correctly implementing a standard algorithm. 
 
@@ -239,7 +239,7 @@ Fisher proposed the application of randomised Latin Squares to balance and equal
 %Similarly, a randomised $(N,2)$ de Bruijn sequence may be used to generate an optimal sequence of experimental tests which minimises unnecessary tests and balances the effects of random and systematic error.
 In a similar way, if a sequence of experimental tests is prescribed by a randomised $(N,2)$ de Bruijn sequence, every element in the series will be tested $N$ times in random order, and will be immediately preceded by every other element in the series in the set exactly once. This approach allows the most efficient means of testing multiple items balancing and equalising the effects of systematic bias, drift, serial carry-over effects, hysteresis and random error. Thus a simple algorithm to generate randomised de Bruijn sequences has applications in experimental design in many areas of scientific and statistical research,  and can also be used in signal processing to improve the signal to noise ratio, for instance in Magnetic Resonance Imaging (MRI) scan \cite{aguirre}.
 
-An Eulerian cycle may be used to generate de Bruijn sequences \cite{fleury,hierholzer}. An Eulerian cycle of a complete graph with $N$ vertices will follow in order every edge $u \rightarrow v \rightarrow\ldots$ exactly once for all $u$ and $v$, which is precisely the definition of an $(N,2)$ de Bruijn sequence. More generally, a \emph{de Bruijn graph\/} is a graph whose Euler cycle generates the corresponding de Bruijn sequence. As a special case, the complete graph is a de Bruijn graph --- reference \cite{good} gives some examples. Other approaches for generating de Bruijn sequences include feedback shift registers and genetic algorithms \cite{turan,knuth4a}.%\cite{lempel}
+An Eulerian cycle may be used to generate de Bruijn sequences \cite{fleury,hierholzer}. An Eulerian cycle of a complete graph with $N$ vertices follows in order every edge $u \rightarrow v \rightarrow\ldots$ exactly once for all $u$ and $v$, which is precisely the definition of an $(N,2)$ de Bruijn sequence. More generally, a \emph{de Bruijn graph\/} is a graph whose Euler cycle generates the corresponding de Bruijn sequence. As a special case, the complete graph is a de Bruijn graph; Good \cite{good} gives further examples. Other approaches for generating de Bruijn sequences include feedback shift registers and genetic algorithms \cite{turan,knuth4a}.%\cite{lempel}
 
 \subsection{Classic Euler cycle algorithms}\label{new-algorithm}
 Many deceptively simple algorithms to generate Eulerian cycles have been described. These two classic algorithms were invented well before modern computers:
@@ -335,7 +335,7 @@ The function \texttt{recordEdge} can be any way of recording the next edge along
 %define define-basic-recordEdge /Verbatim/+1,/Verbatim/-1
 \begin{Verbatim}
 void recordEdge(int u, int v) 
-{   printf("%d --> %d\n", u, v); // print an edge walked
+{   (void) printf("%d --> %d\n", u, v); // print an edge walked
 }
 \end{Verbatim}
 
@@ -430,7 +430,7 @@ srand((unsigned) time(&t));
 \end{verbatim}
 
 \subsection{Solving the wine tasting problem}\label{winetasting}
-The basic algorithm, described above, uses integers as the names of vertices. For many applications it may be more appropriate to use strings. We can define vertex name strings:\footnote{Not shown here, but our wine sequence generating program, which is generated automatically from this paper using \name{relit}, checks at run time that \texttt{N} correctly matches the number of wines declared. (It is a shame that this cannot be performed with a static check in C.)}
+The basic algorithm, described above, uses integers as the names of vertices. For many applications it may be more appropriate to use strings. We can define vertex name strings:\footnote{Not shown here, but our wine sequence generating program, which is generated automatically from this paper using our tool \name{relit} (see section~\ref{relit-intro}), checks at run time that \texttt{N} correctly matches the number of wines declared. (It is a shame that this cannot be performed with a static check in C.)}
 
 %define wine-names /verbatim/+1, /verbatim/-1
 \begin{verbatim}
@@ -443,7 +443,7 @@ and then convert the edge recording by changing \texttt{recordEdge} to print the
 %define define-wine-recordEdge /Verbatim/+1,/Verbatim/-1
 \begin{Verbatim}
 void recordEdge(int u, int v) 
-{   printf("%s $\\rightarrow$\n", wines[u]);
+{   (void) printf("%s $\\rightarrow$\n", wines[u]);
 }
 \end{Verbatim}
 
@@ -495,13 +495,13 @@ Figure \ref{fig:lp} compares the main forms of literate programming, including o
 \label{fig:lp}
 \end{figure}
 
-\subsection{Reverse literate programming --- the details}
+\subsection{Reverse literate programming --- the details}\label{relit-intro}
 
 Code formatted in this paper is written in the following conventional \LaTeX\ style:
 
 \begin{verse}\tt
 \char'134 begin\{verbatim\}\\
-printf("Hello reverse literate programming!\char'134n");\\
+(void) printf("Hello reverse literate programming!\char'134n");\\
 \char'134 end\{verbatim\}
 \end{verse}
 
@@ -521,7 +521,7 @@ The effect is that \texttt{\emph{name}} is defined to be the text in the file ov
 \begin{verse}\tt % note how we stop the %{}define being recognised
 \%{}define demo /verbatim/+1, /verbatim/-1\\
 \char'134 begin\{verbatim\}\\
-printf("Hello reverse literate programming!\char'134n");\\
+(void) printf("Hello reverse literate programming!\char'134n");\\
 \char'134 end\{verbatim\}
 \end{verse}
 
@@ -531,7 +531,7 @@ printf("Hello reverse literate programming!\char'134n");\\
 \ignore{
 %define demo /verbatim/+1, /verbatim/-1
 \begin{verbatim}
-printf("Hello world!\n");
+(void) printf("Hello world!\n");
 \end{verbatim}
 }
 
@@ -599,7 +599,7 @@ Our tool \name{relit} provides all the normal checks, such as reporting if names
 %\name{Relit} also warns if a name is used more than once, since this may indicate an error (if the same piece of code is needed twice in a paper, it probably needs explaining). 
 Indeed, some authors have used deliberate ``errors'' as a way of providing metacomments: defining an unused name results in its name and value being reported to the user --- so the text is highlighted, which can be used as a reminder to fix an issue with the document. 
 
-\name{Relit} is a Unix tool, written as a short C program, \myinput{linesofrelit.tex}\ lines long.
+\name{Relit} is a Unix tool, written as a short C program, \myinput{linesofrelit.tex}\ lines long and, together with this paper and documentation, is available from \url{https://github.com/haroldthimbleby/relit}.
 
 \subsection{Generating any text, not just program code}
 In general, authors of papers may want arbitrary text generated, not just programs (for example, we showed the text generated by running our algorithm on a selection of wines in section~\ref{winetasting}), and the generated text may require sophisticated processing or testing. 
@@ -616,7 +616,7 @@ Of course, files created by \name{relit} programming can be processed by other t
 
 The authors of a paper should be able to check that the explicit code shown in their paper is exactly what they want the reader to see and that nothing critical has been omitted. On the other hand, a published paper should conceal details that are distracting or irrelevant to its core message: it need not show all of the code a runnable program requires, but just enough to get the idea across. The tension between these, being explicit and being concise, is a recipe for error: what is hidden, by definition, cannot be seen, yet some omitted information may be required for achieving a complete program. Worse, the reader of the paper may not be certain what is missing, and they may not have the skills or time needed to reconstruct it correctly. Compounding the problem is the so-called ``curse of knowledge'' \cite{pinker}: the authors of the paper have privileged knowledge (in principle they know everything about what they are talking about) and they may therefore be unaware that some things have not been explicitly mentioned in the paper --- it is very hard to distinguish between what they know in general about what they are writing and what they think they know (perhaps inaccurately) is in the paper.
 
-Tools like \name{warp} and \name{loom} help the authors ensure that code published has been obtained directly the working programs, but it is still possible to write code in the paper that has never been tested or compiled, and also to leave a lot of essential context in the program that \name{warp} or \name{loom} do not draw into the document. Figure \ref{fig:lp2} summarises the issues. 
+Tools like \name{warp} and \name{loom} help the authors ensure that code published has been obtained directly the working programs, but it is still possible to write code in the paper that has never been tested or compiled, and also to leave a lot of essential context in the program that \name{warp} or \name{loom} do not draw into the document. Figure \ref{fig:lp2} summarises the challenges. 
 
 \begin{figure}
 \begin{center}\sf\small
@@ -840,7 +840,7 @@ This paper and the open source \name{relit} tool and documentation are available
 %One can write a paper for human readers, edit the program code in the paper at will, and \emph{then\/} automatically generate a program test bed to check and run the code.
 
 \section*{Acknowledgements}
-We are very grateful to Paul Cairns and Bob Laramee for making us greatly improve the paper.
+We are very grateful to Paul Cairns, Rod Chapman and Bob Laramee for helping us greatly improve the paper.
 
 \let\oldbibitem=\bibitem
 \def\bibitem{\frenchspacing\raggedright\oldbibitem}
@@ -978,7 +978,7 @@ char *labels[] = { "A", "B", "C" }; // assuming N=3
 and changing line 10 to, e.g., 
 
 \begin{verbatim}
-printf("(%s, %s)\n", labels[u], labels[v]);
+(void) printf("(%s, %s)\n", labels[u], labels[v]);
 \end{verbatim}
 
 Finally, correct implementation of this algorithm in C requires \verb|rand()|, \verb|srand()|, \verb|RAND_MAX|, \verb|time_t|, \verb|time()| and \verb|printf()|. Their declarations are in standard libraries: \url{stdio.h}, \url{stdlib.h},  \url{time.h}, \url{math.h}, which should be included at the start of the program.
@@ -1067,17 +1067,17 @@ int count_wines() // not perfect, but find first (char*) 0 entry
 
 int main(int argc, const char *argv[])
 { if( count_wines() != N )
-  {  printf("N is %d but the number of declared wines is %d\n", N, count_wines());
+  {  (void) printf("N is %d but the number of declared wines is %d\n", N, count_wines());
      return 0;
   }
   else // we % comment this, because the text would otherwise be sucked back into the paper! (see makefile)
-    printf("%% N = %d is correct for the %d explicit wine names initialised\n", N, count_wines());
+    (void) printf("%% N = %d is correct for the %d explicit wine names initialised\n", N, count_wines());
   initialise();
   <initialise-Random> 
   <initialise-permutation> 
   int randomU = randInt(N);
   cycle(randomU, randInt(N));
-  printf("%s\n", wines[randomU]); // get back to start
+  (void) printf("%s\n", wines[randomU]); // get back to start
   return 0;
 }
 %end
