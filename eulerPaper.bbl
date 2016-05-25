@@ -368,6 +368,15 @@
 \url{10.1145/2046684.2046696}}
 
 
+\bibitem[\protect\citeauthoryear{Wikipedia}{Wikipedia}{2016}]%
+        {wiki}
+{Wikipedia}. accessed 2016.
+\newblock {\em Comparison of documentation generators}.
+\newblock
+\showURL{%
+\url{http://en.m.wikipedia.org/wiki/Comparison_of_documentation_generators}}
+
+
 \bibitem[\protect\citeauthoryear{Wolfram}{Wolfram}{1999}]%
         {mathematica}
 {S. Wolfram}. 1999.
