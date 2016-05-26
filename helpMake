@@ -1,0 +1,78 @@
+# (c) Harold Thimbleby harold@thimbleby.net http://www.harold.thimbleby.net May 2016
+# Version 1.0
+#
+# when you use make for latex/bibtex/makeindex make gets confused with circular dependencies
+# 
+# Use: helpMake files[-target]... "command arguments > etc"
+#
+# Meaning: when you run the command, the target file(s) should be created
+# e.g., in a makefile say
+#
+# doc.aux-target: doc.tex doc.bbl
+#	helpMake doc.aux "latex doc.tex"
+#
+# doc.bbl-target: doc.aux
+#	helpMake doc.bbl "bibtex doc.aux"
+#
+# how it works
+# file and file-target are the same files, using them avoids make spotting circular dependencies
+# but the files are only updated if running the command changes their contents
+	
+me=`basename $0`
+
+if [ $# -lt 2 ]
+then
+	echo Usage: $me "files[-target]..." '"command and arguments... > etc"'
+	exit
+fi
+
+temp="-temp-$$"
+target="-target"
+
+cmd="${!#}"
+
+i=1;
+while [ $i -lt $# ]
+do
+	targetName=`basename ${!i} $target`
+	if [ -e $targetName$temp ]
+		then
+			echo $targetName$temp already exists, unsafe to proceed!
+			exit
+	fi
+	rm -f $targetName$target
+	if [ -e $targetName ]
+		then
+			mv $targetName $targetName$temp # the temp file preserves the timestamp
+			cp $targetName$temp $targetName
+	fi
+	i=`expr $i + 1`
+done
+
+echo $me running: $cmd 
+echo $cmd | sh
+
+i=1;
+while [ $i -lt $# ]
+do
+	# if there is a temp file, we have a saved version to compare
+	targetName=`basename ${!i} $target`
+	if [ -e $targetName$temp ]
+		then
+			if cmp -s $targetName $targetName$temp
+				then
+					echo $targetName not updated by $cmd
+					mv $targetName$temp $targetName # restore its timestamp
+				else
+					echo $targetName updated by $cmd
+						rm $targetName$temp # now obsolete
+			fi
+			else
+				echo $targetName created by $cmd
+	fi
+	touch $targetName$target # the -target is updated to fool make
+	i=`expr $i + 1`
+done
+
+
+
