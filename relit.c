@@ -1,5 +1,5 @@
-// Inverted literate programming
-// March 2016 (c) Harold Thimbleby harold@thimbleby.net 
+// Relit - rverse literate programming
+// May 2016 (c) Harold Thimbleby harold@thimbleby.net 
 // Version 3.1
 		// \relit{define name ., .} goes wrong because of backing up over a non-existent newline. 
 		
