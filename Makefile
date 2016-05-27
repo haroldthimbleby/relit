@@ -82,5 +82,5 @@ clean: # leaves all the sources and the pdf file
 	-rm -f eulerPaper.aux eulerPaper.blg eulerPaper.log eulerPaper.synctex.gz 
 	-rm -f eulerPaper.idx eulerPaper.dvi eulerPaper.ilg sedcommands TeX-mode-demo.tex relit-def.tex
 	-rm -f corelinesofcode.tex define-non-randomised-cycle
-	-rm *-target
+	-rm -f *-target
 	-rm -f a.out # a.out often happens due to manual compiling!
