@@ -6,7 +6,7 @@
 # Use: helpMake files[-target]... "command arguments > etc"
 #
 # Meaning: when you run the command, the target file(s) should be created
-# e.g., in a makefile say
+# So in a makefile you might say
 #
 # doc.aux-target: doc.tex doc.bbl
 #	helpMake doc.aux "latex doc.tex"
@@ -14,9 +14,14 @@
 # doc.bbl-target: doc.aux
 #	helpMake doc.bbl "bibtex doc.aux"
 #
-# how it works
+# HOW IT WORKS
 # file and file-target are the same files, using them avoids make spotting circular dependencies
-# but the files are only updated if running the command changes their contents
+# but the files are only updated if running the command changes their contents. 
+# file-target gets updated so make is happy for this rule
+# but file (if its contents did not change) is not updated, so other rules depending on it do not file
+# moreover, because file and file-target are the same file, 
+# but make does not realise, the circular dependencies are broken
+# .... will create temporary files *-temp-$$ (and will remove them if it runs to completion)
 	
 me=`basename $0`
 
