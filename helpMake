@@ -31,7 +31,7 @@ then
 	exit
 fi
 
-temp="-temp-$$"
+temp="-temp-$$.tmp" # put a suffix on it to reduce name collisions
 target="-target"
 
 cmd="${!#}"
@@ -54,8 +54,15 @@ do
 	i=`expr $i + 1`
 done
 
-echo $me running: $cmd 
+# echo $me running: $cmd 
 echo $cmd | sh
+
+updated=""
+nupdated=0
+created=""
+ncreated=0
+notupdated=""
+nnotupdated=0
 
 i=1;
 while [ $i -lt $# ]
@@ -66,18 +73,39 @@ do
 		then
 			if cmp -s $targetName $targetName$temp
 				then
-					echo $targetName not updated by $cmd
+					# echo $targetName not updated by $cmd
+					if [ "$notupdated" != "" ]; then notupdated="$notupdated, "; fi
+					notupdated="$notupdated$targetName"
+					nnotupdated=`expr $nnotupdated + 1`
 					mv $targetName$temp $targetName # restore its timestamp
 				else
-					echo $targetName updated by $cmd
-						rm $targetName$temp # now obsolete
+					# echo $targetName updated by $cmd
+					if [ "$updated" != "" ]; then updated="$updated, "; fi
+					updated="$updated$targetName"
+					nupdated=`expr $nupdated + 1`
+					rm $targetName$temp # now obsolete
 			fi
 			else
-				echo $targetName created by $cmd
+				# echo $targetName created by $cmd
+				if [ "$created" != "" ]; then created="$created, "; fi
+				created="$created$targetName"
+				ncreated=`expr $ncreated + 1`
 	fi
 	touch $targetName$target # the -target is updated to fool make
 	i=`expr $i + 1`
 done
 
+summarise () {
+	if [ $1 -gt 1 ]; then 
+ 		echo "$me" $1 $2 files: $3
+	else
+		if [ $1 -gt 0 ]; then 
+ 			echo "$me" $1 $2 file: $3
+		fi
+	fi
+}
 
+summarise $ncreated created "$created"
+summarise $nupdated updated "$updated"
+summarise $nnotupdated unchanged "$notupdated"
 
