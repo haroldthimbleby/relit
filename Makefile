@@ -1,11 +1,11 @@
 # Makefile for relit
 
-.PHONY : all pdf man clean bib run index test runRelit
+.PHONY: all pdf man clean bib run index test runRelit
 
 .DEFAULT: eulerPaper.pdf
 
-eulerPaper.pdf eulerPaper.aux-target eulerPaper.idx-target: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt eulerPaper.bbl eulerPaper.ind corelinesofcode.tex runRelit
-	./helpMake eulerPaper.aux eulerPaper.idx "pdflatex eulerPaper.tex"
+pdf eulerPaper.pdf eulerPaper.aux-target eulerPaper.idx-target: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt eulerPaper.bbl eulerPaper.ind corelinesofcode.tex runRelit
+	./helpMake eulerPaper.pdf eulerPaper.aux eulerPaper.idx "pdflatex eulerPaper.tex"
 
 man: relit.1
 	man ./relit.1 
@@ -75,9 +75,5 @@ wine: wine.c
 	cc wine.c -o wine 
 
 clean: # leaves all the sources and the pdf file
-	-rm -f euler.c euler randomised-euler.c randomised-euler winelist.tex lastwine.tex linesofcode.tex sedgewickeslinesofcode.tex hello.c allLinesofcode.tex linesofrelit.tex e.txt uncom relit t *-tagged.txt wine.c wine allinesofcode.tex
-	-rm -f eulerPaper.aux eulerPaper.blg eulerPaper.log eulerPaper.synctex.gz 
-	-rm -f eulerPaper.idx eulerPaper.dvi eulerPaper.ilg sedcommands TeX-mode-demo.tex relit-def.tex
-	-rm -f corelinesofcode.tex define-non-randomised-cycle
-	-rm -f *-target *-temp-*.tmp
-	-rm -f a.out # a.out often happens due to manual compiling!
+	-rm -f allinesofcode.tex allLinesofcode.tex corelinesofcode.tex define-non-randomised-cycle e.txt euler euler.c eulerPaper.aux eulerPaper.blg eulerPaper.dvi eulerPaper.idx eulerPaper.ilg eulerPaper.log eulerPaper.synctex.gz hello.c lastwine.tex linesofcode.tex linesofrelit.tex randomised-euler randomised-euler.c relit relit-def.tex sedcommands sedgewickeslinesofcode.tex t TeX-mode-demo.tex uncom wine wine.c winelist.tex
+	-rm -f *-target *-temp-*.tmp *-tagged.txt

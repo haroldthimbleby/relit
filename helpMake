@@ -105,6 +105,7 @@ summarise () {
 	fi
 }
 
+# summarise `expr $ncreated + $nnotupdated + $nupdated` "involved" "$cmd"
 summarise $ncreated created "$created"
 summarise $nupdated updated "$updated"
 summarise $nnotupdated unchanged "$notupdated"
