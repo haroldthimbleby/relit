@@ -1048,11 +1048,9 @@ s/\\seen{}\\endline\\\\/\\seen%/
 %generate Makefile ., /%end/-1
 # Makefile for relit
 
-.PHONY: all pdf man clean bib run index test runRelit
+.PHONY: all man test clean bib run index test runRelit
 
-.DEFAULT: eulerPaper.pdf
-
-pdf eulerPaper.pdf eulerPaper.aux-target eulerPaper.idx-target: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt eulerPaper.bbl eulerPaper.ind corelinesofcode.tex runRelit
+eulerPaper.pdf all eulerPaper.aux-target eulerPaper.idx-target: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt eulerPaper.bbl eulerPaper.ind corelinesofcode.tex 
 	./helpMake eulerPaper.pdf eulerPaper.aux eulerPaper.idx "pdflatex eulerPaper.tex"
 
 man: relit.1
@@ -1068,10 +1066,10 @@ bib eulerPaper.bbl-target: eulerPaper.aux
 	
 index eulerPaper.ind-target: eulerPaper.idx
 	./helpMake eulerPaper.ind "makeindex eulerPaper.idx"
-	
+	 
 runRelit Makefile euler.c-target randomise-euler.c-target sedcommands-target euler.c-tagged.txt-target define-non-randomised-cycle-target wine.c-target: eulerPaper.tex relit  
 	./helpMake euler.c-target randomise-euler.c-target sedcommands-target euler.c-tagged.txt-target define-non-randomised-cycle-target wine.c-target "./relit -u -v eulerPaper.tex"
-
+	
 euler: euler.c
 	cc euler.c -o euler
 	./euler
