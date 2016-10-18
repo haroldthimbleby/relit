@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <regex.h>
 #include <time.h>
+#include <errno.h>
 
 int verboseOption = 0, touchedFilesOption = 0, listFileNamesOption = 0, forceUpdateOption = 0, xOption = 0, allDefinitionsOption = 0, allNamesOption = 0, optionsOption = 0;
 char *defaultTag = "";
@@ -127,22 +128,27 @@ FILE *touchOpen(char *name)
 	{	touchWriting = UPDATE;
 		return fopen(name, "w");
 	}
+	fseek(fd, 0L, SEEK_SET); // probably redundant
 	touchWriting = UNCHANGED; // file exists
 	return fd;
 }
 
 void touch(FILE *fd, char *s, long n) // write n bytes to file, but only update file if they are different
-{	if( xOption ) return;
+{	size_t bytesRead;
+	long originalPosition = touchLength;
+	if( xOption ) return;
 	touchLength += n;
 	if( touchWriting == UPDATE )
 	{	fwrite(s, 1, n, fd);
 		return;
 	}
 	char *bp = safealloc(n);
-	touchWriting = fread(bp, 1, n, fd) != n || strncmp(bp, s, n)? UPDATE: UNCHANGED;
+	bytesRead = fread(bp, 1, n, fd);
+	touchWriting = bytesRead != n || strncmp(bp, s, n)? UPDATE: UNCHANGED;
 	free(bp);
 	if( touchWriting == UNCHANGED ) return; // they are the same; nothing to write
-	fseek(fd, -n, SEEK_CUR); // backup
+	if( fseek(fd, originalPosition, SEEK_SET) != 0 ) // backup the file pointer
+		fprintf(stderr, "File seek failed - %s\n", strerror(errno));
 	fwrite(s, 1, n, fd); // write over and update
 }
 
@@ -151,7 +157,8 @@ void touchClose(FILE *fd, char *fileName) // trim file to actual length
 	fseek(fd, 0L, SEEK_END);
 	if( ftell(fd) != touchLength ) 
 	{	touchWriting = UPDATE; // in case new file is a shorter prefix (so not neeeding UPDATE so far)
-		ftruncate(fileno(fd), touchLength); // truncate to correct length
+		if( ftruncate(fileno(fd), touchLength) != 0 ) // truncate to correct length
+			fprintf(stderr, "File truncate failed - %s\n", strerror(errno));
 	}
 	fclose(fd);
 	if( listFileNamesOption || (touchedFilesOption && touchWriting == UPDATE ) ) printf("%s\n", fileName); 
@@ -173,6 +180,8 @@ int recursivelyExpand(FILE *fd, char *filename, char *bp, char *tag, int tags)
 			usesTags |= recursivelyExpand(fd, filename, d->value, d->tag, tags);
 			if( tags ) recursivelyExpand(fd, filename, tag, "", 0);
 			d->expanding = 0;
+			if( strlen(d->value) > 0 && d->value[strlen(d->value)-1] == '\n' && bp[offset+REmatch[0].rm_eo] == '\n' ) // if <name> and context have consecutive newlines, ignore one of them
+				offset++;
 		}
 	}
 	touch(fd, &bp[offset], (long) strlen(&bp[offset]));
@@ -198,10 +207,11 @@ void generateFiles()
 						d->expanding = 0;
 						touchClose(fd, tagfile);
 					}
-					else fprintf(stderr, "** generate %s: cannot create or open file \"%s\" for writing\n", d->name, tagfile);
+					else 
+						fprintf(stderr, "** generate %s: cannot create or open file \"%s\" for writing\n   Does this system information help: \"%s\"\n", d->name, tagfile, strerror(errno));
 				}
 			}
-			else fprintf(stderr, "** generate %s: cannot create or open file \"%s\" for writing\n", d->name, d->name);
+			else fprintf(stderr, "** generate %s: cannot create or open file \"%s\" for writing\n   Does this system information help: \"%s\"\n", d->name, d->name, strerror(errno));
 		}
 }
 

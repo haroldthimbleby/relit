@@ -2,8 +2,8 @@
 
 .PHONY: all man test clean bib run index test runRelit
 
-eulerPaper.pdf all eulerPaper.aux-target eulerPaper.idx-target: eulerPaper.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt eulerPaper.bbl eulerPaper.ind corelinesofcode.tex 
-	./helpMake eulerPaper.pdf eulerPaper.aux eulerPaper.idx "pdflatex eulerPaper.tex"
+relit.pdf all relit.aux-target relit.idx-target: relit.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt relit.bbl relit.ind corelinesofcode.tex 
+	./helpMake relit.pdf relit.aux relit.idx "pdflatex relit.tex"
 
 man: relit.1
 	man ./relit.1 
@@ -13,14 +13,14 @@ test: euler randomised-euler wine
 	./randomised-euler
 	./wine
 	
-bib eulerPaper.bbl-target: eulerPaper.aux
-	./helpMake eulerPaper.bbl "bibtex eulerPaper.aux"
+bib relit.bbl-target: relit.aux
+	./helpMake relit.bbl "bibtex relit.aux"
 	
-index eulerPaper.ind-target: eulerPaper.idx
-	./helpMake eulerPaper.ind "makeindex eulerPaper.idx"
+index relit.ind-target: relit.idx
+	./helpMake relit.ind "makeindex relit.idx"
 	 
-runRelit Makefile euler.c-target randomise-euler.c-target sedcommands-target euler.c-tagged.txt-target define-non-randomised-cycle-target wine.c-target: eulerPaper.tex relit  
-	./helpMake euler.c-target randomise-euler.c-target sedcommands-target euler.c-tagged.txt-target define-non-randomised-cycle-target wine.c-target "./relit -u -v eulerPaper.tex"
+runRelit Makefile euler.c-target randomise-euler.c-target sedcommands-target euler.c-tagged.txt-target define-non-randomised-cycle-target wine.c-target: relit.tex relit  
+	./helpMake euler.c-target randomise-euler.c-target sedcommands-target euler.c-tagged.txt-target define-non-randomised-cycle-target wine.c-target "./relit -u -v relit.tex"
 	
 euler: euler.c
 	cc euler.c -o euler
@@ -73,5 +73,5 @@ wine: wine.c
 	cc wine.c -o wine 
 
 clean: # leaves all the sources and the pdf file
-	-rm -f allinesofcode.tex allLinesofcode.tex corelinesofcode.tex define-non-randomised-cycle e.txt euler euler.c eulerPaper.aux eulerPaper.blg eulerPaper.dvi eulerPaper.idx eulerPaper.ilg eulerPaper.log eulerPaper.synctex.gz hello.c lastwine.tex linesofcode.tex linesofrelit.tex randomised-euler randomised-euler.c relit relit-def.tex sedcommands sedgewickeslinesofcode.tex t TeX-mode-demo.tex uncom wine wine.c winelist.tex
+	-rm -f allinesofcode.tex allLinesofcode.tex corelinesofcode.tex define-non-randomised-cycle e.txt euler euler.c relit.aux relit.blg relit.dvi relit.idx relit.ilg relit.log relit.spl relit.synctex.gz hello.c lastwine.tex linesofcode.tex linesofrelit.tex nameDemo.c randomised-euler randomised-euler.c relit relit-def.tex sedcommands sedgewickeslinesofcode.tex t TeX-mode-demo.tex uncom wine wine.c winelist.tex
 	-rm -f *-target *-temp-*.tmp *-tagged.txt
