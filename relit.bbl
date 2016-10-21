@@ -1,4 +1,4 @@
-\begin{thebibliography}{39}
+\begin{thebibliography}{42}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -182,6 +182,18 @@ R.~Sedgewick, K.~Wayne, and N.~Liu.
   \emph{\rm\texttt{http://algs4.cs.princeton.edu/42digraph/DirectedEulerianCycle.java}}
   \citet{sedgewickbook}.
 
+\bibitem[Simkin and Roychowdhury(2003)]{nocite}
+M.~V. Simkin and V.~P. Roychowdhury.
+\newblock Copied citations create renowned papers?
+\newblock arXiv.org{\tt >}cond-mat{\tt >}arXiv:cond-mat/0305150, 2003.
+\newblock URL \url{https://arxiv.org/abs/cond-mat/0305150}.
+
+\bibitem[Smaldino and McElreath(2016)]{evolution}
+P.~E. Smaldino and R.~McElreath.
+\newblock The natural selection of bad science.
+\newblock \emph{Royal Society Open Science}, 3\penalty0 (160384), 2016.
+\newblock \doi{10.1098/rsos.160384}.
+
 \bibitem[Syed(2015)]{blackbox}
 M.~Syed.
 \newblock \emph{Black Box Thinking}.
@@ -207,6 +219,13 @@ H.~Thimbleby.
 \newblock \emph{Times Higher Education Supplement}, 9 May, 2004.
 \newblock URL
   \url{http://www.timeshighereducation.co.uk/story.asp?sectioncode=26&storycode=176549}.
+
+\bibitem[Thimbleby(2008)]{writing}
+H.~Thimbleby.
+\newblock Write now!
+\newblock In P.~Cairns and A.~Cox, editors, \emph{Research Methods for
+  Human-Computer Interaction}, pages 196--211. Cambridge University Press,
+  2008.
 
 \bibitem[Thimbleby(2012)]{heedless}
 H.~Thimbleby.

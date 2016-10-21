@@ -1,7 +1,7 @@
 // Relit - rverse literate programming
-// May 2016 (c) Harold Thimbleby harold@thimbleby.net 
-// Version 3.1
-		// \relit{define name ., .} goes wrong because of backing up over a non-existent newline. 
+// October 2016 (c) Harold Thimbleby harold@thimbleby.net 
+// Version 3.3
+// *** parsing \relit{define name ., .} goes wrong because of backing up over a non-existent newline. 
 		
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,6 +14,10 @@
 #include <time.h>
 #include <errno.h>
 
+#define SUBSCRIPT_VALUE "(subscripted name)\n"
+#define SUBSCRIPT_TYPE "subscripted name"
+#define COUNTER_SYMBOL '#'
+
 int verboseOption = 0, touchedFilesOption = 0, listFileNamesOption = 0, forceUpdateOption = 0, xOption = 0, allDefinitionsOption = 0, allNamesOption = 0, optionsOption = 0;
 char *defaultTag = "";
 enum { UPDATE, UNCHANGED } touchWriting;
@@ -22,7 +26,7 @@ long touchLength;
 struct dictionary // there aren't going to be many names, so a linked list will work fine
 {	struct dictionary *next;
 	char *type, *name, *value, *tag;
-	int used, expanding, recursive;
+	int used, expanding, recursive, counter;
 } *names = NULL;
 
 char *safealloc(size_t n)
@@ -36,7 +40,8 @@ char *safealloc(size_t n)
 
 void checkDictionary()
 {	for( struct dictionary *d = names; d != NULL; d = d->next )
-    {	if( !d->used ) fprintf(stderr, "** unused %s %s\n%s", d->type, d->name, d->value);
+    {	if( !d->used ) 
+    		fprintf(stderr, "** unused %s %s\n%s", d->type, d->name, d->value);
 		else if( d->recursive ) fprintf(stderr, "** recursive definition: %s %s\n%s", d->type, d->name, d->value);
 		// printf %8s padding so generate and define align nicely
         else if( allDefinitionsOption ) fprintf(stderr, "%8s %s:\n%s", d->type, d->name, d->value);
@@ -48,9 +53,74 @@ void checkDictionary()
     }
 }
 
+void explainSubscripts()
+{	int notes = 0;
+	for( struct dictionary *d = names; d != NULL; d = d->next )
+    	if( !strcmp(d->type, SUBSCRIPT_TYPE) )
+		{	if( !notes++ )
+				fprintf(stderr, "Subscript notes:\n");
+			if( d->counter > 1 )
+				fprintf(stderr, "     %s covers subscript range 1 to %d\n", d->name, d->counter);
+			else
+				fprintf(stderr, "  ** %s covers subscript 1 only (only used once)\n", d->name);
+		}
+}
+
+int counterName(char *name)
+{	return index(name, COUNTER_SYMBOL) != NULL;
+}
+
+struct dictionary *rawlookup(char *name) // can lookup any name
+{	for( struct dictionary *d = names; d != NULL; d = d->next )
+		if( !strcmp(name, d->name) ) return d;
+	return (struct dictionary *) NULL;
+}
+
+struct dictionary *dlookup(char *name) // it's an error to lookup a subscripted name
+{	if( counterName(name) )
+		fprintf(stderr, "** <%s> cannot be used with '%c' (only use '%c' in %%define or %%generate commands)\n", name, COUNTER_SYMBOL, COUNTER_SYMBOL);
+	return rawlookup(name);
+}
+
+// the first time a subscripted name (eg name#) is defined, two definitions are actually made:
+//     - name# is recursively created and initialised to 0
+//     - name1 is created and defined
+// subsequently, name# is convered to name2, name3, etc, and defined as usual
 void define(char *type, char *name, char *value, char *tag)
-{	struct dictionary *new = (struct dictionary *) safealloc(sizeof (struct dictionary)), **p;
+{	if( strcmp(type, SUBSCRIPT_TYPE) && counterName(name) )
+	{	struct dictionary *nameEntry = rawlookup(name);
+		if( nameEntry == NULL ) // then first time, recurse to define the subscripted name (with #)
+		{	define(SUBSCRIPT_TYPE, name, SUBSCRIPT_VALUE, tag);
+			nameEntry = rawlookup(name);	
+			nameEntry->used = 1; 
+		}
+		nameEntry->counter++;
+		if( nameEntry->counter > 999 )
+		{	fprintf(stderr, "** Oops. I never thought we'd need such big subscripts. Please edit relit.c and recompile!!\n");
+			exit(-1);
+		}
+		char *tname = safealloc(strlen(name)+1+3); // allows # counting up to 10^3-1 
+		// now instantiate the subscript; replace COUNTER_SYMBOL (#) with the counter value
+		int j = 0, countercounter = 0;
+		for( int i = 0; name[i]; i++ )
+		{	if( name[i] == COUNTER_SYMBOL )
+			{   if( countercounter++ > 0 )
+				{	fprintf(stderr, "** You cannot have more than one subscripter '%c' character in %s\n", COUNTER_SYMBOL, name);
+					break;
+				}
+				sprintf(&tname[j], "%d", nameEntry->counter);
+			    while( tname[j] ) j++; // position over null at end of string
+			}
+			else tname[j++] = name[i];
+		}
+		tname[j] = '\0';
+		// fprintf(stderr, "CHECK: define subscripted %s as %s [# should be instantiated as %d]\n", name, tname, nameEntry->counter);
+		name = tname;
+		// then fall through to define the instantiated subscripted name (with particular numbers)
+	}
+	struct dictionary *new = (struct dictionary *) safealloc(sizeof (struct dictionary)), **p;
 	new->name = name;
+	new->counter = 0;
 	new->value = value;
 	new->type = type;
 	new->used = new->expanding = new->recursive = 0;
@@ -63,12 +133,6 @@ void define(char *type, char *name, char *value, char *tag)
 		}
 	new->next = *p;
 	*p = new;
-}
-
-struct dictionary *dlookup(char *name)
-{	for( struct dictionary *d = names; d != NULL; d = d->next )
-		if( !strcmp(name, d->name) ) return d;
-	return (struct dictionary *) NULL;
 }
 
 int getOffset(char *type, char *where, char *name, int length, char *numeral)
@@ -104,10 +168,10 @@ struct
 	char *regex;
 } res[REMAX] =
 {	{	&REkeyword, // match % keyword name /re/+n, /re/+n [, tag] OR % set-tag name
-		"(%[ \t]*(generate|define)[ \t]+([[:alpha:]][[:alnum:]\\.-]*)[ \t]*(/[^/]*/|\\.)([ \t]*[+-][ \t]*[0-9]+)?[ \t]*,[ \t]*(/[^/]*/|\\.)([ \t]*[+-][ \t]*[0-9]+)?([ \t]*,[ \t]*([^\n]+))?[ \t]*\n)|(%[ \t]*set-tag[ \t]+([^\n \t]*)[ \t]*\n)"
+		"(%[ \t]*(generate|define)[ \t]+([[:alpha:]#][[:alnum:]#\\.-]*)[ \t]*(/[^/]*/|\\.)([ \t]*[+-][ \t]*[0-9]+)?[ \t]*,[ \t]*(/[^/]*/|\\.)([ \t]*[+-][ \t]*[0-9]+)?([ \t]*,[ \t]*([^\n]+))?[ \t]*\n)|(%[ \t]*set-tag[ \t]+([^\n \t]*)[ \t]*\n)"
 	},
 	{	&REreplace, // match <name>
-		"<[ \t]*([[:alpha:]][[:alnum:]-]*)[ \t]*>"
+		"<[ \t]*([[:alpha:]#][[:alnum:]#-]*)[ \t]*>"
 	},
 	{	&REcheck,
 		"%[ \t]*(generate|define|set-tag)[^\n]*\n"
@@ -389,6 +453,7 @@ int main(int argc, char *argv[])
 		else fprintf(stderr, "** cannot open \"%s\"\n", processedFileName);
 	generateFiles();
 	checkDictionary();
+	explainSubscripts();
 	if( TeXMode && nonTeXMode ) fprintf(stderr, "** Warning: mixes both \\relit[]{} and %% forms of relit command\n");
 	if( !opened ) usage(argv[0]);
 	return 0;

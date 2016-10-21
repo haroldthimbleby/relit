@@ -10,6 +10,12 @@
 \usepackage{xcolor,colortbl}
 \usepackage{relsize}
 
+\newcount\softwareURLfootnote \softwareURLfootnote=0
+\def\softwareURL{\url{github.com/haroldthimbleby/relit}\ifnum \softwareURLfootnote=0
+\footnote{Note: Elsevier may use their own GitHub URL for the ``accepted for publication'' version of our software.}\global\softwareURLfootnote=\thefootnote\else
+\footnotemark[\softwareURLfootnote]
+\fi}
+
 % To make various LaTeX processors do the right thing with page size.
 \def\pprw{\textwidth}
 %\def\pprh{\textheight}
@@ -47,14 +53,15 @@
 
 \def\myinput#1{\IfFileExists{./#1}{\input #1\relax\unskip}{\textcolor{red}{Warning: ``#1'' does not exist. Please run make to create the files that are needed!}}}
 
+\def\specialMarker{*}
 %generate relit-def.tex ., /ends/-1, \unseen{}
 \iftrue % if true, then activate TeX interpreting relit \commands
-	\def\acmIndexer#1{1:#1}% ACM Transactions has page numbers of the form 1:pagenum
+	\def\acmIndexer#1{#1}% e.g., ACM Transactions has page numbers of the form 1:pagenum
 	\makeatletter
 	\def\@uc#1{\uppercase{#1}}%
 	\def\relitindex #1 #2 {\immediate\write\@indexfile{\string\indexentry{\@uc Relit #1!#2@{\string\texttt{#2}}|acmIndexer}{\thepage}}}%
     \def\manualrelitindex #1 #2 {\immediate\write\@indexfile{\string\indexentry{\@uc Relit #1!#2@{\string\texttt{#2}}|manualrelitpage}{\thepage}}}%
-    \def\manualrelitpage#1{\acmIndexer{}#1*}
+    \def\manualrelitpage#1{\acmIndexer{}#1\specialMarker}
       \expandafter\DeclareRobustCommand\csname relit\endcsname{\@ifnextchar[{\@@relit}{\@relit}}
       \def\@@relit[#1]#2{%
       	 \def\seen{{\tt\char'134}seen\{\}}%	
@@ -78,12 +85,10 @@
 \fi
 %ends
 \begin{document}
-%\markboth{H. Thimbleby \& D. Williams}{How to publish algorithms reproducibly}
-\title{Publishing reproducible algorithms\\
+%\markboth{H. Thimbleby \& D. Williams}{A tool for publishing reproducible algorithms}
+\title{A tool for publishing reproducible algorithms\\
 \&\\
-A reproducible case study of \\an elegant algorithm 
-% to generate $(N,2)$\\de Bruijn sequences with application to\\
-for sequential experiments
+A reproducible, elegant algorithm for sequential~experiments
 }
 
 \author[swansea]{Harold Thimbleby\corref{corresponding}}
@@ -98,19 +103,20 @@ for sequential experiments
 
 \begin{abstract}
 %\noindent
-To explain and present algorithms rigorously, we introduce an original and powerful technique that generates executable code directly from a manuscript, such as a \LaTeX\ document. The technique ensures that both the executable code and the published paper are synchronised, preventing transcription errors and making publishing correct code easier. The technique does not restrict an author in any way, but to the extent that the approach is used, the benefits of rigorous reproducibility become far easier and even satisfying for the author. 
+Tools to ease the burden of reproducibility are important so computer science does not fall into the trap of ``cargo cult'' science. 
 
-The approach increases transparency, reproducibility, and accessibility --- and, more generally, encourages authors to publish details of working embodiments of algorithms rather than abstract, psuedo-code, simplified or other potentially vague descriptions. We argue that tools to ease the burden of reproducibility have significant value for computer science.
+This paper introduces a  tool, called \name{relit}, to make it easy to write and publish correct algorithms, yet without restricting the author's writing style. \name{Relit} can be used with any material: mathematics, proofs, algorithms or programs. It can be used in papers, in reports and books and, with analogous advantages, in student work --- where examiners may wish to automatically check what the student claims to have written is actually correct.
 
-Our approach can be used for any material: mathematics, proofs, or algorithms or programs. It can be used in papers, in reports and books and even, with analogous advantages, in student work --- where examiners may wish to automatically check whether what the student claims to have written is actually correct.
-
-To demonstrate the approach, this paper presents a new, elegant algorithm for finding Euler cycles 
+To demonstrate \name{relit}, this paper presents a new, elegant algorithm 
 %generating $(N,2)$ de Bruijn sequences. De Bruijn sequences have 
-that has important applications in the design of sequential experiments to efficiently control bias, drift, random error, carry-over and other effects. The algorithm is presented in C and is written in a clear style to simplify porting to other languages. Thanks to our approach, it works exactly as described. It may be noted that we developed our general approach because it was impossible to find simple reproducible code published for this problem.
+for the design of sequential experiments to efficiently control bias, drift, random error, carry-over and other effects. The algorithm is written in C, in a clear style to simplify porting to other languages. Thanks to \name{relit}, the published algorithm is reproducible and works \emph{exactly\/} as published. 
+
+It may be noted that we developed \name{relit} because it was impossible to find simple reproducible code for this problem. The paper includes discussion of the problems and opportunities of reproducibility.
 \end{abstract}
 
 \begin{keyword}
 Reproducibility \sep
+Publishing algorithms \sep
 Literate programming \sep
 Euler cycle algorithm \sep
 de Bruijn sequence \sep
@@ -131,20 +137,21 @@ Experimental design
 \maketitle
 
 \section{Introduction}
-When we needed a standard ``off the shelf'' algorithm we found it was quicker to invent a new one from scratch than get published algorithms to work. It was hard to find a \emph{working\/} solution for the problem in the literature --- even when we had searched both peer reviewed publications and textbooks. This is a widespread problem affecting many algorithms. 
+When we needed a standard ``off the shelf'' algorithm we found it was quicker to invent a new one from scratch than get published algorithms to work. It was hard to find a \emph{working\/} solution for the problem in the literature --- even when we had searched both peer reviewed publications and textbooks. This is a widespread problem affecting many algorithms, especially long, complex or unusual algorithms. Often such algorithms are left as ``exercises for the reader'' or are merely analysed for their properties, rather than presented with correct code.
 
-This paper introduces our brief, elegant new algorithm and its use and applications in experimental methods. We use this description of our algorithm as a full and realistic case study for our new approach for rigorously explaining and documenting reproducible algorithms and programs in published papers. 
+This paper introduces our brief, elegant new algorithm and its use and application for sequential experiment design (specifically, it generates $(N,2)$ de~Bruijn sequences, but we discuss details further below). We use this presentation of our algorithm as a full and realistic case study of our new approach for rigorously explaining and documenting reproducible algorithms in published papers. 
 
-We built a tool \name{relit} (so called because it implements a sort-of ``reverse literate programming'') that helps write clearly about any algorithm. In fact, we used \name{relit} in the present paper: the new algorithm we present in this paper works \emph{exactly\/} as shown. The discussion about the new algorithm therefore combines three roles: its intrinsic interest as an algorithm, the discussion about the algorithm literature, and the algorithm as a complete worked example presented using \name{relit}.
+We built a tool \name{relit} (so called because it implements a sort-of ``reverse literate programming'') that helps write clearly about any algorithm. We used \name{relit} in the present paper: the new algorithm we present in this paper works \emph{exactly\/} as shown. The discussion about the new algorithm therefore combines three roles: its intrinsic interest as a useful algorithm, the discussion about the algorithm literature, and the algorithm as a complete worked example presented reproducibly using \name{relit}.
 
-Finally, we relate our new, lightweight tool-based approach to Richard Feynman's exhortation to avoid what he calls ``cargo cult science'': when we have the right tools to help us, his challenge becomes easy. We show how our approach makes publishing working software easier and more likely. It helps improve the quality of not just of publications but also of the underlying algorithms themselves: authors can now easily improve their algorithms and their papers as a tightly integrated process.
+Finally, we relate our new, lightweight tool-based approach to Richard Feynman's exhortation to avoid what he calls ``cargo cult science'' \cite{feynman}: when we have the right tools to help us, his challenge becomes easy. We show how our approach makes publishing correct, working software easier and more likely. It helps improve the quality not just of publications but also of the underlying algorithms themselves: authors can now easily improve their algorithms and their papers in a tightly integrated, even enjoyable, process.
 
-The main contribution of the paper, then, is our tool-based approach to reproducibility and our discussion around reproducibility, but the algorithm itself is notable for its elegance if not its efficiency --- it is much briefer than faster algorithms that have been described in the literature though not so reproducibly described.
-
+The main contribution of the paper, then, is our tool-based approach to reproducibility and our discussion around reproducibility, but the algorithm itself is notable for its elegance if not its efficiency --- it is much briefer than theoretically faster algorithms that have been outlined in the literature though not so reproducibly described. The algorithm will be useful for experimental scientists (who can parameterise it for their specific research) --- exactly the sort of people who need working algorithms but rarely have the time or resources to invent correct algorithms from the far-too-often inadequate descriptions in the literature.
 
 \newcount\partNo \partNo=1
-\def\part#1{\begin{center}\bfseries\Large Part \the\partNo \global\advance \partNo by 1\\\large #1\end{center}}
-\part{Case study: The problems of finding reproducible algorithms}
+\makeatletter
+\def\part#1{\begin{center}\bfseries\Large Part \expandafter\@slowromancap\romannumeral \partNo @\relax\global\advance \partNo by 1\\\vskip 1ex\hrule\vskip .3ex\large #1\vskip .3ex\hrule\end{center}}
+\makeatother
+\part{Case study \& The problems of finding reproducible algorithms}
 \section{Algorithms for sequential experiments}
 In a sequential experiment, such as generation of sensor calibration curves, a number of random and systematic errors may occur. Errors can include: bias, drift of sensor readings  with time, and carry-over effect where the previous reading influences the next reading. Good experimental design therefore uses a sequence of calibration values arranged in such a way the sequence will normalise and cancel out random and systematic errors. Ideally the sequence will be as short as possible in order to minimise unnecessary work and expense in the collection of data. 
 
@@ -152,13 +159,13 @@ The problem may be illustrated by a familiar example. We might want to know whic
 
 For the sake of concreteness, suppose we have $N=3$ types of wine in our cellar, specifically, say, Merlot, Pinotage and Shiraz. If we have just drunk Pinotage, then there are three possible experiments to do next: to drink Merlot next, Shiraz next, or of course to drink Pinotage again. If we drink Pinotage, then the next experiment should probably be to assess Merlot or Shiraz, since we already know what Pinotage after Pinotage tastes like. 
 
-With only three wines, the best sequence of experiments is not too hard to work out, but in general with lots of wine it becomes much harder (especially if we start the wine tasting before we have finished working out the right sequence).
+With only three wines, the best sequence of experiments is not too hard to work out by hand, but in general with lots of wine it becomes much harder (especially if we start the wine tasting before we have finished working out the right sequence).
 
-For simple cases the problem can be solved by hand by drawing a graph with one vertex for each of the $N$ types of experiment (e.g., testing a type of wine) with $N^2$  arrows to represent each possible sequence of two experiments. This creates a \emph{complete graph}, usually denoted $K_N$\@. Figure~\ref{completeg} (on page~\pageref{completeg}) shows the complete graph for $N=3$.   (The background in graph theory is explained in section~\ref{graphtheory} below.)
+For simple cases the problem can be solved by hand by drawing a graph with one vertex for each of the $N$ types of experiment (e.g., testing a type of wine) with $N^2$  arrows to represent each possible sequence of two experiments. This creates a \emph{complete graph}, usually denoted $K_N$\@. Figure~\ref{completeg} (on page~\pageref{completeg}) shows the complete graph for $N=3$. (The background in graph theory is explained in section~\ref{graphtheory} below.)
 
-A sequence of several experiments forms a path following arrows in this graph. In our problem we want to find a shortest path that follows every arrow at least once. It is a standard graph theory result for a complete graph that a shortest sequence only needs to follow each arrow exactly once, and it will also end up where it started --- obviously, if it followed any arrow more than once, it would be repeating an experiment and take longer. An optimal sequence is called an \emph{Euler cycle}, after Leonard Euler who first studied paths in graphs (but not sequential experiments). Our problem now reduces to finding an Euler cycle algorithm. 
+A sequence of several experiments forms a path following arrows in this graph. In our problem we want to find a shortest path that follows every arrow at least once. It is a standard graph theory result for a complete graph that a shortest such path exists and only needs to follow each arrow exactly once, and it will also end up where it started --- obviously, if it followed any arrow more than once, it would be repeating an experiment and take longer. An optimal sequence is called an \emph{Euler cycle}, after Leonard Euler who first studied paths in graphs (but not sequential experiments). Our problem therefore reduces to finding an Euler cycle algorithm. 
 
-Our problem, then, is to write a computer program to generate an efficient sequence of experiments for the general case. Fortunately, finding Euler cycles is a well-known programming problem, which has been solved many times. Unfortunately, it turns out that programming textbooks typically leave this problem as an exercise for the reader, and that does not help if your aim is to do a sequential experiment, rather than learn how to program algorithms! 
+Our problem, then, is to write a computer program to generate an efficient sequence of experiments for the general case. Fortunately, finding Euler cycles is a well-known programming problem, which has been solved many times. Unfortunately, it turns out that programming textbooks typically leave this problem as an exercise for the reader, and that does not help if your aim is to do a sequential experiment, rather than learn the hard way how to program algorithms! 
 
 The definitive algorithms textbook by Cormen, Leiserson, Rivest and Stein just says: % [p623]
 
@@ -169,14 +176,16 @@ Describe an $O(E)$-time algorithm to find an Euler tour of $G$ if one exists. (\
 
 Elsewhere Cormen estimates that writing up the solutions to the book's exercises would run to between 2,000 and 3,000 pages \cite{cormen-web}: it is just not going to happen. Other books do not show answers to exercises in case students might cheat. At least it is pretty clear where we stand. 
 
-But worse than not providing an algorithm, in many textbooks and published papers, the Euler cycle algorithm --- if presented at all ---  is presented as a described in high-level English, as a sketch, or in a simplifying pseudo-language. It is also easy to find numerous lecture notes online that describe the Euler cycle algorithm in English.  
+But worse than not providing an algorithm, in many textbooks and published papers, the Euler cycle algorithm --- if presented at all ---  is described in high-level English, as a sketch, or in a simplifying pseudo-language. It is also easy to find numerous lecture notes online that describe the Euler cycle algorithm in pictures with English annotations. Aguably, this is all cargo cult science --- they look deceptively like programs, but aren't. 
 
-While English may be sufficient to explain some principles or to estimate the time complexity of the algorithm or other properties, and to do other things programmers are interested in, it is inadequate to convert into a working program in a real, executable, language such as C or Java. To get a working program, a lot of detail needs careful consideration: how should a graph be represented in a language with type checking, for instance? If vertices are numbered, are they numbered from 0 or 1? Or should you use a standard package, and then have to convert the pseudo-program into the programming conventions of the package? Unfortunately, the necessary detail makes explanations unwieldy. In the worst case, the detail never existed, and the presented algorithm is not even an abstraction of anything that was ever executable.
+We will return to the general problems of reproducibility in Part~III, but here we now focus on the computer science problems --- and solutions.
 
-Furthermore, Euler cycle programs assume the graph is arbitrary, and there are different algorithms for directed, undirected and mixed graphs. In our case, the graph happens to be both directed and complete, and we discovered that these facts can be used to simplify the problem. In fact, inventing and implementing a new algorithm for our special case took less time than correctly implementing a standard algorithm. 
+While English may be sufficient to explain some principles or to estimate the time complexity of the algorithm or other properties, and to do other things programmers are interested in, it is completely inadequate to convert into a working program in a real, executable, language such as C or Java. To get a working program, a lot of detail needs careful consideration: how should a graph be represented in a language with type checking, for instance? If vertices are numbered, are they numbered starting from 0 or 1? Or should you use a standard package, and then have to convert the pseudo-program into the programming conventions of that package? Unfortunately, the necessary detail to get anything to work makes explanations unwieldy. In the worst case, the detail never existed, and the presented algorithm is not even an abstraction of anything that was ever executable. 
+
+Furthermore, Euler cycle programs assume the graph is arbitrary, and there are different algorithms for directed, undirected and mixed graphs. In our case, the graph happens to be both directed and complete, and we discovered that these facts can be used to greatly simplify the problem. In fact, inventing and implementing a new algorithm for our special case took less time than correctly implementing a standard algorithm. 
 
 \newcount\linesofcode
-Our complete working program is \myinput{linesofcode.tex}
+Our complete working program \emph{exactly as described reproducibly in this paper\/} is \myinput{linesofcode.tex}
 \newcount\denom \denom=\linesofcode
 \ifnum \denom=0 \denom=1 % in case the file doesn't exist and denom is zero
 \fi
@@ -189,7 +198,7 @@ Our complete working program is \myinput{linesofcode.tex}
 \newcount\ratio \ratio=\linesofcode \divide\ratio by \denom 
 \newcount\tmp \tmp=\ratio \multiply\tmp by \denom
 \ifnum \tmp=\linesofcode exactly\else about\fi\
-\the\ratio\ times longer.\footnote{Line counts ignore comments and blank lines. No attempt has been made to ``squash'' code to save lines.} 
+\the\ratio\ times longer.\footnote{Line counts are based on the actual code extracted from this paper by our tool \name{relit} (they were calculated by the Unix utility \name{wc} on the program source files and then input in the \LaTeX\ for this paper). Line counts ignore comments and blank lines. No attempt has been made to ``squash'' code to save lines.} 
 
 This reference code also requires further work to edit the Java and local Java environment to compile it, as well as code to define a complete graph and print the desired solution (details that are already included in our algorithm). Furthermore, while Java may be a fine language, it is hard to translate algorithms written in it into other languages; whereas our code, written in basic C, is easy to translate into any language that has arrays (Fortran, PHP, JavaScript, Mathematica, Matlab, Java itself~\ldots), which will be a considerable advantage for experimenters who are not familiar with Java
 
@@ -205,7 +214,7 @@ It is interesting to note the polarising force of positive feedback when writing
 \item The third possibility is that the author manages the complexity by abstracting the algorithm: this makes the paper concise, but conceals details the author finds irrelevant to their immediate goals.\footnote{Few papers talk about more than one of: complexity, correctness, implementation, security, usability~\ldots} As ``irrelevance'' is abstracted away, the author thinks less and less about the reader's possible wider needs, which further focuses the paper on the chosen abstraction~\ldots
 \end{itemize}
 
-It is clear that normal writing and publishing practices combined with the intricacies of managing working programs do not align well with the goal of finding reproducibe algorithms. The goals and priorities of publishing are not the same as the goals of science; the pressures of publishing, whether papers or books, conspire to compromise reproducibility. 
+It is clear that normal writing and publishing practices combined with the intricacies of managing working programs do not align well with the goal of finding reproducible algorithms. The goals and priorities of publishing are not the same as the goals of science; the pressures of publishing, whether papers or books, conspire to compromise reproducibility. 
 
 %We describe our new algorithm and its applications next, in section~\ref{new-algorithm}, and subsequently describe our new approach to publishing algorithms, in section~\ref{new-approach}. Section~\ref{benefits} reflects on the benefits of the approach, particularly for improving reproducibility, and the Conclusions (section~\ref{conclusions}) finish with a small concrete example of the benefits as they played out for this paper.
 
@@ -214,10 +223,10 @@ It is clear that normal writing and publishing practices combined with the intri
 
 Leonard Euler effectively invented graph theory in 1736 with his solution to the famous K\"onigsberg\footnote{K\"onigsberg was in Prussia and is now Kaliningrad in Russia.} bridge problem \cite{euler,wilson}: is it possible to walk a cycle across each of the seven bridges in K\"onigsberg exactly once? In modern graph terminology, a bridge is an \emph{edge\/} and the land a bridge ends on is a \emph{vertex\/}; if bridges are one-way to traffic, then the graph is a \emph{directed graph\/} as opposed to an \emph{undirected graph\/}. An \emph{Euler\/} (or \emph{Eulerian\/}) \emph{cycle\/} is a walk that traverses each edge of a graph exactly once, starting and ending at the same vertex.%\footnote{cf.~an \emph{Euler(ian) path\/} is a walk that traverses every edge of the graph exactly once, but need not start and end at the same vertex.}
 
-This paper is concerned specifically with directed graphs. A \emph{complete\/} directed graph is a graph in which each pair of distinct vertices is connected by two directed edges, one in each direction. A complete graph of 3 vertices is shown in figure~\ref{completeg}. 
+This paper is concerned specifically with directed graphs. A \emph{complete\/} directed graph is a graph in which each ordered pair of vertices (including repetitions) is connected by a directed edge. In other words, every pair of distinct vertices is connected by two edges, one in each direction, and each vertex has a single self-edge from itself back to itself. A complete graph of 3 vertices is shown in figure~\ref{completeg}. 
 
 \begin{quote}\raggedright\emph{Notation}.
-We use $u \rightarrow v$ for the directed edge (arrow) connecting vertex $u$ to vertex $v$, and $u \rightsquigarrow v$ for a directed path, consisting of one or more edges connecting $u$ to $v$. 
+We use $u \rightarrow v$ for the directed edge (arrow) connecting vertex $u$ to vertex $v$, and $u \rightsquigarrow v$ for a directed path, consisting of one or more edges connecting $u$ to $v$. For example, if $u \rightarrow v, v \rightarrow w$ and $w \rightarrow x$ (also written $u \rightarrow v \rightarrow w \rightarrow x$) then $u \rightsquigarrow v, u \rightsquigarrow w, u \rightsquigarrow x$ and $v \rightsquigarrow x$, etc.
 
 \end{quote}
 
@@ -229,19 +238,19 @@ A \emph{bridge}  (in graph theory, as opposed to a bridge over a river) is an ed
 
 %Graphs represent relations. A complete graph relates every vertex to every other vertex, and therefore represents an \emph{equivalence\/} relation. When every vertex in a graph is connected to itself via an edge, this represents a \emph{reflexive\/} relation; and when all pairs of adjacent vertices $u \rightarrow v$ are linked by reciprocally directed edges $v \rightarrow u$, this represents a \emph{symmetric\/} relation. If for all paths $u \rightsquigarrow v$ there is an edge $u \rightarrow v$, then the graph represents a \emph{transitive\/} relation.
 
-A $(k,n)$ \emph{de Bruijn sequence\/} is a cyclical list of length $k^n$ which contains $k$ unique symbols, arranged so that every permutation of overlapping sublists of length $n$ occurs exactly once. For example, 0011 is a $(2,2)$ de Bruijn sequence using 0 and 1 as the 2 symbols, and where all the length 2 sublists, namely 00, 01, 11, and 10 (wrapping around), each occur exactly once, and in this order.
+A $(k,n)$ \emph{de Bruijn sequence\/} is a cyclical list of length $k^n$ which contains $k$ unique symbols, arranged so that every permutation of overlapping sublists of length $n$ occurs exactly once. For example, 0011 is a $(2,2)$ de~Bruijn sequence using 0 and 1 as the 2 symbols, and where all the length 2 sublists, namely 00, 01, 11, and 10 (wrapping around), each occur exactly once, and in this order.
 %There are ${k!^{k^{n-1}}}/{k^n}$ distinct de Bruijn sequences which satisfy the above criteria.
-Although the sequences were named after Dutch mathematician Nicolaas Govert de Bruijn \cite{debruijn}, %in 1946
+Although the sequences were named after Dutch mathematician Nicolaas Govert de~Bruijn \cite{debruijn}, %in 1946
 they had been previously described in the  19th century \cite{fleury,sainte-marie}.
-In fact, the Sanskrit poet Pingala employed a $(2,3)$ de Bruijn sequence over $1,000$ years ago to permute poetic meters and drum rhythms \cite{hall,knuth4a}. 
+In fact, the Sanskrit poet Pingala employed a $(2,3)$ de~Bruijn sequence over $1,000$ years ago to permute poetic meters and drum rhythms \cite{hall,knuth4a}. 
 
-Modern applications of de Bruijn sequences include: gene-sequencing, magic tricks, optimal strategies for opening combination locks, and cryptography (including generation of one-time pads, and the Data Encryption Standard algorithm). Since each sublist occurs exactly once in the sequence, two-dimensional de Bruijn arrays may be used to identify the position of industrial robots on a warehouse floor, or the position of an infrared-sensing pen on specially marked paper \cite{diaconis}.
+Modern applications of de Bruijn sequences include: gene-sequencing, magic tricks, optimal strategies for opening combination locks, and cryptography (including generation of one-time pads, and the Data Encryption Standard algorithm). Since each sublist occurs exactly once in the sequence, two-dimensional de~Bruijn arrays may be used to identify the position of industrial robots on a warehouse floor, or the position of an infrared-sensing pen on specially marked paper \cite{diaconis}.
 
 Fisher proposed the application of randomised Latin Squares to balance and equalise sampling error and bias in the design of experiments into soil fertility \cite{fisher}. 
 %Similarly, a randomised $(N,2)$ de Bruijn sequence may be used to generate an optimal sequence of experimental tests which minimises unnecessary tests and balances the effects of random and systematic error.
-In a similar way, if a sequence of experimental tests is prescribed by a randomised $(N,2)$ de Bruijn sequence, every element in the series will be tested $N$ times in random order, and will be immediately preceded by every other element in the series in the set exactly once. This approach allows the most efficient means of testing multiple items balancing and equalising the effects of systematic bias, drift, serial carry-over effects, hysteresis and random error. Thus a simple algorithm to generate randomised de Bruijn sequences has applications in experimental design in many areas of scientific and statistical research,  and can also be used in signal processing to improve the signal to noise ratio, for instance in Magnetic Resonance Imaging (MRI) scan \cite{aguirre}.
+In a similar way, if a sequence of experimental tests is prescribed by a randomised $(N,2)$ de~Bruijn sequence, every element in the series will be tested $N$ times in random order, and will be immediately preceded by every other element in the series in the set exactly once. This approach allows the most efficient means of testing multiple items balancing and equalising the effects of systematic bias, drift, serial carry-over effects, hysteresis and random error. Thus a simple algorithm to generate randomised de~Bruijn sequences has applications in experimental design in many areas of scientific and statistical research,  and can also be used in signal processing to improve the signal to noise ratio, for instance in Magnetic Resonance Imaging (MRI) scan \cite{aguirre}.
 
-An Eulerian cycle may be used to generate de Bruijn sequences \cite{fleury,hierholzer}. An Eulerian cycle of a complete graph with $N$ vertices follows in order every edge $u \rightarrow v \rightarrow\ldots$ exactly once for all $u$ and $v$, which is precisely the definition of an $(N,2)$ de Bruijn sequence. More generally, a \emph{de Bruijn graph\/} is a graph whose Euler cycle generates the corresponding de Bruijn sequence. As a special case, the complete graph is a de Bruijn graph; Good \cite{good} gives further examples. Other approaches for generating de Bruijn sequences include feedback shift registers and genetic algorithms \cite{turan,knuth4a}.%\cite{lempel}
+An Eulerian cycle may be used to generate de Bruijn sequences \cite{fleury,hierholzer}. An Eulerian cycle of a complete graph with $N$ vertices follows in order every edge $u \rightarrow v \rightarrow\ldots$ exactly once for all $u$ and $v$, which is precisely the definition of an $(N,2)$ de~Bruijn sequence. More generally, a \emph{de~Bruijn graph\/} is a graph whose Euler cycle generates the corresponding de~Bruijn sequence. As a special case, the complete graph is a de~Bruijn graph; Good \cite{good} gives further examples. Other approaches for generating de~Bruijn sequences include feedback shift registers and genetic algorithms \cite{turan,knuth4a}.%\cite{lempel}
 
 \subsection{Classic Euler cycle algorithms}\label{new-algorithm}
 Many deceptively simple algorithms to generate Eulerian cycles have been described. These two classic algorithms were invented well before modern computers:
@@ -251,7 +260,7 @@ Many deceptively simple algorithms to generate Eulerian cycles have been describ
 \item \textbf{Fluery's algorithm} \cite{fleury} follows a path successively choosing edges to delete at each vertex by first choosing any edge that is not a bridge, and finally choosing the bridge when there is no other choice.
 \end{itemize}
 
-However their simple descriptions in English belie their relatively complex implementations in software --- such as just saying ``find cycles'' and ``merge.'' What are the implementation details, say of depth first search to find cycles, or the details of identifying bridges (especially when deleting edges changes the bridges)? 
+However their simple descriptions in English belie their relatively complex implementations in software --- just saying ``find cycles'' and ``merge'' assumes all sorts of implementation details. Should you use depth first search to find cycles, and what are the exact details for identifying bridges (especially when deleting edges changes the bridges)? 
 
 This common but deceptive simplicity of many published algorithms is a problem we also noted in our previous discussion of the Chinese Postman Tour \cite{cpp}. 
 
@@ -267,7 +276,7 @@ Inspired by Hierholzer's algorithm, we make five observations:
 
 \begin{enumerate}\raggedright
 \item
-Instead of using an algorithm to find cycles, since the graph is complete we already know a decomposition into cycles: namely, for every vertex $u$ there is a cycle of length 1, $\pair uu$, and for every pair of vertices $u,v$ $(u \neq v)$ there is a cycle of length 2, $\pair uv$.  We call these \emph{trivial cycles}.
+Instead of using an algorithm to find cycles, since the graph is complete we \emph{already\/} know a decomposition into cycles: namely, for every vertex $u$ there is a cycle of length 1, $\pair uu$, and for every pair of vertices $u,v$ $(u \neq v)$ there is a cycle of length 2, $\pair uv$.  We call these \emph{trivial cycles}.
 
 \item
 We can use a recursive algorithm to merge cycles. It starts walking any cycle, and if it crosses another cycle (that has not already been walked) it recursively walks that cycle, then resumes the cycle it was walking. This approach does not need any explicit operations or data structure to merge cycles.
@@ -279,7 +288,7 @@ The recursive algorithm needs to distinguish the two types of trivial cycle, whi
 Once a cycle has been walked, it is not walked again. The algorithm therefore starts by initialising every trivial cycle as unwalked, and as it walks a cycle it marks it as walked, and hence will not walk it again.
 
 \item
-Marking trivial cycles can be represented by a Boolean matrix as follows: $\mbox{\it walked}_{uv}$ is true if the cycle $\pair uv$ has been marked as walked (if $u=v$ then the cycle $\pair uu$ has been walked). We call this representation a \emph{cycle matrix}. 
+Marking trivial cycles can be represented by a Boolean matrix as follows: $\mbox{\it walked}_{uv}$ is true if the cycle $\pair uv$ has been marked as walked (if $u=v$ then the cycle $\pair uu$ has been walked). We call this representation of a graph a \emph{cycle matrix}. 
 \end{enumerate}
 
 \begin{figure*}
@@ -306,7 +315,9 @@ $}}\\
 $
 \end{tabular}
 \vskip .2ex
+%generate caption-#.tex .,/%end/-1
 \caption{Representations of the complete directed graph $K_3$, where there is an edge $u\rightarrow v$ for each directed pair of the $3$ vertices $u,v \in \{A,B,C\}$. As can be seen (left), the graph is composed from $6$ trivial cycles: 3 single-arrow cycles (e.g., $\pair AA$), and 3 double-arrow cycles (e.g., $\pair AB$). The corresponding cycle matrix is shown top right. The cycles represented by it are shown explicitly in the larger matrix (bottom right), which has one entry shown explicitly for each trivial cycle. The omitted entries in the matrix are implied by symmetry, as, for example, the top right would be $\pair AC$ but this is the same cycle as $\pair CA$, which is shown bottom left.}
+%end
 \label{completeg}
 \end{center}
 \end{figure*}
@@ -320,12 +331,12 @@ Hence the following Euler cycle algorithm is suggested. Using C, vertices are nu
 \vbox{\begin{Verbatim}
 void cycle(int u, int v) // walk a cycle from u to u via v
 {   if( !walked[u][v] )
-    {   // keep cycle matrix symmetric
-        walked[u][v] = walked[v][u] = 1; 
-        recordEdge(u, v); // record edge from u to v
+    {   // we will have walked the cycle u to u via v
+        walked[u][v] = walked[v][u] = 1; // keep cycle matrix symmetric
+        recordEdge(u, v); // record walking edge from u to v
         for( int w = 0; w < N; w++ )
-            cycle(v, w); // unwalked cycles from v
-        if( v != u )  // get back if not already at u
+            cycle(v, w); // walk any unwalked cycles from v
+        if( v != u )  // get back from v to u if not already at u
             recordEdge(v, u);
     }
 }
@@ -350,7 +361,7 @@ The initial call of \texttt{cycle} to generate a solution is now simply:
 cycle(0, 0); // Euler cycle starting at 0 returning to 0
 \end{Verbatim}
 
-which generates an Euler cycle that starts and ends at 0, with $\pair 00$ as its first edge. We discuss alternatives in the next section, below, to randomise the cycle and to avoid always starting with the same edge.
+which generates an Euler cycle that starts and ends at 0, with $\pair 00$ as its first edge (because \texttt{cycle} starts off by going via 0, the second parameter). We discuss alternatives in the next section, below, to randomise the cycle and to avoid always starting with the same edge.
 
 Finally, the \texttt{walked} cycle matrix needs declaring and initialising: 
 
@@ -368,7 +379,7 @@ void initialise()
 }
 \end{Verbatim}
 
-In C, arrays may be initialised to zero when declared, so explicit initialisation is not strictly required, but we provided explicit initialisation here in case the code needs to be re-entrant or is to be translated into another language. 
+In C, arrays may be initialised to zero when declared, so explicit initialisation is not strictly required, but we provided explicit initialisation here in case the code needs to be re-entrant or is to be translated into another language. Of course, in many languages \texttt{True} and \texttt{False} will be used instead of C's convention of 1 and 0.
 
 \subsection{Randomised sequences}\label{randomise}
 
@@ -445,7 +456,7 @@ The basic algorithm, described above, uses integers as the names of vertices. Fo
 %define wine-names /Verbatim/+1, /Verbatim/-1
 \begin{Verbatim}
 // assuming N = 3 
-// (C permits N > 3, which will make the next line not fully initialse the array!)
+// (C permits N > 3, which will make the next line not fully initialise the array!)
 char *wines[N] = { "Merlot", "Pinotage", "Shiraz" }; 
 \end{Verbatim}
 
@@ -471,9 +482,9 @@ It is easy to confirm by hand that this is indeed an Euler cycle (perhaps by map
 
 Wine buffs will be tempted to test the algorithm with larger $N$\@. It would certainly be fun to take four varieties of wine to K\"onigsberg (the original graph had $4$ vertices and $7$ edges), cross a bridge, drink the wine variety available on the land, then cross the next bridge, and consider the wine on the other side of the river. As it happens, K\"onigsberg does not have an Euler cycle, so this experiment could take a long time and might result in a new meaning for ``drunken walks.''
 
-\part{Reproducibile algorithms}
-\section{Finding algorithms}\label{new-approach}
-While we continue to take it for granted that algorithms are described in English, in psuedo-code, with illustrative fragments of uncompilable code, or left as exercises for the reader, unnecessary errors often persist in their real-life implementations. (Some of the problems are reviewed in \cite{jmlr,heedless}.) Often, of course, publications are not always aiming to describe the algorithm as such, but to do something else --- like teach students, analyse complexity, prove some theorems, discuss how to optimise them, and so on. This ``dual use'' creates things that look very much \emph{like\/} algorithms but which cannot be reliably used in practice \emph{as\/} algorithms; the likely confusion calls to mind Feynman's critique of cargo cult science~\cite{feynman}. In fact Feynman was devastatingly critical of work that was not reproducible because it wasted everyone's time who tried to continue the work; Mlodinow describes an incident where Feynman comments on lack of reproducibility due to fraudulence~\cite{mlod}.
+\part{Reproducible algorithms}
+\section{Finding reproducible algorithms}\label{new-approach}
+While we continue to take it for granted that algorithms are described vaguely --- in English, in psuedo-code, with illustrative fragments of uncompilable code, or left as exercises for the reader --- unnecessary errors often persist in their real-life implementations. (Some of the problems are reviewed in \cite{jmlr,heedless}.) Often, of course, publications are not always aiming to describe the algorithm as such, but to do something else --- like teach students, analyse complexity, prove some theorems, discuss how to optimise them, and so on. This ``dual use'' creates things that look very much \emph{like\/} algorithms but which cannot be reliably used in practice \emph{as\/} algorithms; the likely confusion calls to mind Feynman's critique of cargo cult science~\cite{feynman}. In fact Feynman was devastatingly critical of work that was not reproducible because it wasted everyone's time who tried to continue the work; Mlodinow describes an incident where Feynman comments on lack of reproducibility due to fraudulence~\cite{mlod}.
 
 Ironically, then, in one of the very few areas --- programming --- where we could be completely explicit about our work (e.g., if an algorithm works, it is text that can surely be published explicitly) there is a default culture of vagueness and ``abstraction'' that undermines scientific reproducibility if not progress. English, pseudo-code, fragments, exercises~\ldots\ none are scientific statements: they are irrefutable~\cite{popper}. 
 
@@ -481,9 +492,9 @@ Often software practice and experience emphasises the efficiency of running prog
 
 Programs that can be compiled and run involve details that are generally not relevant to discussions of algorithms. Furthermore, writing a paper or book is a human process, so transcription errors may creep into any algorithms presented. 
 
-There is even the danger that publications may be sloppy: sometimes, authors do not check their published code adequately and referees take the correctness of the code on faith (partly because it is too hard to reconstruct the code from the paper, and too hard to disentangle whether problems are due to the published code or the referee's own errors in the reconstruction of it). ``Sloppy'' is a harsh word, but it covers a wide range of common problems ranging from deliberate fraud, unintentional exagerration, accidental uncorrected errors, and well-intentioned aspirational comments --- like, the program would \emph{obviously\/} work like this (even if it doesn't quite work yet). Even trivial and excusable errors, like typos and spelling errors, undermine the reproducibility of program code.
+There is even the danger that publications may be sloppy: sometimes, authors do not check their published code adequately and referees take the correctness of the code on faith (partly because it is too hard to reconstruct the code from the paper, and too hard to disentangle whether problems are due to the published code or the referee's own errors in the reconstruction of it). ``Sloppy'' is a harsh word, but it covers a wide range of common problems ranging from deliberate fraud, unintentional exaggeration, accidental uncorrected errors, and well-intentioned aspirational comments --- like, the program would \emph{obviously\/} work like this (even if it doesn't quite work yet). Even trivial and excusable errors, like typos and spelling errors, undermine the reproducibility of program code.
 
-All this means that finding an algorithm in the literature that can be used to solve a real problem is fraught with difficulties. In our case, having developed an algorithm to solve our problem --- because it is a very common problem for experimenters who may not have sufficient programmering expertise --- we wanted to take care that what we published (i.e., this paper) would be both clear and able to be copied from the paper as real, executable code without problem. We wanted to make it readily --- and reliably --- available.
+All this means that finding an algorithm in the literature that can be used to solve a real problem is fraught with difficulties. In our case, having developed an algorithm to solve our problem --- because it is a very common problem for experimenters who may not have sufficient programming expertise --- we wanted to take care that what we published (i.e., this paper) would be both clear and able to be copied from the paper as real, executable code without problem. We wanted to make it readily --- and reliably --- available.
 
 At the start, we developed and wrote our algorithm first in Mathematica then in C, which is non-proprietary and more portable. Mathematica is excellent for presenting the \emph{results\/} of programs in papers, but it is not good for writing papers \emph{about\/} algorithms, as it requires code to be runnable exactly in the order as written --- although you can hide complete blocks of code from the reader, the constraints on expression are onerous (for example, you cannot show an interesting line from within a block of otherwise hidden code). In a paper you generally want to discuss fragments or lines of an algorithm in any order that suits the exposition. Notwithstanding these problems, we were excited by our algorithm, and we started to write this manuscript, using the very flexible typesetting system \LaTeX\ \cite{latex} aiming to publish and share our findings.
 
@@ -511,7 +522,9 @@ Figure \ref{fig:lp} compares the main forms of literate programming, including o
 \begin{center}
 \noindent\includegraphics[width=4.9in]{figures/literateProgramming.pdf}
 \end{center}
+%generate caption-#.tex .,/%end/-1
 \caption{Comparing various ways to write about programming. Note that in the conventional approach (a) there is no guarantee that the published paper faithfully represents the source code, as the paper and source code can be (and will be) edited independently: what is published has no automatic connection to the source code. (Although not made clear in the diagram, typically source code and \LaTeX\ documents will be split into multiple files for convenience. All methods can handle multiple files.)}
+%end
 \label{fig:lp}
 \end{figure*}
 
@@ -555,7 +568,7 @@ The pattern style (general regular expressions are permitted) is deliberately re
 
 This defines the name \texttt{demo} to be the text between the \verb|\begin{verbatim}| and \verb|\end{verbatim}| lines (which are required by \LaTeX\ to typeset the code to appear in the final document as shown above).
 
-In fact, to create this example --- that is, to be typeset as shown above --- we used \name{relit} to generate a file with contents \texttt{<demo>}, and then that file was input (several times) into the document to show the actual value of \texttt{<demo>} in every place the text is needed.  Therefore, note that the original text we wrote (``{\tt \myinput{nameDemo.c}}'') actually occurs only once in the source file, and if it is edited at that place, \emph{all\/} of the examples and discussion in this paper get automatically updated (including the case in this paragraph, which was created by writing \texttt{\slash{}input nameDemo.c}, which, incidentally, would generate an error if the file name was spelled incorrectly). \name{Relit} thus ensures that all of our examples are and remain consistent, especially when we decide at a later date to improve the code snippet they all refer to: there is only one case to edit and it is impossible to forget to update \emph{every\/} case.
+In fact, to create this example --- that is, to be typeset as shown above --- we used \name{relit} to generate a file with contents \texttt{<demo>} is defined as, and then that file was input (several times) into the document to show the actual value of \texttt{<demo>} in every place the text is needed.  Therefore, note that the original text we wrote (``{\tt \myinput{nameDemo.c}}'') actually occurs only once in the source file, and if it is edited at that place, \emph{all\/} of the examples and discussion in this paper get automatically updated (including the case in this paragraph, which was created by writing \texttt{\slash{}input nameDemo.c}, which, incidentally, would generate an error if the file name was spelled incorrectly). \name{Relit} thus ensures that all of our examples are and remain consistent, especially when we decide at a later date to improve the code snippet they all refer to: there is only one case to edit and it is impossible to forget to update \emph{every\/} case.
  
 \name{Relit} generates source files by writing file definitions analogously to name definitions, such as:
 
@@ -607,7 +620,7 @@ Of course it is unlikely that a normal paper (that is, one not explaining \name{
 
 Notice that \name{relit} allows the generated program code to be put in the correct order required for a compiler, but the visible code it is assembled from \name{relit} names like \texttt{<declare-walked>}, etc, can be presented to the reader in whatever order is best for the narrative of the publication. For example, although \verb|<main-body>| appears near the end of the code, it might be explained to the reader before showing increasing levels of detail of the implementation. 
 
-Name definitions can occur freely before or after they are used. For example, in this paper the name \verb|<common-declarations>| (used above) is defined after the end of the \LaTeX\ document: the headers are a detail we feel readers of the present paper do not need to see written out in detail, but they are necessary to be able to generate executable code. There are no restrictions on the order of generating files: they, too, can be specified in any order that best suits the needs of the author. 
+Name definitions can occur freely before or after they are used. For example, in this paper the name \verb|<common-declarations>| (used above) is defined later, after the end of the \LaTeX\ document: the headers are a detail we feel readers of the present paper do not need to see written out in full, but they are necessary to be able to generate executable code. There are no restrictions on the order of generating files: they, too, can be specified in any order that best suits the needs of the author. 
 
 This complete freedom of order distinguishes \name{relit} from typical ``notebook'' approaches such as used in Jupyter \cite{jupyter} and Mathematica \cite{mathematica}, which both impose a sequential order on the document to suit the compiler rather than the reader or author. Notebooks also require units of code to be syntactically complete, which is not required by \name{relit} either, as made clear with the Knuth-Fisher-Yates shuffle example in section~\ref{shuffle}.)
 
@@ -621,7 +634,7 @@ Our tool \name{relit} provides all the normal checks, such as reporting if names
 %\name{Relit} also warns if a name is used more than once, since this may indicate an error (if the same piece of code is needed twice in a paper, it probably needs explaining). 
 Indeed, some authors have used deliberate ``errors'' as a way of providing metacomments: defining an unused name results in its name and value being reported to the user --- so the text is highlighted, which can be used as a reminder to fix an issue with the document. 
 
-\name{Relit} is a Unix tool, written as a short C program, \myinput{linesofrelit.tex}\ lines long and, together with this paper and documentation, is available from \url{github.com/haroldthimbleby/relit}.
+\name{Relit} is a Unix tool, written as a short C program, \myinput{linesofrelit.tex}\ lines long and, together with this paper and documentation, is available from \softwareURL{}
 
 \subsection{Generating any text, not just program code}
 In general, authors of papers may want arbitrary text generated, not just programs (for example, we showed the text generated by running our algorithm on a selection of wines in section~\ref{winetasting}), and the generated text may require sophisticated processing or testing. 
@@ -673,7 +686,9 @@ Source code is hidden. There is no link between the source code and the publishe
 \ast & No connection between published paper and program source code.\par No diagnostics possible. \par No indexing. \\ 
 \end{tabular}
 \end{center}
+%generate caption-#.tex .,/%end/-1
 \caption{The more code that is hidden, the more likely it will drift into complexity and concealed critical details. Conventional literate programming hides nothing, but typically makes the result too large to be publishable (\name{JavaDoc} only documents the API rather than the entire program). \name{Loom} and \name{Warp} help ensure code published is correct, but it may be incomplete. The present paper's reverse approach, as embodied by \name{relit}, ensures almost all the code is published, and what the authors may choose not to publish can easily be checked with simple diagnostics (see section~\ref{complete-program}) --- and what is not published remains in the original \LaTeX\ files, so the authors always remain aware of it.}
+%end
 \label{fig:lp2}
 \end{figure*}
 
@@ -700,7 +715,7 @@ set-tag \emph{tag}
 \end{Verbatim}
 \def\FancyVerbFormatLine#1{#1}
 
-That \texttt{\emph{tag}} is then automatically applied to all subsequent definitions (and files) until it is superceded, or overridden by explicit tags. Hence, typically a \LaTeX\ document will start:
+That \texttt{\emph{tag}} is then automatically applied to all subsequent definitions (and files) until it is superseded, or overridden by explicit tags. Hence, typically a \LaTeX\ document will start:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \ldots
@@ -720,7 +735,7 @@ and then have the following at its end:
 \emph{hidden definitions and files}
 \end{Verbatim}
 
-Here, the \LaTeX\ code \texttt{\char'134end\{document\}} signals the end of the published \LaTeX\ document, and all subsequent text will be hidden from view in the published document. Normally this part of a \LaTeX\ document is empty, or has accummulated ``junk'' text and thoughts the authors cannot steal themselves to \emph{really\/} delete --- the space has a useful role in co-authored documents, where one author wants to delete text from the published document, but does not want another author to lose some idea without a chance to reconsider it before it is deleted. In our case, with reverse literate programming, the hidden space can also be used for defining program code that is needed for compiling and testing, but is considered too much detail for visible inclusion in the published document.
+Here, the \LaTeX\ code \texttt{\char'134end\{document\}} signals the end of the published \LaTeX\ document, and all subsequent text will be hidden from view in the published document. Normally this part of a \LaTeX\ document is empty, or has accumulated ``junk'' text and thoughts the authors cannot steal themselves to \emph{really\/} delete --- the space has a useful role in co-authored documents, where one author wants to delete text from the published document, but does not want another author to lose some idea without a chance to reconsider it before it is deleted. In our case, with reverse literate programming, the hidden space can also be used for defining program code that is needed for compiling and testing, but is considered too much detail for visible inclusion in the published document.
 
 The illustrative tags \texttt{\char'134seen\{\}} and \texttt{\char'134unseen\{\}} used above are arbitrary; one might choose to use \texttt{\char'134color\{black\}} and \texttt{\char'134color\{red\}} instead, say. In the complete example shown below (having defined \texttt{\char'134unseen\{\}} appropriately)  the ``{\hidden}'' marker is provided automatically and therefore correctly.\footnote{Correctness here depends on the author not cheating! \LaTeX\ is programmable, so a determined author could defeat the reliability of the tagging mechanism if they were so inclined.}
 
@@ -734,7 +749,7 @@ The authors of this paper are happy that these standard declarations are not tak
 \end{verse}
 }
 
-To summarise: using tags lets an author assure themselves that readers of their paper have the righ details to reproduce the algorithm as exactly as they wish --- balancing detail with verbosity and pedantry. As shown above, highlighted in the diagnostic output from \name{relit}, the present paper fails to disclose one line of code. However we, the authors, consider this omission obvious, unnecessary and distracting implementation detail --- in fact, we know if this line was omitted by a reader, their C compiler would help them correct it, so it is not a serious problem. 
+To summarise: using tags lets an author assure themselves that readers of their paper have the right details to reproduce the algorithm as exactly as they wish --- balancing detail with verbosity and pedantry. As shown above, highlighted in the diagnostic output from \name{relit}, the present paper fails to disclose one line of code. However we, the authors, consider this omission obvious, unnecessary and distracting implementation detail --- in fact, we know if this line was omitted by a reader, their C compiler would help them correct it, so it is not a serious problem. 
 
 Apart from the original literate programming approach that tells the reader everything, which may be overwhelming, we know of no other approach that gives the benefits of concise algorithm publication combined with such strong assurances of reproducibility.
 
@@ -751,7 +766,9 @@ As described above, \name{relit} uses \texttt{\%} to introduce commands, like \t
 \% se{}t-tag \emph{tag} & \char'134relit\{set-tag \emph{tag}\} \\
 \% \emph{any comments permitted\/} & \char'134relit\{ends\} \\
 \end{tabular}\end{center}
+%generate caption-#.tex .,/%end/-1
 \caption{Corresponding normal and \TeX-mode syntax for \name{relit} commands.} 
+%end
 \label{fig:syntax}
 \end{figure*}
 
@@ -767,7 +784,7 @@ The \TeX-mode syntax corresponds directly to the original syntax, and is summari
 
 This example is not very exciting, but to show it works, here is the generated file \texttt{TeX-mode-demo.tex} just straight-forwardly input back into this paper inside a \LaTeX\ quote environment:
 
-\begin{quote}\small
+\begin{quote}\small\sf
 \myinput{TeX-mode-demo.tex}
 \end{quote}
 
@@ -779,7 +796,7 @@ Notice in this example how we have defined \texttt{{\char'134}relit} so it types
 
 The reason that \name{relit} makes \TeX-mode an option, rather than being the only method of use, is that the feature introduces a conceptual layer of complexity the standard approach does not require. Using \TeX-mode requires not just defining some \TeX\ commands (a matter of copying them from somewhere that already works) but also understanding how to balance \TeX's syntax with regular expressions, which is harder as you can no longer use {\tt \char'134}, {\tt \%}, \{, \}, etc, in the same way. 
 
-{\def\thefootnote{\lower 1ex\hbox{*}}
+{\def\thefootnote{\lower 1ex\hbox{\specialMarker}}
 \setbox0=\hbox{\footnotemark\relax}
 \begin{figure*}
 \renewenvironment{theindex}{\begin{list}{\relax}{}\item \hskip0pt\item  \hskip 0pt \vdots\vskip .15cm}{\item \hskip0pt \vdots\end{list}}
@@ -787,19 +804,42 @@ The reason that \name{relit} makes \TeX-mode an option, rather than being the on
 \def\subitem#1{\\\hskip .5in{#1}}
 \myinput{relit.ind}
 \end{verse}
-\caption{An extract from a simple \name{relit} \TeX-mode index. Only names and files explicitly shown in this paper have been included (i.e., definitions where the normal \name{relit} process has not shown names to the reader, along with all hidden material after the {\tt \char'134end\{document\}}, have been excluded).\copy0}
+%generate caption-#.tex .,/%end/-1
+\caption{An extract from a simple \name{relit} \TeX-mode index, as made for this paper. Only names and files explicitly shown in this paper have been included (i.e., definitions where the normal \name{relit} process has not shown names to the reader, along with all hidden material after the {\tt \char'134end\{document\}}, have been excluded).\copy0}
+%end
 \label{fig:index}
 \end{figure*}
 \footnotetext{This paper, which is both a paper explaining an algorithm in the usual way and a paper explaining \name{relit} in detail, is complicated by unusually having to write \name{relit} commands \emph{inside\/} \LaTeX\ \texttt{verbatim} environments, so the reader can see them but where simultaneous indexing is impossible. (In normal use, \name{relit} commands would be outside \texttt{verbatim} and similar commands and hence they would be processed by \LaTeX\ and would normally be invisible to the reader.) Thus, index entries marked~* in figure~\ref{fig:index} were provided by using duplicated \name{relit} commands written just outside the \texttt{verbatim} environments so \LaTeX\ could evaluate them to make the starred index entries as shown.}
 }
 
-\part{Discussion and conclusions}
+\subsection{Name subscripts}\label{subscript-section}
+\name{Relit} allows authors to name and combine snippets of code, but surprisingly often the author has trouble thinking of names. For example, the publisher Elsevier wants to have a list of figure captions, and if \name{relit} is used to collect the figure captions, then we either need the author to invent many names and keep track of them, or we need a way of subscripting names --- then the author only needs to invent one name for each class of things (such as figure captions) that they want to keep track of.
+
+Introducing programming into \name{relit} would make it more complex than seems warranted, but subscripts are very useful even with no arbitrary arithmetic allowed on them. 
+
+The approach \name{relit} takes is that any name can have a \texttt{\#} symbol in it, and this represents the subscript. Each time a name is used with a \texttt{\#}, the subscript for that name increments, having started at 1. Hence,
+
+\begin{Verbatim}[commandchars=\\\{\}]
+%\breakup{}generate fig#-caption.txt ...
+%\breakup{}generate fig#-caption.txt ...
+%\breakup{}generate fig#-caption.txt ...
+\end{Verbatim}
+
+will generate three files called, respectively, fig1-caption.txt, fig2-caption.txt and fig3-caption.txt. If the author inserts another similar \texttt{\%{}generate}, say between figures 1 and 2, then the caption subscripting simply introduces a new numbered name in the sequence. The author does not have to keep inventing and keeping track of any new names --- they can just copy-and-paste one subscripted name.
+
+Using subscripted names in \texttt{\%{}generate} is thus quite straight forward. When subscripted names are used in \texttt{\%{}define} commands, the effect is identical: a subscripted name is defined, and the subscript increments each time it is redefined. Somewhere, unlike with file names, the author will of course want to use these defined names. To use a name, the author writes \texttt{<name1>}, \texttt{<name2>}, or whatever, as usual. \name{Relit} will report errors if incorrect subscripts are used, if a defined subscript is not used, and if an explicitly subscripted name is defined (like \texttt{name4} when \texttt{name\#} has also been defined and has counted, in this case, to 4).
+
+In fact, in \name{relit} names and file names work completely identically (they are in the same namespace), except that \texttt{\%{}generate} creates a file as a side-effect as well as defining the name. Thus, if an author generates a file, the file name can also be used as an ordinary \name{relit} name, so that its value can be used anywhere else in the file, for instance to generate a set of related files. (This feature is used in the present paper: by generating such ``nested'' files, we were easily able to run Unix's \name{wc} on snippets of code within larger files.) The way subscripts work is also identical, as described above.
+
 \section{Thoughts on further work on relit}
 The experience of developing and using a tool drives new ideas, creating a tension between polishing the legacy or generalising and extending the scope and reach of the ideas. Here are several key potential developments:
 
 \begin{enumerate}\raggedright
 \item
 The syntax of \name{relit} could be improved. For example, instead of defining names or generating files, \name{relit} commands could be considered as specifying text from an expression, which could then be processed. Like \name{loom}, commands could pipe their output to files or other Unix processes. This would generalise \name{relit}. At present, the same effect can be achieved, albeit after one extra step, by using makefiles and other external processes filtering the files that are generated --- but this is ``bad practice'' as it involves creating an arbitrary namespace, specifically the names of the temporary files.
+
+\item
+An unnecessary restriction in the current version of \name{relit} is that regular expressions specify \emph{lines\/} of text rather than strings. If an author wants to write code like \verb!\texttt{sin(x)}! then we currently cannot pull out the value ``\texttt{sin(x)}'' unless the \texttt{sin(x)} is written on a line on its own, which is an awkward convention and introduces unnecessary blanks in the author's text. 
 
 \item
 \name{Relit}'s syntax is fixed, and needs internationalising and making appropriate for  languages other than \LaTeX\@. At present, \name{relit} is open source and available for any such improvements.
@@ -811,8 +851,10 @@ The syntax of \name{relit} could be improved. For example, instead of defining n
 \name{Relit} could be extended with its own parallel languages. \name{Relit} allows \LaTeX\ and code to be interleaved, but an author may want additional information or annotations, such as program specifications, test cases, invariants, contracts, author names, versioning information, etc: these might be neither program code the author wants the reader to see, nor program code that should be compiled. 
 
 \item
-Finally, in this paper we have argued the value of tools like \name{relit}. For good reasons, we believe it enormously helps reproducibility and dependability of publications. Whether it \emph{actually\/} helps other scientists, and whether it can be improved to help more authors to achieve their publication goals, is an open question --- a more profound question, which is harder but more useful to answer is: of several \name{relit}-like systems, which are more effective and why? We currently lack the theories and principles of doing and disseminating computer science so these critical questions are hard.\footnote{It is noteworthy that the ACM Computing Classification System (CCS, \url{dl.acm.org/ccs}) does not classify the activity that defines our discipline: publishing.} Our final section, next, explores these bigger issues. 
+Finally, in this paper we have argued the value of tools like \name{relit}. For good reasons, we believe it enormously helps reproducibility and dependability of publications. Whether it \emph{actually\/} helps other scientists, and whether it can be improved to help more authors to achieve their publication goals, is an open question --- a more profound question, which is harder but more useful to answer is: of several \name{relit}-like systems, which are more effective and why? We currently lack the theories and principles of doing and disseminating computer science so these critical questions are hard. Our final section, next, explores these bigger issues. 
 \end{enumerate}
+
+\part{Reproducibility: discussion and conclusions}
 
 \section{The benefits of automatic honesty}\label{benefits}
 \def\startquote{\sf\raggedright\setbox0=\hbox{``}\hskip -\wd0 \copy0}
@@ -823,9 +865,15 @@ Richard Feynman's opening sentence for his 1965 Physics Nobel Prize lecture (sha
 \begin{quote}\startquote We have a habit in writing articles published in scientific journals to make the work as finished as possible, to cover all the tracks, to not worry about the blind alleys or to describe how you had the wrong idea first, and so on.\quoteend\hfill\cite{feynmanprize}
 \end{quote} 
 
-Here Feynman recalls the common habit we are not immune to in Computer Science when writing articles about algorithms (and when using other formal languages). As we refine and improve our articles, their connection with the orginal programs becomes tenuous. We ourselves encountered this problem in very early drafts of this paper before we had invented \name{relit}: improving the paper led us to talk about variables $u,v$ yet the program we were writing about really had variables $i,j$. Our original programs had many details, including essential declarations, that never made it into the working paper. It is too easy to slip from clarifying your writing to simply making it up.
+Here Feynman recalls the common habit we are not immune to in Computer Science when writing articles about algorithms (and when using other formal languages). As we refine and improve our articles, their connection with the original programs becomes tenuous. It has recently been argued that this bad science gives an effectively evolutionary advantage for the scientists who do it \cite{evolution}: cargo cult science is easier to publish --- for instance, which referees take the time to actually test programs discussed in papers, let alone work out exactly what the programs are so they can test them? Indeed, what authors even read all the papers they cite \cite{nocite}?
 
-There is a legitimate stage in drafting papers where authors can freely write about what they hope and intend will be true as placeholders for future work. ``Our program \emph{will\/} work like this~\ldots'' But if what they write has no rigorous connection with reality it will never be straightforward to know when the aspirational gap has been closed, and the authors thus risk eventually publishing misleading and time-wasting papers. Readers generally have no way to distinguish sketches and visionary ideas from actual achievements. 
+In turn this sloppiness creates a misleadingly ``productive'' culture which favours more of it: people and their promotion committees want longer CVs, not better papers. It becomes accepted practice, because everyone seems to benefit from taking the easiest route to publish more. 
+
+It is noteworthy and arguably a symptom of this cargo cult that the ACM Computing Classification System (CCS, \url{dl.acm.org/ccs}) does not even classify the core activity that defines our discipline: publishing --- yet publishing (including \LaTeX\ itself) is clearly a very active computer science research area. Evidently, thinking seriously about publishing (which involves thinking about uncomfortable subjects like quality in publishing) is not as exciting as just publishing!
+
+As discussed in Part~I of this paper, we ourselves encountered this problem while searching the literature to help us in writing early drafts of this paper before we had invented \name{relit}: improving the paper led us to talk about variables $u,v$ yet the program we were writing about really had variables $i,j$. Our original programs had many details, including essential declarations, that never made it into the working paper. It is too easy to slip from clarifying your writing to simply making it~up.
+
+There is a legitimate stage in drafting papers where authors can freely write about what they hope and intend will be true as placeholders for future work \cite{writing}. ``Our program \emph{will\/} work like this~\ldots'' But if what they write has no rigorous connection with reality it will never be straightforward to know when the aspirational gap has been closed, and the authors thus risk eventually publishing misleading and time-wasting papers. Readers generally have no way to distinguish sketches and visionary ideas from actual achievements. 
 
 Feynman later warned about the utter honesty essential to do good science. In 1974 he said, 
 
@@ -864,11 +912,11 @@ Instead, because we were using \name{relit}, we did \emph{one very trivial\/} gl
 \section{Conclusions}\label{conclusions}
 We developed an elegant algorithm to help perform reliable sequential experiments, and in the process of writing about it clearly we also developed a tool to help publish reliable papers about any algorithms in any language. This paper combined a description of the algorithm and a description of the tool that enabled us to write this paper.
 
-Our algorithm generates Euler cycles or randomised Euler cycles for complete directed graphs. It can be used to generate randomised $(N,2)$ de Bruijn sequences for efficient sequential experimental design which controls for random variation, systematic error, and carry-over effects. The simplicity of our algorithm, written in basic C, means that it is easy to understand and translate into other languages, which makes it accessible to those engaged in experimental research. 
+Our algorithm generates Euler cycles or randomised Euler cycles for complete directed graphs. It can be used to generate randomised $(N,2)$ de~Bruijn sequences for efficient sequential experimental design which controls for random variation, systematic error, and carry-over effects. The simplicity of our algorithm, written in basic C, means that it is easy to understand and translate into other languages, which makes it accessible to those engaged in experimental research. 
 
 Conventional literate programming prevents transcription errors by linking source code and manuscripts. Our novel ``reverse literate programming'' approach, which we have described and used in the preparation of the present paper, has allowed us to simultaneously edit the program code and its description in this paper at will, and repeatedly automatically generate an executable program we could run and use to confirm the integrity of the code as described exactly in the paper. 
 
-This paper and the open source \name{relit} tool and documentation are available from \url{https://github.com/haroldthimbleby/relit}
+This paper, including its \LaTeX\ source from which all code can be generated, as well as all documentation are available from \softwareURL{}
 
 %The reason for literate programming (reverse or not) is that people want to talk and write about programs in a different way from how compilers need them. There are various automated schemes (such as \name{loom\/} and  \name{warp\/}) and this paper's new approach that make writing \emph{reliably\/} about programs much easier. 
 
@@ -886,30 +934,49 @@ This research was funded by EPSRC under grant no.~[EP/L019272/1].
 %\def\bibitem#1{\frenchspacing\raggedright\advance\bibs by 1\ifnum \bibs=30 \newpage \fi\oldbibitem{#1}}
 
 \section*{References}
-\raggedright
+{\raggedright
 \frenchspacing
 \bibliographystyle{plainnat}
 \bibliography{relit}
+}
 
-\end{document}
+\section*{Authors' biographies}
+\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/HT.pdf}
 
-%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/HT.pdf}}]
-{Harold Thimbleby PhD, CEng, FIET, FLSW, FRCP (Edinburgh), Hon. FRSA, Hon. FRCP} is at Swansea University, Wales. His research focuses on human error and computer system design, particularly for healthcare. 
+\textbf{Harold Thimbleby} PhD, CEng, FIET, FLSW, FRCP (Edinburgh), Hon.\,FRSA, Hon.\,FRCP is at Swansea University, Wales. His research focuses on human error and computer system design, particularly for healthcare. 
 
-In addition to over 388 peer reviewed publications, Harold has written several books, including \emph{Press On\/} (MIT Press, 2007), which winner of the American Association of Publishers best book in computer science award. He won the British Computer Society Wilkes Medal. He is emeritus Gresham Professor of Geometry (a chair founded in 1597), and has been a Royal Society-Leverhulme Trust Senior Research Fellow and a Royal Society-Wolfson Research Merit Award holder. He has been a member of the UK Engineering and Physical Sciences (EPSRC) research council Peer Review College since 1994. 
+Harold has written several books, including \emph{Press On\/} (MIT Press, 2007), which winner of the American Association of Publishers best book in computer science award. He won the British Computer Society Wilkes Medal. He is emeritus Gresham Professor of Geometry (a chair founded in 1597), and has been a Royal Society-Leverhulme Trust Senior Research Fellow and a Royal Society-Wolfson Research Merit Award holder. He has been a member of the UK Engineering and Physical Sciences (EPSRC) research council Peer Review College since 1994. 
 
 See his web site, \url{www.harold.thimbleby.net}, for more details.
-%\end{IEEEbiography}
 
-%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/dave.jpg}}]
-{Dr. David Williams MBChB, FRCA, DipDHM, PGCME} is at Swansea University, Wales.
+\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/dave.jpg}
+
+\textbf{Dr. David Williams} MBChB, FRCA, DipDHM, PGCME is at Swansea University, Wales.
 
 He is a Consultant Anaesthetist at Morriston Hospital, Swansea; and Honorary Professor and Lead for Simulation Training at Swansea University College of Medicine.
 
 He has research interests in: Human Factors, computing, and medical device design. 
 
 In addition to over 100 peer reviewed publications, he is the Director of four university spin-out companies, and has won several international product design awards. He is an editor of \emph{Anaesthesia and Intensive Care Medicine}.
-%\end{IEEEbiography} \vfill
+
+\newpage
+\section*{Appendix: All figure captions}
+The following list of figure captions was made by using \name{relit} to generate a subscripted set of files, one for each figure caption, as described in section~\ref{subscript-section}. 
+
+We simply redefined the \LaTeX\ macro \verb|\caption| to work nicely outside of a figure, and this is what we achieve, below. 
+
+If we had been concerned, we could have used \name{relit}'s tags (see section \ref{invisible-code}) to distinguish captions that the reader of the paper can see and those that they cannot (for some reason) see --- for example, during editing a figure might have been moved beyond the \verb|\end{document}| so it was technically preserved in the \LaTeX\ source file, but was not part of the published document. Such things typically happen with co-authored papers, where one author wants to get rid of a figure (or other item) but dare not delete it completely and unnecessarily upsetting the other author --- the text will still be there, but it will not form part of the published paper. As it happens, we decided to keep all the figures!
+
+\newcount\capN \capN=0
+
+\def\caption#1{\global\advance \capN by 1\subsection*{Figure \the\capN\ caption}\noindent #1}
+
+\input caption-1.tex
+\input caption-2.tex
+\input caption-3.tex
+\input caption-4.tex
+\input caption-5.tex
+
 \end{document}
 
 \appendix 

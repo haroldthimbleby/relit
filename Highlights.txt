@@ -1,0 +1,18 @@
+HIGHLIGHTS
+
+A tool for publishing reproducible algorithms &A reproducible, elegant algorithm for sequential experiments
+Harold Thimbleby & Dave Williams
+
+
+* Reproducible algorithms are problematic, and the lack of reproducible algorithms holds back computer science.
+
+* We argue we need flexible, easy to learn, and powerful tools to remove all obstacles to reproducibility.
+
+* We present a reproducible algorithm for a graph algorithm that can be used in experiment design. This case study is written using our tool - but the tool use is seamless and invisible in the paper.
+
+* We then describe our tool, relit, which makes it very easy to write papers with reproducible algorithms.
+
+* Our algorithm (and all the examples) can be reconstructed automatically from the paper. This guarantees reproducibility of this useful algorithm (which is not otherwise available in the literature in working form).
+
+* All material is available on github
+

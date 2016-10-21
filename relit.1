@@ -46,7 +46,7 @@ Do not generate or update any files (run for filenames and diagnostics only; you
 Define a name. If there are spaces in the \fIvalue\fR it must be enclosed in quote marks.
 .TP
 --
-Treat all subsequent parameters as file names, following the same convention as \fBrm\fR (1). This allows file names like -- etc.
+Treat all subsequent parameters as file names, following the same convention as \fBrm\fR (1). This allows file names like -- etc (should you need them!).
 .SH DESCRIPTION
 The
 .B relit 
@@ -66,9 +66,11 @@ to be the following lines that match between the two regular expressions inclusi
 .IP
 Generate a file called 
 .I name 
-to be the following lines that match between the two regular expressions inclusive. If the file already exists, it is only touched if its contents need changing.
-.IP
+to be the following lines that match between the two regular expressions inclusive. If the file already exists, it is only touched if its contents need changing (but see -f flag above).
+.LP
 Within the text matched for %define and %generate, names of the form <\fIname\fR> are expanded by their definitions.  There is only one name space for both %define and %generate, so a file name can be used in the form <\fIfilename\fR> as well; this allows files to be built up from smaller files that, for instance, might be analysed separately, e.g., by \fBwc\fR (1).
+.LP
+With both %define and %generate, names can have # subscripts. For each distinct name, a # is replaced by a subscript counter. So %generate f#.txt ..., %generate f#.txt will actually generate files called f1.txt and f2.txt. (Note that f# and #f are different names, generating f1, f2, f3... and 1f, 2f, 3f... respectively.)
 .LP
 % set-tag \fIvalue\fR
 \fBor\fR

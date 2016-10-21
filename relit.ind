@@ -1,12 +1,12 @@
 \begin{theindex}
 
   \item \uppercase {R}elit define
-    \subitem {\texttt{demo}}, \manualrelitpage{14}
+    \subitem {\texttt{demo}}, \manualrelitpage{15}
   \item \uppercase {R}elit ends
-    \subitem {\texttt{ends}}, \acmIndexer{22}
+    \subitem {\texttt{ends}}, \acmIndexer{23}
   \item \uppercase {R}elit generate
-    \subitem {\texttt{euler.c}}, \manualrelitpage{15}
-    \subitem {\texttt{hello.c}}, \manualrelitpage{14}
-    \subitem {\texttt{TeX-mode-demo.tex}}, \acmIndexer{22}
+    \subitem {\texttt{euler.c}}, \manualrelitpage{17}
+    \subitem {\texttt{hello.c}}, \manualrelitpage{16}
+    \subitem {\texttt{TeX-mode-demo.tex}}, \acmIndexer{23}
 
 \end{theindex}
