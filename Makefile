@@ -2,7 +2,7 @@
 
 .PHONY: all man test clean bib run index test runRelit
 
-relit.pdf all relit.aux-target relit.idx-target: relit.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt relit.bbl relit.ind corelinesofcode.tex 
+relit.pdf all relit.aux-target TeX-mode-demo.tex relit.idx-target: relit.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt relit.ind-target corelinesofcode.tex diff.txt relit.bbl-target relit.idx-target TeX-mode-demo.tex
 	./helpMake relit.pdf relit.aux relit.idx "pdflatex relit.tex"
 
 man: relit.1
@@ -13,14 +13,18 @@ test: euler randomised-euler wine
 	./randomised-euler
 	./wine
 	
-bib relit.bbl-target: relit.aux
+diff.txt: randomised-euler.c euler.c
+	diff randomised-euler.c euler.c | grep -B 3 "walk a cycle" | sed "s/$$/\\\\\\\\/" > diff.txt
+	
+bib relit.bbl-target: relit.aux-target
 	./helpMake relit.bbl "bibtex relit.aux"
 	
-index relit.ind-target: relit.idx
+index relit.ind-target: relit.idx-target
 	./helpMake relit.ind "makeindex relit.idx"
 	 
 runRelit Makefile euler.c-target randomise-euler.c-target sedcommands-target euler.c-tagged.txt-target define-non-randomised-cycle-target wine.c-target: relit.tex relit  
 	./helpMake euler.c-target randomise-euler.c-target sedcommands-target euler.c-tagged.txt-target define-non-randomised-cycle-target wine.c-target "./relit -u -v relit.tex"
+	echo "\\\\\\\\" `date` >> TeX-mode-demo.tex
 	
 euler: euler.c
 	cc euler.c -o euler
@@ -33,7 +37,7 @@ randomised-euler: randomised-euler.c
 winelist.tex: wine
 	./wine > winelist.tex 
 	
-lastwine.tex: winelist.tex 
+lastwine.tex: winelist.tex  
 	tail -n 1 winelist.tex > lastwine.tex
 	
 linesofcode.tex: euler.c uncom
@@ -71,7 +75,10 @@ uncom: uncom.c
 	
 wine: wine.c
 	cc wine.c -o wine 
+	
+cleanlatex: # get rid of anything that Latex does not depend on
+	-rm -f define-non-randomised-cycle e.txt euler euler.c relit.dvi relit.log relit.spl hello.c nameDemo.c randomised-euler randomised-euler.c relit-def.tex sedcommands sedgewickeslinesofcode.tex TeX-mode-demo.tex uncom wine wine.c a.out *-target *-tagged.txt
 
-clean: # leaves all the sources and the pdf file
-	-rm -f allinesofcode.tex allLinesofcode.tex corelinesofcode.tex define-non-randomised-cycle e.txt euler euler.c relit.aux relit.blg relit.dvi relit.idx relit.ilg relit.log relit.spl relit.synctex.gz hello.c lastwine.tex linesofcode.tex linesofrelit.tex nameDemo.c randomised-euler randomised-euler.c relit relit-def.tex sedcommands sedgewickeslinesofcode.tex t TeX-mode-demo.tex uncom wine wine.c winelist.tex
+clean: cleanlatex # leaves all the sources and the pdf file
+	-rm -f allLinesofcode.tex corelinesofcode.tex define-non-randomised-cycle e.txt euler euler.c relit.aux relit.blg relit.dvi relit.idx relit.ilg relit.log relit.spl relit.synctex.gz hello.c lastwine.tex linesofcode.tex linesofrelit.tex nameDemo.c randomised-euler randomised-euler.c relit relit-def.tex sedcommands sedgewickeslinesofcode.tex t TeX-mode-demo.tex uncom wine wine.c winelist.tex a.out caption-6.tex caption-5.tex caption-4.tex caption-3.tex caption-2.tex caption-1.tex diff.txt relit.bbl relit.ind
 	-rm -f *-target *-temp-*.tmp *-tagged.txt

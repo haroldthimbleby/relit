@@ -40,7 +40,7 @@ List only updated (changed or touched) files to standard output. Note if you use
 Verbose mode (show \fBrelit\fR commands as they are processed)
 .TP
 -x
-Do not generate or update any files (run for filenames and diagnostics only; you probably want -x AND at least one other option: -a, -f, -g, -n, -u or -v)
+Run for diagnostics only and do not generate or update any files; you probably want -x AND at least one other option (-a, -f, -g, -n, -u or -v) unless you are only interested in errors
 .TP
 \fIname\fR=\fIvalue\fR
 Define a name. If there are spaces in the \fIvalue\fR it must be enclosed in quote marks.
@@ -58,7 +58,7 @@ tool generally processes TeX or LaTeX files. Commands are written either as comm
 .IP
 Define 
 .I name 
-to be the following lines that match between the two regular expressions inclusive. The name can be optionally tagged. (In the LaTeX form, if the tag is specified, the square brackets are required.)
+to be the following lines that match between the two regular expressions inclusive. The name can be optionally tagged. (In the LaTeX form, if a tag is specified, the square brackets are required.)
 .LP
 % generate \fIname\fR \fIre\fR, \fIre\fR [, \fItag\fR]
 \fBor\fR
@@ -66,11 +66,15 @@ to be the following lines that match between the two regular expressions inclusi
 .IP
 Generate a file called 
 .I name 
-to be the following lines that match between the two regular expressions inclusive. If the file already exists, it is only touched if its contents need changing (but see -f flag above).
+to be the following lines that match between the two regular expressions inclusive. If the file already exists, it is only updated if its contents are changed (but see -f flag above).
 .LP
-Within the text matched for %define and %generate, names of the form <\fIname\fR> are expanded by their definitions.  There is only one name space for both %define and %generate, so a file name can be used in the form <\fIfilename\fR> as well; this allows files to be built up from smaller files that, for instance, might be analysed separately, e.g., by \fBwc\fR (1).
+Within the text matched for %define and %generate, names of the form <\fIname\fR> are expanded by their definitions. 
 .LP
-With both %define and %generate, names can have # subscripts. For each distinct name, a # is replaced by a subscript counter. So %generate f#.txt ..., %generate f#.txt will actually generate files called f1.txt and f2.txt. (Note that f# and #f are different names, generating f1, f2, f3... and 1f, 2f, 3f... respectively.)
+There is only one name space, so a file name can be used as an ordinary name (i.e., in the form <\fIfilename\fR> in the body of a %define or %generate) as well. This allows generated files to be built up from both defines and from other files.
+.LP
+Both %define and %generate commands can be used in normal text or `hidden' (e.g., after the \\end{document}) or in files that are only processed by \fBrelit\fR. Note that it would be unusual to use variable names (e.g., <n>) except in hidden parts of a document, since names are only expanded when files are generated \(em the original text is never changed.
+.LP
+With both %define and %generate, names can have # subscripts. For each distinct name, a # is replaced by a subscript counter. So %generate f#.txt ..., %generate f#.txt will actually generate files called f1.txt and f2.txt, etc. (Note that f# and #f are different names, generating f1, f2, f3... and 1f, 2f, 3f... respectively.)
 .LP
 % set-tag \fIvalue\fR
 \fBor\fR
@@ -104,4 +108,4 @@ Regular expressions cannot contain / (or } in the \\relit form)
 .PP
 The fixed strings, and % and \\relit in particular, cannot be changed (it might be nice to be able to process files using other conventions, such as makefiles or C programs, too).
 .SH AUTHOR
-Harold Thimbleby, harold@thimbleby.net, 2016
+Harold Thimbleby, harold@thimbleby.net, 2017
