@@ -2,8 +2,11 @@
 # Version 1.0
 #
 # when you use make for latex/bibtex/makeindex make gets confused with circular dependencies
+# helpMake breaks this by introducing -target files which make thinks are different
 # 
 # Use: helpMake files[-target]... "command arguments > etc"
+#
+# You give it a list of files that will exist in basic and -target forms, and a command that creates files
 #
 # Meaning: when you run the command, the target file(s) should be created
 # So in a makefile you might say
@@ -16,23 +19,23 @@
 #
 # HOW IT WORKS
 # file and file-target are the same files, using them avoids make spotting circular dependencies
-# but the files are only updated if running the command changes their contents. 
-# file-target gets updated so make is happy for this rule
+# but the -target files are only updated if running the command changes the corresponding file contents. 
+# file-target gets updated so make is happy
 # but file (if its contents did not change) is not updated, so other rules depending on it do not file
 # moreover, because file and file-target are the same file, 
 # but make does not realise, the circular dependencies are broken
 # .... will create temporary files *-temp-$$ (and will remove them if it runs to completion)
 	
 me=`basename $0`
+target="-target"
 
 if [ $# -lt 2 ]
 then
-	echo Usage: $me "files[-target]..." '"command and arguments... > etc"'
+	echo Usage: $me "files[$target]..." '"command and arguments... > etc"'
 	exit
 fi
 
 temp="-temp-$$.tmp" # put a suffix on it to reduce name collisions
-target="-target"
 
 cmd="${!#}"
 
@@ -42,7 +45,7 @@ do
 	targetName=`basename ${!i} $target`
 	if [ -e $targetName$temp ]
 		then
-			echo $targetName$temp already exists, unsafe to proceed!
+			echo $targetName$temp already exists, sorry it is unsafe to proceed!
 			exit
 	fi
 	rm -f $targetName$target
@@ -109,4 +112,3 @@ summarise () {
 summarise $ncreated created "$created"
 summarise $nupdated updated "$updated"
 summarise $nnotupdated unchanged "$notupdated"
-

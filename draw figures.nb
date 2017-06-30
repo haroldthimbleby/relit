@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    164364,       3938]
-NotebookOptionsPosition[    158290,       3782]
-NotebookOutlinePosition[    158675,       3799]
-CellTagsIndexPosition[    158632,       3796]
+NotebookDataLength[    171747,       4080]
+NotebookOptionsPosition[    165704,       3926]
+NotebookOutlinePosition[    166089,       3943]
+CellTagsIndexPosition[    166046,       3940]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -26,11 +26,14 @@ Cell[BoxData[
   3.656770132255333*^9}},ExpressionUUID->"80db88e7-b0ea-4441-9885-\
 f44a99abf006"],
 
-Cell[BoxData["\<\"Wed 21 Jun 2017 22:17:06\"\>"], "Output",
+Cell[BoxData["\<\"Fri 30 Jun 2017 22:24:06\"\>"], "Output",
  CellChangeTimes->{3.673714260494854*^9, 3.673868509317019*^9, 
   3.706933228520069*^9, 3.7069336999551477`*^9, 3.706964522967387*^9, 
-  3.7070686263795424`*^9},ExpressionUUID->"3cdaf224-3827-4cae-82f5-\
-cff57bfd676d"]
+  3.7070686263795424`*^9, 3.707644855392416*^9, 3.707812189275622*^9, 
+  3.7078383779584837`*^9, 3.707838413702218*^9, 3.70784632251053*^9, 
+  3.707846405214612*^9, 
+  3.707846646780724*^9},ExpressionUUID->"ac2efd3e-554a-4c66-a309-\
+902623f51863"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -47,10 +50,28 @@ relit-master\"\>"], "Output",
  CellChangeTimes->{
   3.6737142607443132`*^9, 3.673868512008431*^9, 3.70693322871318*^9, {
    3.7069337237992067`*^9, 3.706933731392655*^9}, 3.706963960264907*^9, 
-   3.70696452316739*^9, 
-   3.707068626549676*^9},ExpressionUUID->"2b16942b-b6c8-4b6f-bdce-\
-94052ae6fae9"]
+   3.70696452316739*^9, 3.707068626549676*^9, 3.707644855612502*^9, 
+   3.707812189471016*^9, 3.707838378174271*^9, 3.7078384138369703`*^9, 
+   3.707846322647574*^9, 3.707846405629713*^9, 
+   3.707846646925*^9},ExpressionUUID->"b24d26d9-6258-4ade-817b-6ded2cfe5f7f"]
 }, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"figureDirectory", "=", "\"\<figures/\>\""}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"could", " ", "be", " ", "a", " ", "subdirectory"}], ",", " ", 
+    RowBox[{"eg", " ", 
+     RowBox[{"figures", "/"}]}], ",", " ", 
+    RowBox[{"but", " ", "Elsevier", " ", 
+     RowBox[{"can", "'"}], "t", " ", 
+     RowBox[{"cope", "!"}]}]}], " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.707838357316613*^9, 3.707838375831175*^9}, {
+  3.707846309776573*^9, 
+  3.7078463106810017`*^9}},ExpressionUUID->"9d74b819-611d-43d1-847b-\
+c8a408ee2d77"],
 
 Cell[CellGroupData[{
 
@@ -85,9 +106,11 @@ Cell[BoxData["\<\"\
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\
 xxxxxxxxxxxxxxxxxxxxxx\"\>"], "Output",
  CellChangeTimes->{3.673714260910921*^9, 3.706933228867523*^9, 
-  3.70693374077313*^9, 3.706964523331545*^9, 
-  3.707068626713449*^9},ExpressionUUID->"4638a4aa-d270-4b8a-a212-\
-340d28a5b191"]
+  3.70693374077313*^9, 3.706964523331545*^9, 3.707068626713449*^9, 
+  3.707644855767527*^9, 3.7078121896447353`*^9, 3.707838378365452*^9, 
+  3.707838413990487*^9, 3.7078463227976847`*^9, 3.707846406123839*^9, 
+  3.707846647104877*^9},ExpressionUUID->"9ccf6558-f380-4070-a26d-\
+8832a4c3439c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -480,9 +503,11 @@ ZZZZZZZZZZZZZZZZZZZZZZ\"\>",
   ImageSize->{Automatic, 300}]], "Output",
  CellChangeTimes->{
   3.673714261029929*^9, 3.7069332290129004`*^9, 3.706933741812904*^9, {
-   3.706964503256526*^9, 3.7069645234827747`*^9}, 
-   3.70706862682577*^9},ExpressionUUID->"c4cedf41-e80e-42ff-9468-\
-162e6edd0d4b"]
+   3.706964503256526*^9, 3.7069645234827747`*^9}, 3.70706862682577*^9, 
+   3.707644855857606*^9, 3.707812189859332*^9, 3.70783837850591*^9, 
+   3.7078384141485023`*^9, 3.707846323066408*^9, 3.707846406532302*^9, 
+   3.70784664721959*^9},ExpressionUUID->"d982af07-f8b7-488e-8963-\
+c7ddb130ea2d"]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -762,7 +787,8 @@ Cell[CellGroupData[{
 Cell[BoxData[{
  RowBox[{
   RowBox[{"forcewidth", "=", "0"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"Clear", "[", "c", "]"}], "\n", 
+ RowBox[{
+  RowBox[{"Clear", "[", "c", "]"}], ";"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"c", "[", "]"}], ":=", 
@@ -1122,8 +1148,8 @@ the\\npublished document is\\nunrestricted.\>\"", ",",
    3.667066946071105*^9, 3.667066991702345*^9}, {3.6670670257831287`*^9, 
    3.667067082101635*^9}, 3.667067202727373*^9, {3.66874855661357*^9, 
    3.66874856919594*^9}, {3.668751125077188*^9, 3.668751214751647*^9}, 
-   3.7069332872751827`*^9, {3.707068619531066*^9, 
-   3.707068622508452*^9}},ExpressionUUID->"d2edadc9-04dc-4e4d-aba4-\
+   3.7069332872751827`*^9, {3.707068619531066*^9, 3.707068622508452*^9}, 
+   3.707645210358728*^9},ExpressionUUID->"d2edadc9-04dc-4e4d-aba4-\
 49db7647c3b1"],
 
 Cell[BoxData[
@@ -1293,9 +1319,11 @@ the\\npublished document is\\nunrestricted.\"\>",
   3.673714261232813*^9, 3.673714470641714*^9, 3.7069332292843447`*^9, 
    3.7069337689556026`*^9, 3.706933799304308*^9, 3.7069370180703907`*^9, 
    3.706964395704402*^9, 3.706964446418907*^9, {3.706964495996098*^9, 
-   3.706964523738266*^9}, 
-   3.707068627062841*^9},ExpressionUUID->"974994f3-427b-4da6-b768-\
-320bb363ed28"]
+   3.706964523738266*^9}, 3.707068627062841*^9, 3.707644856073913*^9, 
+   3.7078121900519457`*^9, 3.707838378706284*^9, 3.707838414365081*^9, 
+   3.707846323671397*^9, 3.7078464070362263`*^9, 
+   3.707846647401795*^9},ExpressionUUID->"6a69a6bb-6c7a-451c-a228-\
+bf70897afb41"]
 }, Open  ]],
 
 Cell["\<\
@@ -1316,191 +1344,258 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Export", "[", 
-  RowBox[{"\"\<figures/literateProgramming.pdf\>\"", ",", 
+  RowBox[{
+   RowBox[{"figureDirectory", "<>", "\"\<literateProgramming.pdf\>\""}], ",", 
+   
    RowBox[{"c", "[", "]"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.6567697204415216`*^9, 3.6567697266414948`*^9}, {
-  3.656836809852418*^9, 3.656836809941183*^9}, {3.669288752061013*^9, 
-  3.669288782979706*^9}, {3.673714464435095*^9, 
-  3.673714476923407*^9}},ExpressionUUID->"312f6613-85f3-488f-83d2-\
+   3.656836809852418*^9, 3.656836809941183*^9}, {3.669288752061013*^9, 
+   3.669288782979706*^9}, {3.673714464435095*^9, 3.673714476923407*^9}, 
+   3.7078383446320133`*^9, {3.707846640314467*^9, 
+   3.7078466408174887`*^9}},ExpressionUUID->"312f6613-85f3-488f-83d2-\
 19d263af99fb"],
 
 Cell[BoxData["\<\"figures/literateProgramming.pdf\"\>"], "Output",
- CellChangeTimes->{3.673714478432022*^9, 3.706933229743081*^9, 
-  3.7069370225946093`*^9, 3.706964524262076*^9, 
-  3.707068627394196*^9},ExpressionUUID->"9de1ac50-ccd3-43ec-931d-\
-306196912e19"]
+ CellChangeTimes->{
+  3.707846647709792*^9},ExpressionUUID->"8eaa34d5-5424-4209-8971-\
+61141c275218"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[BoxData[
- RowBox[{"reversed", "=", 
-  RowBox[{"Graphics", "[", 
-   RowBox[{"{", "\[IndentingNewLine]", 
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"maxwidth", "=", ".3"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"height", "=", ".25"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Clear", "[", "c", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"c", "[", "]"}], ":=", 
+   RowBox[{"Module", "[", 
     RowBox[{
-     RowBox[{"Arrowheads", "[", "Medium", "]"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"Text", "[", 
-      RowBox[{
-       RowBox[{"Style", "[", 
-        RowBox[{"\"\<(a) Literate programming\>\"", ",", "12", ",", "Bold"}], 
-        "]"}], ",", 
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{".5", "+", "maxwidth"}], ",", 
-         RowBox[{"2.5", "height"}]}], "}"}]}], "]"}], ",", 
-     "\[IndentingNewLine]", 
-     RowBox[{"Text", "[", 
-      RowBox[{
-       RowBox[{"Style", "[", 
-        RowBox[{"\"\<(b) Reversed\>\"", ",", "12", ",", "Bold"}], "]"}], ",", 
-       
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"3", "+", "maxwidth"}], ",", 
-         RowBox[{"2.5", "height"}]}], "}"}]}], "]"}], ",", 
-     "\[IndentingNewLine]", 
-     RowBox[{"Arrow", "[", 
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"{", 
-         RowBox[{"0", ",", "0"}], "}"}], ",", 
-        RowBox[{"{", 
-         RowBox[{
-          RowBox[{"1", "-", "maxwidth"}], ",", "height"}], "}"}]}], "}"}], 
-      "]"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"Arrow", "[", 
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"{", 
-         RowBox[{"0", ",", "0"}], "}"}], ",", 
-        RowBox[{"{", 
-         RowBox[{
-          RowBox[{"1", "-", "maxwidth"}], ",", 
-          RowBox[{"-", "height"}]}], "}"}]}], "}"}], "]"}], ",", 
-     "\[IndentingNewLine]", 
-     RowBox[{"box", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"0", ",", "0"}], "}"}], ",", "\"\<wc.nw\>\"", ",", "Gray"}], 
-      "]"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"box", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"1", ",", "height"}], "}"}], ",", "\"\<wc.c\>\""}], "]"}], 
-     ",", "\[IndentingNewLine]", 
-     RowBox[{"box", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"1", ",", 
-         RowBox[{"-", "height"}]}], "}"}], ",", "\"\<wc.tex\>\""}], "]"}], 
-     ",", "\[IndentingNewLine]", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"Thickness", "[", "Medium", "]"}], ",", "Dashed", ",", 
-       "\[IndentingNewLine]", 
-       RowBox[{"Line", "[", 
-        RowBox[{"{", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"2", ",", 
-            RowBox[{
-             RowBox[{"-", "2"}], "height"}]}], "}"}], ",", 
-          RowBox[{"{", 
-           RowBox[{"2", ",", 
-            RowBox[{"2", "height"}]}], "}"}]}], "}"}], "]"}]}], "}"}], ",", 
-     "\[IndentingNewLine]", 
-     RowBox[{"{", 
-      RowBox[{"Thick", ",", 
-       RowBox[{"Arrow", "[", 
-        RowBox[{"BezierCurve", "[", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{"3", "-", "maxwidth"}], ",", 
-             RowBox[{"-", "height"}]}], "}"}], ",", 
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{"2.5", "-", "maxwidth"}], ",", 
-             RowBox[{"-", ".2"}]}], "}"}], ",", 
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{"2.5", "-", "maxwidth"}], ",", ".2"}], "}"}], ",", 
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{"3", "-", "maxwidth"}], ",", "height"}], "}"}]}], "}"}], 
-         "]"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", "t", "}"}], ",", "\[IndentingNewLine]", 
      RowBox[{
-      RowBox[{"stack", "=", 
-       RowBox[{"Table", "[", 
-        RowBox[{
+      RowBox[{"t", "=", 
+       RowBox[{"Graphics", "[", 
+        RowBox[{"{", "\[IndentingNewLine]", 
          RowBox[{
-          RowBox[{"{", 
-           RowBox[{"4.25", ",", 
-            RowBox[{"-", "height"}]}], "}"}], "+", 
-          RowBox[{
-           RowBox[{"{", 
-            RowBox[{"i", ",", 
+          RowBox[{"Arrowheads", "[", "Medium", "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Text", "[", 
+           RowBox[{
+            RowBox[{"Style", "[", 
              RowBox[{
-              RowBox[{"-", "2.3"}], "i"}]}], "}"}], "/", "10"}]}], ",", 
-         RowBox[{"{", 
-          RowBox[{"i", ",", 
-           RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "]"}]}], ";", 
-      "\[IndentingNewLine]", 
-      RowBox[{"MapIndexed", "[", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"{", 
-          RowBox[{"box", "[", 
-           RowBox[{"#", ",", "\"\<File\>\""}], "]"}], 
-          RowBox[{"(*", 
-           RowBox[{",", 
-            RowBox[{"Text", "[", 
-             RowBox[{
-              RowBox[{"ToString", "[", 
-               RowBox[{"#2", "[", 
-                RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", 
-              RowBox[{"#", "+", 
-               RowBox[{"{", 
-                RowBox[{".2", ",", 
-                 RowBox[{"-", ".05"}]}], "}"}]}]}], "]"}]}], "*)"}], "}"}], 
-         "&"}], ",", "stack"}], "]"}]}], ",", 
-     RowBox[{"Map", "[", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"Arrow", "[", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"{", 
-            RowBox[{"3", ",", 
-             RowBox[{"-", "height"}]}], "}"}], ",", 
-           RowBox[{"#", "-", 
+             "\"\<Special\\nstructured\\ndocument\>\"", ",", "Italic", ",", 
+              "10"}], "]"}], ",", 
             RowBox[{"{", 
-             RowBox[{"maxwidth", ",", "0"}], "}"}]}]}], "}"}], "]"}], "&"}], 
-       ",", "stack"}], "]"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"box", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"3", ",", 
-         RowBox[{"-", "height"}]}], "}"}], ",", "\"\<wc.tex\>\"", ",", 
-       "Gray"}], "]"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"box", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"3", ",", "height"}], "}"}], ",", "\"\<wc.c\>\""}], "]"}], 
-     ",", "\[IndentingNewLine]", 
-     RowBox[{"Text", "[", 
-      RowBox[{
-       RowBox[{"Style", "[", 
-        RowBox[{
-        "\"\<Editable files are shown shaded; generated files are white\>\"", 
-         ",", "10"}], "]"}], ",", 
-       RowBox[{"{", 
-        RowBox[{"2", ",", 
-         RowBox[{"-", "1"}]}], "}"}], ",", 
-       RowBox[{"{", 
-        RowBox[{"0", ",", "0"}], "}"}]}], "]"}]}], "\[IndentingNewLine]", 
-    "}"}], "\[IndentingNewLine]", "]"}]}]], "Input",
+             RowBox[{"0", ",", 
+              RowBox[{"-", "1"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", 
+              RowBox[{"-", "1"}]}], "}"}]}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Text", "[", 
+           RowBox[{
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<Normal document\>\"", ",", "Italic", ",", "10"}], 
+             "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"3", ",", 
+              RowBox[{"-", "1"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", 
+              RowBox[{"-", ".8"}]}], "}"}]}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"Dotted", ",", "\[IndentingNewLine]", 
+            RowBox[{"Line", "[", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"0", ",", 
+                 RowBox[{"-", ".5"}]}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+            RowBox[{"Line", "[", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"3", ",", 
+                 RowBox[{
+                  RowBox[{"-", "height"}], "-", ".15"}]}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"3", ",", 
+                 RowBox[{"-", ".8"}]}], "}"}]}], "}"}], "]"}]}], "}"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Text", "[", 
+           RowBox[{
+            RowBox[{"Style", "[", 
+             RowBox[{
+             "\"\<(a) Literate programming\>\"", ",", "12", ",", "Bold"}], 
+             "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{".5", "+", "maxwidth"}], ",", 
+              RowBox[{"2.5", "height"}]}], "}"}]}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Text", "[", 
+           RowBox[{
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<(b) Reversed\>\"", ",", "12", ",", "Bold"}], "]"}], 
+            ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"3", "+", "maxwidth"}], ",", 
+              RowBox[{"2.5", "height"}]}], "}"}]}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Arrow", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0", ",", "0"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"1", "-", "maxwidth"}], ",", "height"}], "}"}]}], 
+            "}"}], "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"Arrow", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0", ",", "0"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"1", "-", "maxwidth"}], ",", 
+               RowBox[{"-", "height"}]}], "}"}]}], "}"}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"box", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}], ",", "\"\<wc.nw\>\"", ",", 
+            "Gray"}], "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"box", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"1", ",", "height"}], "}"}], ",", "\"\<wc.c\>\""}], 
+           "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"box", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"1", ",", 
+              RowBox[{"-", "height"}]}], "}"}], ",", "\"\<wc.tex\>\""}], 
+           "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"Thin", ",", "\[IndentingNewLine]", 
+            RowBox[{"Line", "[", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"2.1", ",", 
+                 RowBox[{
+                  RowBox[{"-", "4"}], "height"}]}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"2.1", ",", 
+                 RowBox[{"3", "height"}]}], "}"}]}], "}"}], "]"}]}], "}"}], 
+          ",", "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"Thick", ",", 
+            RowBox[{"Arrow", "[", 
+             RowBox[{"BezierCurve", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"3", "-", "maxwidth"}], ",", 
+                  RowBox[{"-", "height"}]}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"2.5", "-", "maxwidth"}], ",", 
+                  RowBox[{"-", ".2"}]}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"2.5", "-", "maxwidth"}], ",", ".2"}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"3", "-", "maxwidth"}], ",", "height"}], "}"}]}], 
+               "}"}], "]"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"stack", "=", 
+            RowBox[{"Table", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"4.25", ",", 
+                 RowBox[{"-", "height"}]}], "}"}], "+", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"i", ",", 
+                  RowBox[{
+                   RowBox[{"-", "2.3"}], "i"}]}], "}"}], "/", "10"}]}], ",", 
+              RowBox[{"{", 
+               RowBox[{"i", ",", 
+                RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"MapIndexed", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"box", "[", 
+                RowBox[{"#", ",", "\"\<File\>\""}], "]"}], 
+               RowBox[{"(*", 
+                RowBox[{",", 
+                 RowBox[{"Text", "[", 
+                  RowBox[{
+                   RowBox[{"ToString", "[", 
+                    RowBox[{"#2", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", 
+                   RowBox[{"#", "+", 
+                    RowBox[{"{", 
+                    RowBox[{".2", ",", 
+                    RowBox[{"-", ".05"}]}], "}"}]}]}], "]"}]}], "*)"}], "}"}],
+               "&"}], ",", "stack"}], "]"}]}], ",", 
+          RowBox[{"Map", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Arrow", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"3", ",", 
+                  RowBox[{"-", "height"}]}], "}"}], ",", 
+                RowBox[{"#", "-", 
+                 RowBox[{"{", 
+                  RowBox[{"maxwidth", ",", "0"}], "}"}]}]}], "}"}], "]"}], 
+             "&"}], ",", "stack"}], "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"box", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"3", ",", 
+              RowBox[{"-", "height"}]}], "}"}], ",", "\"\<wc.tex\>\"", ",", 
+            "Gray"}], "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"box", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"3", ",", "height"}], "}"}], ",", "\"\<wc.c\>\""}], 
+           "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"Text", "[", 
+           RowBox[{
+            RowBox[{"Style", "[", 
+             RowBox[{
+             "\"\<Editable files are shown shaded; generated files are \
+white\>\"", ",", "10"}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"2", ",", 
+              RowBox[{"-", "1.25"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}]}], "]"}]}], "\[IndentingNewLine]",
+          "}"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"forcewidth", "=", "maxwidth"}], ";", "\[IndentingNewLine]", 
+      "t"}]}], "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"c", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"reversed", "=", 
+  RowBox[{"c", "[", "]"}]}]}], "Input",
  CellChangeTimes->{{3.7069338171172237`*^9, 3.7069338584304132`*^9}, {
    3.7069338940088263`*^9, 3.706933998930917*^9}, {3.706934038305759*^9, 
    3.706934045387516*^9}, {3.706934114849354*^9, 3.7069341333587513`*^9}, {
@@ -1513,133 +1608,153 @@ Cell[BoxData[
    3.70696432520082*^9}, {3.706964361825675*^9, 3.706964390335682*^9}, {
    3.706964464059518*^9, 3.706964490297819*^9}, {3.70696453952601*^9, 
    3.7069645905802*^9}, {3.706964629050083*^9, 3.706964633906003*^9}, {
-   3.706964673911442*^9, 3.7069646833891573`*^9}, 
-   3.706964735391369*^9},ExpressionUUID->"b9169067-fa32-454c-9dbb-\
+   3.706964673911442*^9, 3.7069646833891573`*^9}, 3.706964735391369*^9, {
+   3.707644880102347*^9, 3.7076449742272863`*^9}, {3.707645010042007*^9, 
+   3.707645077617528*^9}, 3.707645183183062*^9, {3.707645223809556*^9, 
+   3.707645337490353*^9}, {3.707654312790738*^9, 3.70765437495535*^9}, {
+   3.707654425308815*^9, 3.707654762577381*^9}, {3.707654837774928*^9, 
+   3.7076548422559147`*^9}, {3.707654876205985*^9, 3.707654891855036*^9}, {
+   3.707654927261198*^9, 3.707654927576708*^9}, {3.707654960032784*^9, 
+   3.7076549644536057`*^9}, {3.707655001288163*^9, 3.707655003558182*^9}, {
+   3.707812092324953*^9, 3.707812109034893*^9}, {3.707812572027163*^9, 
+   3.707812620722705*^9}},ExpressionUUID->"b9169067-fa32-454c-9dbb-\
 4eab81a3c7a5"],
 
 Cell[BoxData[
  GraphicsBox[{
    {Arrowheads[Medium], InsetBox[
+     StyleBox["\<\"Special\\nstructured\\ndocument\"\>",
+      StripOnInput->False,
+      FontSize->10,
+      FontSlant->Italic], {0, -1}, {0, -1}], InsetBox[
+     StyleBox["\<\"Normal document\"\>",
+      StripOnInput->False,
+      FontSize->10,
+      FontSlant->Italic], {3, -1}, {0, -0.8}], {
+     {Dashing[{0, Small}], LineBox[{{0, -0.5}, {0, 0}}], 
+      LineBox[{{3, -0.4}, {3, -0.8}}]}}, InsetBox[
      StyleBox["\<\"(a) Literate programming\"\>",
       StripOnInput->False,
       FontSize->12,
-      FontWeight->Bold], {0.7912, 0.7000000000000001}], InsetBox[
+      FontWeight->Bold], {0.8, 0.625}], InsetBox[
      StyleBox["\<\"(b) Reversed\"\>",
       StripOnInput->False,
       FontSize->12,
-      FontWeight->Bold], {3.2912, 0.7000000000000001}], 
-    ArrowBox[{{0, 0}, {0.7088, 0.28}}], 
-    ArrowBox[{{0, 0}, {0.7088, -0.28}}], {
+      FontWeight->Bold], {3.3, 0.625}], ArrowBox[{{0, 0}, {0.7, 0.25}}], 
+    ArrowBox[{{0, 0}, {0.7, -0.25}}], {
      {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
+      EdgeForm[GrayLevel[0]], {}, RectangleBox[{-0.3, -0.125}, {0.3, 0.125},
        RoundingRadius->0.015], 
       {GrayLevel[0], InsetBox[
         StyleBox["\<\"wc.nw\"\>",
          StripOnInput->False,
          FontSize->12], {0, 0}]}}}, {
      {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.7088, 0.14}, {1.2912, 0.42000000000000004},
+      RectangleBox[{0.7, 0.125}, {1.3, 0.375},
        RoundingRadius->0.015], 
       {GrayLevel[0], InsetBox[
         StyleBox["\<\"wc.c\"\>",
          StripOnInput->False,
-         FontSize->12], {1, 0.28}]}}}, {
+         FontSize->12], {1, 0.25}]}}}, {
      {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{0.7088, -0.42000000000000004}, {1.2912, -0.14},
+      RectangleBox[{0.7, -0.375}, {1.3, -0.125},
        RoundingRadius->0.015], 
       {GrayLevel[0], InsetBox[
         StyleBox["\<\"wc.tex\"\>",
          StripOnInput->False,
-         FontSize->12], {1, -0.28}]}}}, {
-     {Thickness[Medium], Dashing[{Small, Small}], 
-      LineBox[{{2, -0.56}, {2, 0.56}}]}}, {
+         FontSize->12], {1, -0.25}]}}}, {
+     {Thickness[Tiny], LineBox[{{2.1, -1.}, {2.1, 0.75}}]}}, {
      {Thickness[Large], 
-      ArrowBox[BezierCurveBox[{{2.7088, -0.28}, {2.2088, -0.2}, {2.2088, 
-       0.2}, {2.7088, 0.28}}]]}}, {{{
+      ArrowBox[BezierCurveBox[{{2.7, -0.25}, {2.2, -0.2}, {2.2, 0.2}, {2.7, 
+       0.25}}]]}}, {{{
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{3.7588, 0.039999999999999925}, {4.3412, 0.31999999999999995},
+        RectangleBox[{3.75, 0.08499999999999996}, {4.35, 0.33499999999999996},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"File\"\>",
            StripOnInput->False,
-           FontSize->12], {4.05, 0.17999999999999994}]}}}}, {{
+           FontSize->12], {4.05, 0.20999999999999996}]}}}}, {{
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{3.8588000000000005, -0.19000000000000006}, {4.4412, 0.08999999999999997},
+        RectangleBox[{3.8500000000000005, -0.14500000000000002}, {4.45, 0.10499999999999998},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"File\"\>",
            StripOnInput->False,
-           FontSize->12], {4.15, -0.050000000000000044}]}}}}, {{
+           FontSize->12], {4.15, -0.020000000000000018}]}}}}, {{
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{3.9588, -0.42000000000000004}, {4.5412, -0.14},
+        RectangleBox[{3.95, -0.375}, {4.55, -0.125},
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"File\"\>",
            StripOnInput->False,
-           FontSize->12], {4.25, -0.28}]}}}}, {{
+           FontSize->12], {4.25, -0.25}]}}}}, {{
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{4.0588, -0.65}, {4.6411999999999995, -0.37},
+        RectangleBox[{4.05, -0.605}, {4.6499999999999995, -0.355},
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"File\"\>",
            StripOnInput->False,
-           FontSize->12], {4.35, -0.51}]}}}}, {{
+           FontSize->12], {4.35, -0.48}]}}}}, {{
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{4.1588, -0.88}, {4.7412, -0.6},
+        RectangleBox[{4.15, -0.835}, {4.75, -0.585},
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"File\"\>",
            StripOnInput->False,
-           FontSize->12], {4.45, -0.74}]}}}}}, {
-     ArrowBox[{{3, -0.28}, {3.7588, 0.17999999999999994`}}], 
-     ArrowBox[{{3, -0.28}, {3.8588000000000005`, -0.050000000000000044`}}], 
-     ArrowBox[{{3, -0.28}, {3.9588, -0.28}}], 
-     ArrowBox[{{3, -0.28}, {4.0588, -0.51}}], 
-     ArrowBox[{{3, -0.28}, {4.1588, -0.74}}]}, {
+           FontSize->12], {4.45, -0.71}]}}}}}, {
+     ArrowBox[{{3, -0.25}, {3.75, 0.20999999999999996`}}], 
+     ArrowBox[{{3, -0.25}, {3.8500000000000005`, -0.020000000000000018`}}], 
+     ArrowBox[{{3, -0.25}, {3.95, -0.25}}], 
+     ArrowBox[{{3, -0.25}, {4.05, -0.48}}], 
+     ArrowBox[{{3, -0.25}, {4.15, -0.71}}]}, {
      {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
-      EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{2.7088, -0.42000000000000004}, {3.2912, -0.14},
+      EdgeForm[GrayLevel[0]], {}, RectangleBox[{2.7, -0.375}, {3.3, -0.125},
        RoundingRadius->0.015], 
       {GrayLevel[0], InsetBox[
         StyleBox["\<\"wc.tex\"\>",
          StripOnInput->False,
-         FontSize->12], {3, -0.28}]}}}, {
+         FontSize->12], {3, -0.25}]}}}, {
      {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-      RectangleBox[{2.7088, 0.14}, {3.2912, 0.42000000000000004},
+      RectangleBox[{2.7, 0.125}, {3.3, 0.375},
        RoundingRadius->0.015], 
       {GrayLevel[0], InsetBox[
         StyleBox["\<\"wc.c\"\>",
          StripOnInput->False,
-         FontSize->12], {3, 0.28}]}}}, InsetBox[
+         FontSize->12], {3, 0.25}]}}}, InsetBox[
      StyleBox["\<\"Editable files are shown shaded; generated files are white\
 \"\>",
       StripOnInput->False,
-      FontSize->10], {2, -1}, {0, 0}]}}]], "Output",
- CellChangeTimes->{{3.70696461280507*^9, 3.7069646343957663`*^9}, {
-   3.7069646747794456`*^9, 3.706964684035746*^9}, 3.706964735895194*^9, 
-   3.7070686276719418`*^9},ExpressionUUID->"4735219a-3e5f-491b-b405-\
-9f7f190ac463"]
+      FontSize->10], {2, -1.25}, {0, 0}]}},
+  ImageSize->{607.2281249999995, Automatic}]], "Output",
+ CellChangeTimes->{{3.707654686523333*^9, 3.7076547631122723`*^9}, 
+   3.707654842824037*^9, {3.707654876824296*^9, 3.707654892482504*^9}, 
+   3.707654928127078*^9, 3.707654964977294*^9, 3.707655004044243*^9, {
+   3.707812093451962*^9, 3.70781210947077*^9}, 3.707812152962286*^9, 
+   3.707812190806745*^9, {3.707812574133705*^9, 3.707812622078261*^9}, 
+   3.707838379194721*^9, 3.707838414853451*^9, 3.70784632383232*^9, 
+   3.707846407439172*^9, 
+   3.707846647991843*^9},ExpressionUUID->"67f9d924-6a4d-4e25-9e69-\
+816ccf901422"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Export", "[", 
-  RowBox[{"\"\<figures/reversed.pdf\>\"", ",", "reversed"}], "]"}]], "Input",
- CellChangeTimes->{{3.706935328215754*^9, 
-  3.7069353355731487`*^9}},ExpressionUUID->"e579dbaa-2756-4655-8c14-\
+  RowBox[{
+   RowBox[{"figureDirectory", "<>", "\"\<reversed.pdf\>\""}], ",", 
+   "reversed"}], "]"}]], "Input",
+ CellChangeTimes->{{3.706935328215754*^9, 3.7069353355731487`*^9}, 
+   3.70783834464403*^9, {3.707846362191697*^9, 
+   3.707846362672494*^9}},ExpressionUUID->"e579dbaa-2756-4655-8c14-\
 a80bcc3f16b1"],
 
 Cell[BoxData["\<\"figures/reversed.pdf\"\>"], "Output",
- CellChangeTimes->{
-  3.706935363857386*^9, 3.7069358122353992`*^9, {3.706963950479*^9, 
-   3.706963986918478*^9}, 3.7069645249821367`*^9, 3.7069646897755737`*^9, 
-   3.706964739939506*^9, 
-   3.7070686278709307`*^9},ExpressionUUID->"7f63780c-1dec-4e91-838f-\
-2d0c985a95b5"]
+ CellChangeTimes->{3.707846407949388*^9, 
+  3.7078466482544193`*^9},ExpressionUUID->"d02d2e73-6095-42f5-a710-\
+af451e21263a"]
 }, Open  ]]
 }, Open  ]],
 
@@ -1875,9 +1990,11 @@ Cell[BoxData[
   FrameTicks->None,
   ImageSize->400]], "Output",
  CellChangeTimes->{3.673714261491826*^9, 3.706933230020624*^9, 
-  3.706964525482168*^9, 
-  3.707068627989328*^9},ExpressionUUID->"5b4e1032-678c-434c-bd52-\
-27c373743ee4"]
+  3.706964525482168*^9, 3.707068627989328*^9, 3.7076448592714787`*^9, 
+  3.7078121913572063`*^9, 3.7078383796894093`*^9, 3.707838415318109*^9, 
+  3.707846323942299*^9, 3.707846408340117*^9, 
+  3.707846648408474*^9},ExpressionUUID->"9441af3f-0585-46da-8d80-\
+2055c9264354"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2040,27 +2157,31 @@ Cell[BoxData[
   FrameTicks->None,
   ImageSize->400]], "Output",
  CellChangeTimes->{3.673714261613393*^9, 3.70693323016669*^9, 
-  3.706964525702525*^9, 
-  3.7070686280814047`*^9},ExpressionUUID->"84b170d5-1312-490c-81b4-\
-1d0e975d412f"]
+  3.706964525702525*^9, 3.7070686280814047`*^9, 3.7076448599411077`*^9, 
+  3.707812191463599*^9, 3.707838380179707*^9, 3.707838415760469*^9, 
+  3.707846324029975*^9, 3.707846408656055*^9, 
+  3.707846648492754*^9},ExpressionUUID->"43062663-72c3-4cc9-aba6-\
+9a06cc2f243d"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Export", "[", 
-  RowBox[{"\"\<figures/K3.pdf\>\"", ",", "cg"}], "]"}]], "Input",
+  RowBox[{
+   RowBox[{"figureDirectory", "<>", "\"\<K3.pdf\>\""}], ",", "cg"}], 
+  "]"}]], "Input",
  CellChangeTimes->{{3.655360882288003*^9, 3.655360897994679*^9}, {
    3.656770270957954*^9, 3.6567702712435207`*^9}, {3.6692887613643227`*^9, 
-   3.669288762148747*^9}, 
-   3.669288797247075*^9},ExpressionUUID->"74375b11-c599-4e60-9146-\
+   3.669288762148747*^9}, 3.669288797247075*^9, 3.7078383446550503`*^9, {
+   3.707846367048313*^9, 
+   3.707846368727303*^9}},ExpressionUUID->"74375b11-c599-4e60-9146-\
 7eee53168d83"],
 
 Cell[BoxData["\<\"figures/K3.pdf\"\>"], "Output",
- CellChangeTimes->{3.6737142622858143`*^9, 3.7069332304324837`*^9, 
-  3.7069645260929832`*^9, 
-  3.707068628260343*^9},ExpressionUUID->"43afae75-8cca-44db-b741-\
-2b8a00b73f20"]
+ CellChangeTimes->{3.707846409088913*^9, 
+  3.707846648665625*^9},ExpressionUUID->"be55dfb2-1273-4b7a-b493-\
+3486fad3a991"]
 }, Open  ]],
 
 Cell["Merlot, Pinotage and Shiraz", "Text",
@@ -2221,25 +2342,28 @@ Cell[BoxData[
   FrameTicks->None,
   ImageSize->400]], "Output",
  CellChangeTimes->{3.673714262392797*^9, 3.7069332305615997`*^9, 
-  3.706964526712677*^9, 
-  3.7070686284234447`*^9},ExpressionUUID->"c50094cc-1cfa-491c-bd4e-\
-7602c9a546e8"]
+  3.706964526712677*^9, 3.7070686284234447`*^9, 3.707644860594575*^9, 
+  3.707812191890615*^9, 3.707838380657736*^9, 3.707838416269732*^9, 
+  3.707846324141685*^9, 3.7078464094719353`*^9, 
+  3.70784664882203*^9},ExpressionUUID->"f2c7b724-ba69-47cd-be2c-f821ce2db09c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Export", "[", 
-  RowBox[{"\"\<figures/K3wines.pdf\>\"", ",", "cg"}], "]"}]], "Input",
- CellChangeTimes->{{3.670126569821834*^9, 
-  3.670126570492433*^9}},ExpressionUUID->"13147ed6-60b4-41c0-b121-\
+  RowBox[{
+   RowBox[{"figureDirectory", "<>", "\"\<K3wines.pdf\>\""}], ",", "cg"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.670126569821834*^9, 3.670126570492433*^9}, 
+   3.707838344666499*^9, {3.7078463722753353`*^9, 
+   3.7078463726551743`*^9}},ExpressionUUID->"13147ed6-60b4-41c0-b121-\
 7741b73c8640"],
 
 Cell[BoxData["\<\"figures/K3wines.pdf\"\>"], "Output",
- CellChangeTimes->{3.673714262666368*^9, 3.706933230815885*^9, 
-  3.7069645271323023`*^9, 
-  3.707068628604192*^9},ExpressionUUID->"e4915cb9-fb2d-4f85-9f5c-\
-289f653ef040"]
+ CellChangeTimes->{3.707846409825327*^9, 
+  3.707846649036343*^9},ExpressionUUID->"3fc60fdc-c0ea-414a-8960-\
+dacd884ca45c"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -2669,11 +2793,12 @@ Cell[BoxData[
        StyleBox["\<\"(a) Conventional\"\>",
         StripOnInput->False,
         FontSize->17,
-        FontWeight->Bold], {0, 0.42000000000000004}], 
-      ArrowBox[{{-0.35, 0}, {-0.35, -0.36}}], {
+        FontWeight->Bold], {0, 0.375}], 
+      ArrowBox[{{-0.35, 0}, {-0.35, -0.375}}], {
        {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
         EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6412, -0.14}, {-0.05879999999999996, 0.14},
+        RectangleBox[{-0.6499999999999999, -0.125}, {-0.04999999999999999, 0.125},
+         
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Latex file\"\>",
@@ -2681,14 +2806,16 @@ Cell[BoxData[
            FontSize->12], {-0.35, 0}]}}}, {
        {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
         EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{0.05879999999999996, -0.14}, {0.6412, 0.14},
+        RectangleBox[{0.04999999999999999, -0.125}, {0.6499999999999999, 0.125},
+         
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Source code\"\>",
            StripOnInput->False,
            FontSize->12], {0.35, 0}]}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
+        RectangleBox[{-0.6499999999999999, -0.625}, {-0.04999999999999999, -0.375},
+         
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Publish\"\>",
@@ -2702,34 +2829,35 @@ independent and\\nprobably inconsistent.\"\>",
        StyleBox["\<\"(b) Literate programming\"\>",
         StripOnInput->False,
         FontSize->17,
-        FontWeight->Bold], {0, 0.42000000000000004}], 
-      ArrowBox[{{0, 0}, {0.25, -0.36}}], 
-      ArrowBox[{{0, 0}, {-0.25, -0.36}}], {
+        FontWeight->Bold], {0, 0.375}], ArrowBox[{{0, 0}, {0.25, -0.375}}], 
+      ArrowBox[{{0, 0}, {-0.25, -0.375}}], {
        {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
         EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
+        RectangleBox[{-0.3, -0.125}, {0.3, 0.125},
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"WEB file\"\>",
            StripOnInput->False,
            FontSize->12], {0, 0}]}}}, 
-      ArrowBox[{{-0.35, -0.5}, {-0.35, -0.86}}], {
+      ArrowBox[{{-0.35, -0.5}, {-0.35, -0.875}}], {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
+        RectangleBox[{-0.6499999999999999, -0.625}, {-0.04999999999999999, -0.375},
+         
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Latex file\"\>",
            StripOnInput->False,
            FontSize->12], {-0.35, -0.5}]}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{0.05879999999999996, -0.64}, {0.6412, -0.36},
+        RectangleBox[{0.04999999999999999, -0.625}, {0.6499999999999999, -0.375},
+         
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Source code\"\>",
            StripOnInput->False,
            FontSize->12], {0.35, -0.5}]}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6412, -1.1400000000000001}, {-0.05879999999999996, -0.86},
+        RectangleBox[{-0.6499999999999999, -1.125}, {-0.04999999999999999, -0.875},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -2745,12 +2873,13 @@ idiosyncratic \[OpenCurlyDoubleQuote]literate\\nprogramming\
        StyleBox["\<\"(c) Loom & Warp\"\>",
         StripOnInput->False,
         FontSize->17,
-        FontWeight->Bold], {0, 0.42000000000000004}], 
-      ArrowBox[{{-0.25, -0.14}, {-0.1, -0.36}}], 
-      ArrowBox[{{0.25, -0.14}, {0.1, -0.36}}], {
+        FontWeight->Bold], {0, 0.375}], 
+      ArrowBox[{{-0.25, -0.125}, {-0.1, -0.375}}], 
+      ArrowBox[{{0.25, -0.125}, {0.1, -0.375}}], {
        {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
         EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6412, -0.14}, {-0.05879999999999996, 0.14},
+        RectangleBox[{-0.6499999999999999, -0.125}, {-0.04999999999999999, 0.125},
+         
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Latex file\"\>",
@@ -2758,21 +2887,23 @@ idiosyncratic \[OpenCurlyDoubleQuote]literate\\nprogramming\
            FontSize->12], {-0.35, 0}]}}}, {
        {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
         EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{0.05879999999999996, -0.14}, {0.6412, 0.14},
+        RectangleBox[{0.04999999999999999, -0.125}, {0.6499999999999999, 0.125},
+         
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Source code\"\>",
            StripOnInput->False,
-           FontSize->12], {0.35, 0}]}}}, ArrowBox[{{0, -0.5}, {0, -0.86}}], {
+           FontSize->12], {0.35, 0}]}}}, 
+      ArrowBox[{{0, -0.5}, {0, -0.875}}], {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.2912, -0.64}, {0.2912, -0.36},
+        RectangleBox[{-0.3, -0.625}, {0.3, -0.375},
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Temporary\\nLatex files\"\>",
            StripOnInput->False,
            FontSize->12], {0, -0.5}]}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.2912, -1.1400000000000001}, {0.2912, -0.86},
+        RectangleBox[{-0.3, -1.125}, {0.3, -0.875},
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Publish\"\>",
@@ -2786,26 +2917,27 @@ the\\nexpense of managing\\nseveral source files.\"\>",
        StyleBox["\<\"(d) This paper\"\>",
         StripOnInput->False,
         FontSize->17,
-        FontWeight->Bold], {0, 0.42000000000000004}], 
-      ArrowBox[{{0, 0}, {0.25, -0.36}}], 
-      ArrowBox[{{0, 0}, {-0.25, -0.36}}], {
+        FontWeight->Bold], {0, 0.375}], ArrowBox[{{0, 0}, {0.25, -0.375}}], 
+      ArrowBox[{{0, 0}, {-0.25, -0.375}}], {
        {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
         EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.2912, -0.14}, {0.2912, 0.14},
+        RectangleBox[{-0.3, -0.125}, {0.3, 0.125},
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Latex file\"\>",
            StripOnInput->False,
            FontSize->12], {0, 0}]}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6412, -0.64}, {-0.05879999999999996, -0.36},
+        RectangleBox[{-0.6499999999999999, -0.625}, {-0.04999999999999999, -0.375},
+         
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Publish\"\>",
            StripOnInput->False,
            FontSize->12], {-0.35, -0.5}]}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{0.05879999999999996, -0.64}, {0.6412, -0.36},
+        RectangleBox[{0.04999999999999999, -0.625}, {0.6499999999999999, -0.375},
+         
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
           StyleBox["\<\"Source code\"\>",
@@ -2816,8 +2948,8 @@ the\\npublished document is\\nunrestricted.\"\>",
         StripOnInput->False,
         FontSize->14], {0, -1.5}]}, {0.25, -2.5}], 
     {Thickness[
-     Tiny], {LineBox[{{-2.2, 0.48000000000000004`}, {-2.2, -4.3}}], 
-      LineBox[{{-0.65, 0.48000000000000004`}, {-0.65, -4.3}}]}, 
+     Tiny], {LineBox[{{-2.2, 0.45}, {-2.2, -4.3}}], 
+      LineBox[{{-0.65, 0.45}, {-0.65, -4.3}}]}, 
      LineBox[{{-2.95, -1.925}, {1.1, -1.925}}], {
       {Thickness[Medium], Dashing[{Small, Small}], 
        LineBox[{{-2.95, -0.25}, {1.1, -0.25}}], InsetBox[
@@ -2837,22 +2969,27 @@ the\\npublished document is\\nunrestricted.\"\>",
          FontSize->14], {-2.65, -3.}, {0, 0}]}}}}},
   ImageSize->{Automatic, 600}]], "Output",
  CellChangeTimes->{3.673714262971354*^9, 3.706933231128742*^9, 
-  3.7069645274823933`*^9, 
-  3.707068628804002*^9},ExpressionUUID->"800ccef5-b219-434d-8e2b-\
-f39c87f473c8"]
+  3.7069645274823933`*^9, 3.707068628804002*^9, 3.70764486099702*^9, 
+  3.7078121923818197`*^9, 3.707838381149535*^9, 3.707838416884787*^9, 
+  3.7078463243005323`*^9, 3.7078464100556107`*^9, 
+  3.707846649214768*^9},ExpressionUUID->"830a1efe-aba5-4f8e-b624-\
+7f9669260c68"]
 }, Open  ]],
 
 Cell[BoxData[
  RowBox[{"If", "[", 
   RowBox[{"False", ",", 
    RowBox[{"Export", "[", 
-    RowBox[{"\"\<figures/literateProgramming.pdf\>\"", ",", 
+    RowBox[{
+     RowBox[{"figureDirectory", "<>", "\"\<literateProgramming.pdf\>\""}], 
+     ",", 
      RowBox[{"c", "[", "]"}]}], "]"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.6567697204415216`*^9, 3.6567697266414948`*^9}, {
    3.656836809852418*^9, 3.656836809941183*^9}, {3.669288765043824*^9, 
    3.6692887659075317`*^9}, 3.669288836794998*^9, {3.673716476279887*^9, 
-   3.673716476578828*^9}, {3.7069332119209337`*^9, 
-   3.706933216946619*^9}},ExpressionUUID->"a7af6c50-04ff-4507-a3d2-\
+   3.673716476578828*^9}, {3.7069332119209337`*^9, 3.706933216946619*^9}, 
+   3.707838344610724*^9, {3.70784637549327*^9, 
+   3.707846375809209*^9}},ExpressionUUID->"a7af6c50-04ff-4507-a3d2-\
 91c2d4f330b1"],
 
 Cell[CellGroupData[{
@@ -3306,10 +3443,10 @@ Cell[BoxData[
        StyleBox["\<\"(a) Conventional\"\>",
         StripOnInput->False,
         FontSize->17,
-        FontWeight->Bold], {0, 0.42000000000000004}], 
-      ArrowBox[{{-0.35, 0}, {-0.35, -0.36}}], {
+        FontWeight->Bold], {0, 0.375}], 
+      ArrowBox[{{-0.35, 0}, {-0.35, -0.375}}], {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
+        RectangleBox[{-0.6687000000000001, -0.125}, {-0.03129999999999994, 0.125},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3317,12 +3454,12 @@ Cell[BoxData[
            StripOnInput->False,
            FontSize->12], {-0.35, 0}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
+        RectangleBox[{-0.6687000000000001, -0.125}, {-0.03129999999999994, 0.125},
          
          RoundingRadius->0.015], {}}}, {
        {RGBColor[0.7777777777777778, 0.7777777777777778, 0.7777777777777778], 
         EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
+        RectangleBox[{0.03129999999999994, -0.125}, {0.6687000000000001, 0.125},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3330,11 +3467,11 @@ Cell[BoxData[
            StripOnInput->False,
            FontSize->12], {0.35, 0}]}}}, {
        {EdgeForm[{GrayLevel[1], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
+        RectangleBox[{0.03129999999999994, -0.125}, {0.6687000000000001, 0.125},
          
          RoundingRadius->0.015], {}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+        RectangleBox[{-0.6687000000000001, -0.625}, {-0.03129999999999994, -0.375},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3342,7 +3479,7 @@ Cell[BoxData[
            StripOnInput->False,
            FontSize->12], {-0.35, -0.5}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+        RectangleBox[{-0.6687000000000001, -0.625}, {-0.03129999999999994, -0.375},
          
          RoundingRadius->0.015], {}}}, InsetBox[
        StyleBox["\<\"The source code is hidden.\\nThere is no link \
@@ -3353,11 +3490,10 @@ between\\nthe source code\\nand the published paper.\"\>",
        StyleBox["\<\"(b) Literate programming\"\>",
         StripOnInput->False,
         FontSize->17,
-        FontWeight->Bold], {0, 0.42000000000000004}], 
-      ArrowBox[{{0, 0}, {0.25, -0.36}}], 
-      ArrowBox[{{0, 0}, {-0.25, -0.36}}], {
+        FontWeight->Bold], {0, 0.375}], ArrowBox[{{0, 0}, {0.25, -0.375}}], 
+      ArrowBox[{{0, 0}, {-0.25, -0.375}}], {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.31870000000000004, -0.14}, {0.31870000000000004, 0.14},
+        RectangleBox[{-0.31870000000000004, -0.125}, {0.31870000000000004, 0.125},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3365,12 +3501,12 @@ between\\nthe source code\\nand the published paper.\"\>",
            StripOnInput->False,
            FontSize->12], {0, 0}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{-0.31870000000000004, -0.14}, {0.31870000000000004, 0.14},
+        RectangleBox[{-0.31870000000000004, -0.125}, {0.31870000000000004, 0.125},
          
          RoundingRadius->0.015], {}}}, 
-      ArrowBox[{{-0.35, -0.5}, {-0.35, -0.86}}], {
+      ArrowBox[{{-0.35, -0.5}, {-0.35, -0.875}}], {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+        RectangleBox[{-0.6687000000000001, -0.625}, {-0.03129999999999994, -0.375},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3378,11 +3514,11 @@ between\\nthe source code\\nand the published paper.\"\>",
            StripOnInput->False,
            FontSize->12], {-0.35, -0.5}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+        RectangleBox[{-0.6687000000000001, -0.625}, {-0.03129999999999994, -0.375},
          
          RoundingRadius->0.015], {}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
+        RectangleBox[{0.03129999999999994, -0.625}, {0.6687000000000001, -0.375},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3390,11 +3526,11 @@ between\\nthe source code\\nand the published paper.\"\>",
            StripOnInput->False,
            FontSize->12], {0.35, -0.5}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
+        RectangleBox[{0.03129999999999994, -0.625}, {0.6687000000000001, -0.375},
          
          RoundingRadius->0.015], {}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6687000000000001, -1.1400000000000001}, {-0.03129999999999994, -0.86},
+        RectangleBox[{-0.6687000000000001, -1.125}, {-0.03129999999999994, -0.875},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3402,7 +3538,7 @@ between\\nthe source code\\nand the published paper.\"\>",
            StripOnInput->False,
            FontSize->12], {-0.35, -1}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{-0.6687000000000001, -1.1400000000000001}, {-0.03129999999999994, -0.86},
+        RectangleBox[{-0.6687000000000001, -1.125}, {-0.03129999999999994, -0.875},
          
          RoundingRadius->0.015], {}}}, InsetBox[
        StyleBox["\<\"Although no code is hidden,\\nthere is usually so much \
@@ -3413,11 +3549,11 @@ of\\nit that not all can be\\nreliably read by a human.\"\>",
        StyleBox["\<\"(c) Loom & Warp\"\>",
         StripOnInput->False,
         FontSize->17,
-        FontWeight->Bold], {0, 0.42000000000000004}], 
-      ArrowBox[{{-0.25, -0.14}, {-0.1, -0.36}}], 
-      ArrowBox[{{0.25, -0.14}, {0.1, -0.36}}], {
+        FontWeight->Bold], {0, 0.375}], 
+      ArrowBox[{{-0.25, -0.125}, {-0.1, -0.375}}], 
+      ArrowBox[{{0.25, -0.125}, {0.1, -0.375}}], {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
+        RectangleBox[{-0.6687000000000001, -0.125}, {-0.03129999999999994, 0.125},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3425,17 +3561,18 @@ of\\nit that not all can be\\nreliably read by a human.\"\>",
            StripOnInput->False,
            FontSize->12], {-0.35, 0}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{-0.6687000000000001, -0.14}, {-0.03129999999999994, 0.14},
+        RectangleBox[{-0.6687000000000001, -0.125}, {-0.03129999999999994, 0.125},
          
          RoundingRadius->0.015], {}}}, {
        {EdgeForm[GrayLevel[0]], FaceForm[None], {
          {EdgeForm[None], FaceForm[RGBColor[
           0.7777777777777778, 0.7777777777777778, 0.7777777777777778]], 
-          RectangleBox[{0.03129999999999994, -0.14}, \
-{0.15877999999999998, 0.14}], RectangleBox[{0.22252, -0.14}, {0.31813, 0.14}],
-           RectangleBox[{0.3818700000000001, -0.14}, {0.47748, 0.14}], 
-          RectangleBox[{0.54122, -0.14}, {0.6687000000000001, 0.14}]}}, 
-        RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
+          RectangleBox[{0.03129999999999994, -0.125}, \
+{0.15877999999999998, 0.125}], 
+          RectangleBox[{0.22252, -0.125}, {0.31813, 0.125}], 
+          RectangleBox[{0.3818700000000001, -0.125}, {0.47748, 0.125}], 
+          RectangleBox[{0.54122, -0.125}, {0.6687000000000001, 0.125}]}}, 
+        RectangleBox[{0.03129999999999994, -0.125}, {0.6687000000000001, 0.125},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3443,11 +3580,12 @@ of\\nit that not all can be\\nreliably read by a human.\"\>",
            StripOnInput->False,
            FontSize->12], {0.35, 0}]}}}, {
        {EdgeForm[{GrayLevel[1], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{0.03129999999999994, -0.14}, {0.6687000000000001, 0.14},
+        RectangleBox[{0.03129999999999994, -0.125}, {0.6687000000000001, 0.125},
          
-         RoundingRadius->0.015], {}}}, ArrowBox[{{0, -0.64}, {0, -0.86}}], {
+         RoundingRadius->0.015], {}}}, 
+      ArrowBox[{{0, -0.625}, {0, -0.875}}], {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.31870000000000004, -0.64}, {0.31870000000000004, -0.36},
+        RectangleBox[{-0.31870000000000004, -0.625}, {0.31870000000000004, -0.375},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3455,11 +3593,11 @@ of\\nit that not all can be\\nreliably read by a human.\"\>",
            StripOnInput->False,
            FontSize->12], {0, -0.5}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{-0.31870000000000004, -0.64}, {0.31870000000000004, -0.36},
+        RectangleBox[{-0.31870000000000004, -0.625}, {0.31870000000000004, -0.375},
          
          RoundingRadius->0.015], {}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.31870000000000004, -1.1400000000000001}, {0.31870000000000004, -0.86},
+        RectangleBox[{-0.31870000000000004, -1.125}, {0.31870000000000004, -0.875},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3467,7 +3605,7 @@ of\\nit that not all can be\\nreliably read by a human.\"\>",
            StripOnInput->False,
            FontSize->12], {0, -1}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{-0.31870000000000004, -1.1400000000000001}, {0.31870000000000004, -0.86},
+        RectangleBox[{-0.31870000000000004, -1.125}, {0.31870000000000004, -0.875},
          
          RoundingRadius->0.015], {}}}, InsetBox[
        StyleBox["\<\"Some code is visible\\nbut the bulk needed to \
@@ -3478,14 +3616,14 @@ get\\nthings to work is hidden\\neven from the authors.\"\>",
        StyleBox["\<\"(d) This paper\"\>",
         StripOnInput->False,
         FontSize->17,
-        FontWeight->Bold], {0, 0.42000000000000004}], 
-      ArrowBox[{{0.14, -0.14}, {0.25, -0.36}}], 
-      ArrowBox[{{-0.14, -0.14}, {-0.25, -0.36}}], {
+        FontWeight->Bold], {0, 0.375}], 
+      ArrowBox[{{0.125, -0.125}, {0.25, -0.375}}], 
+      ArrowBox[{{-0.125, -0.125}, {-0.25, -0.375}}], {
        {EdgeForm[GrayLevel[0]], FaceForm[None], {
          {EdgeForm[None], FaceForm[RGBColor[
           0.7777777777777778, 0.7777777777777778, 0.7777777777777778]], 
-          RectangleBox[{0.28683, -0.14}, {0.31870000000000004, 0.14}]}}, 
-        RectangleBox[{-0.31870000000000004, -0.14}, {0.31870000000000004, 0.14},
+          RectangleBox[{0.28683, -0.125}, {0.31870000000000004, 0.125}]}}, 
+        RectangleBox[{-0.31870000000000004, -0.125}, {0.31870000000000004, 0.125},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3493,14 +3631,14 @@ get\\nthings to work is hidden\\neven from the authors.\"\>",
            StripOnInput->False,
            FontSize->12], {0, 0}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{-0.31870000000000004, -0.14}, {0.31870000000000004, 0.14},
+        RectangleBox[{-0.31870000000000004, -0.125}, {0.31870000000000004, 0.125},
          
          RoundingRadius->0.015], {
          {GrayLevel[1], Thickness[0.01], 
-          LineBox[{{0.28683, -0.14}, {0.31870000000000004`, -0.14}, {
-           0.31870000000000004`, 0.14}, {0.28683, 0.14}}]}}}}, {
+          LineBox[{{0.28683, -0.125}, {0.31870000000000004`, -0.125}, {
+           0.31870000000000004`, 0.125}, {0.28683, 0.125}}]}}}}, {
        {RGBColor[1, 1, 1], EdgeForm[GrayLevel[0]], {}, 
-        RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+        RectangleBox[{-0.6687000000000001, -0.625}, {-0.03129999999999994, -0.375},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3508,14 +3646,14 @@ get\\nthings to work is hidden\\neven from the authors.\"\>",
            StripOnInput->False,
            FontSize->12], {-0.35, -0.5}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{-0.6687000000000001, -0.64}, {-0.03129999999999994, -0.36},
+        RectangleBox[{-0.6687000000000001, -0.625}, {-0.03129999999999994, -0.375},
          
          RoundingRadius->0.015], {}}}, {
        {EdgeForm[GrayLevel[0]], FaceForm[None], {
          {EdgeForm[None], FaceForm[RGBColor[
           0.7777777777777778, 0.7777777777777778, 0.7777777777777778]], 
-          RectangleBox[{0.63683, -0.64}, {0.6687000000000001, -0.36}]}}, 
-        RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
+          RectangleBox[{0.63683, -0.625}, {0.6687000000000001, -0.375}]}}, 
+        RectangleBox[{0.03129999999999994, -0.625}, {0.6687000000000001, -0.375},
          
          RoundingRadius->0.015], 
         {GrayLevel[0], InsetBox[
@@ -3523,19 +3661,19 @@ get\\nthings to work is hidden\\neven from the authors.\"\>",
            StripOnInput->False,
            FontSize->12], {0.35, -0.5}]}}}, {
        {EdgeForm[{GrayLevel[0], Thickness[Large]}], FaceForm[None], 
-        RectangleBox[{0.03129999999999994, -0.64}, {0.6687000000000001, -0.36},
+        RectangleBox[{0.03129999999999994, -0.625}, {0.6687000000000001, -0.375},
          
          RoundingRadius->0.015], {
          {GrayLevel[1], Thickness[0.01], 
-          LineBox[{{0.63683, -0.64}, {0.6687000000000001, -0.64}, {
-           0.6687000000000001, -0.36}, {0.63683, -0.36}}]}}}}, InsetBox[
+          LineBox[{{0.63683, -0.625}, {0.6687000000000001, -0.625}, {
+           0.6687000000000001, -0.375}, {0.63683, -0.375}}]}}}}, InsetBox[
        StyleBox["\<\"A negligible amount\\nof code may be hidden,\\n but only \
 with effort and it\\nis still in the same file.\"\>",
         StripOnInput->False,
         FontSize->14], {0, -1.5}]}, {0.25, -2.5}], 
     {Thickness[
-     Tiny], {LineBox[{{-2.2, 0.48000000000000004`}, {-2.2, -4.3}}], 
-      LineBox[{{-0.65, 0.48000000000000004`}, {-0.65, -4.3}}]}, 
+     Tiny], {LineBox[{{-2.2, 0.45}, {-2.2, -4.3}}], 
+      LineBox[{{-0.65, 0.45}, {-0.65, -4.3}}]}, 
      LineBox[{{-2.2, -1.925}, {1.1, -1.925}}], {InsetBox[
        StyleBox["\<\"Hidden code\\nis shaded\"\>",
         StripOnInput->False,
@@ -3546,29 +3684,26 @@ in\\nhighlighted\\nboxes\"\>",
         FontSize->14], {-2.65, -2.5}, {0, 0}]}}}},
   ImageSize->{Automatic, 600}]], "Output",
  CellChangeTimes->{3.673714263507558*^9, 3.706933231495493*^9, 
-  3.7069645279001513`*^9, 
-  3.7070686289455976`*^9},ExpressionUUID->"06b4e0b1-22c4-48a5-b695-\
-b8cef25c76fd"]
+  3.7069645279001513`*^9, 3.7070686289455976`*^9, 3.707644861158016*^9, 
+  3.707812192569854*^9, 3.7078383816184883`*^9, 3.707838417399328*^9, 
+  3.70784632445592*^9, 3.7078464102745457`*^9, 
+  3.707846649383531*^9},ExpressionUUID->"c4c754d4-6761-4122-8f39-\
+6fbf5200c498"]
 }, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"Export", "[", 
-  RowBox[{"\"\<figures/hiddenCode.pdf\>\"", ",", 
-   RowBox[{"c", "[", "]"}]}], "]"}]], "Input",
+ RowBox[{"If", "[", 
+  RowBox[{"False", ",", 
+   RowBox[{"Export", "[", 
+    RowBox[{
+     RowBox[{"figureDirectory", "<>", "\"\<hiddenCode.pdf\>\""}], ",", 
+     RowBox[{"c", "[", "]"}]}], "]"}]}], "]"}]], "Input",
  CellChangeTimes->{
   3.669017640266762*^9, {3.6692887683951797`*^9, 3.669288773111496*^9}, {
-   3.669288874246517*^9, 
-   3.669288877594204*^9}},ExpressionUUID->"055bf82c-a45e-461f-a880-\
+   3.669288874246517*^9, 3.669288877594204*^9}, 3.707838344621719*^9, {
+   3.707846378868204*^9, 
+   3.707846396111641*^9}},ExpressionUUID->"055bf82c-a45e-461f-a880-\
 cc64e766729b"],
-
-Cell[BoxData["\<\"figures/hiddenCode.pdf\"\>"], "Output",
- CellChangeTimes->{3.673714263860214*^9, 3.7069332318589067`*^9, 
-  3.706964528404217*^9, 
-  3.707068629240209*^9},ExpressionUUID->"5344d207-f961-49fd-a6e9-\
-12242df281d9"]
-}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3614,9 +3749,11 @@ Cell[BoxData[
      FontSize->20], {0, 0.35}]},
   ImageSize->500]], "Output",
  CellChangeTimes->{3.6737142640338993`*^9, 3.7069332320794573`*^9, 
-  3.7069645285658216`*^9, 
-  3.707068629390712*^9},ExpressionUUID->"92f8072e-2732-4c7b-979c-\
-c79a35d0890d"]
+  3.7069645285658216`*^9, 3.707068629390712*^9, 3.7076448617085533`*^9, 
+  3.70781219311946*^9, 3.707838382128183*^9, 3.707838417868329*^9, 
+  3.707846324592404*^9, 3.7078464104633102`*^9, 
+  3.7078466495196257`*^9},ExpressionUUID->"d311a721-568e-46b5-9de2-\
+eb82d9c12968"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3662,9 +3799,11 @@ Cell[BoxData[
      FontSize->20], {0.75, 0}]},
   ImageSize->500]], "Output",
  CellChangeTimes->{3.673714264148635*^9, 3.706933232185752*^9, 
-  3.706964528674912*^9, 
-  3.707068629498672*^9},ExpressionUUID->"3f547df9-dae7-43e5-ba62-\
-9e460f15147e"]
+  3.706964528674912*^9, 3.707068629498672*^9, 3.707644861833481*^9, 
+  3.707812193189509*^9, 3.707838382587964*^9, 3.707838418304658*^9, 
+  3.707846324727454*^9, 3.707846410563582*^9, 
+  3.707846649630067*^9},ExpressionUUID->"03be86e9-4a40-4d41-9605-\
+39fdb0136778"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3710,8 +3849,11 @@ Cell[BoxData[
      FontSize->20], {1.2, 0}]},
   ImageSize->500]], "Output",
  CellChangeTimes->{3.673714264276671*^9, 3.70693323228319*^9, 
-  3.706964528778092*^9, 
-  3.70706862959918*^9},ExpressionUUID->"fd870f42-b5e1-4edf-8a79-5a4a10676328"]
+  3.706964528778092*^9, 3.70706862959918*^9, 3.707644861963509*^9, 
+  3.707812193259403*^9, 3.7078383830447607`*^9, 3.707838418785096*^9, 
+  3.707846324845347*^9, 3.707846410684963*^9, 
+  3.7078466497481213`*^9},ExpressionUUID->"633ce870-d2ad-48fe-a148-\
+85d1d120189b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3774,9 +3916,11 @@ Cell[BoxData[
      FontSize->20], {0.75, 0}]},
   ImageSize->500]], "Output",
  CellChangeTimes->{3.6737142643754263`*^9, 3.7069332323840847`*^9, 
-  3.7069645288941402`*^9, 
-  3.707068629725135*^9},ExpressionUUID->"c3ac6563-919c-433d-b8dd-\
-33d62262fb32"]
+  3.7069645288941402`*^9, 3.707068629725135*^9, 3.7076448621413307`*^9, 
+  3.707812193324553*^9, 3.70783838351967*^9, 3.707838419241015*^9, 
+  3.707846324950842*^9, 3.7078464108011427`*^9, 
+  3.707846649859182*^9},ExpressionUUID->"b79a4605-433f-4b2d-8cb7-\
+c00d56bfe16c"]
 }, Open  ]]
 }, Open  ]]
 },
@@ -3801,143 +3945,141 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 186, 4, 40, "Input", "ExpressionUUID" -> \
 "80db88e7-b0ea-4441-9885-f44a99abf006"],
-Cell[769, 28, 278, 4, 40, "Output", "ExpressionUUID" -> \
-"3cdaf224-3827-4cae-82f5-cff57bfd676d"]
+Cell[769, 28, 442, 7, 40, "Output", "ExpressionUUID" -> \
+"ac2efd3e-554a-4c66-a309-902623f51863"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1084, 37, 232, 5, 40, "Input", "ExpressionUUID" -> \
+Cell[1248, 40, 232, 5, 40, "Input", "ExpressionUUID" -> \
 "2db42f71-29bc-4ce0-b5dc-b433ed751629"],
-Cell[1319, 44, 372, 7, 40, "Output", "ExpressionUUID" -> \
-"2b16942b-b6c8-4b6f-bdce-94052ae6fae9"]
+Cell[1483, 47, 531, 8, 40, "Output", "ExpressionUUID" -> \
+"b24d26d9-6258-4ade-817b-6ded2cfe5f7f"]
 }, Open  ]],
+Cell[2029, 58, 596, 15, 40, "Input", "ExpressionUUID" -> \
+"9d74b819-611d-43d1-847b-c8a408ee2d77"],
 Cell[CellGroupData[{
-Cell[1728, 56, 235, 4, 82, "Chapter", "ExpressionUUID" -> \
+Cell[2650, 77, 235, 4, 82, "Chapter", "ExpressionUUID" -> \
 "001dbe97-bcd3-4bed-8677-14722a1bec1d"],
-Cell[1966, 62, 409, 11, 40, "Input", "ExpressionUUID" -> \
+Cell[2888, 83, 409, 11, 40, "Input", "ExpressionUUID" -> \
 "dc84d5b0-6c28-4039-80be-e6ed958b3992"],
 Cell[CellGroupData[{
-Cell[2400, 77, 200, 4, 40, "Input", "ExpressionUUID" -> \
+Cell[3322, 98, 200, 4, 40, "Input", "ExpressionUUID" -> \
 "a39e959d-c96d-43b1-be37-1dd2fcd67979"],
-Cell[2603, 83, 331, 6, 40, "Output", "ExpressionUUID" -> \
-"4638a4aa-d270-4b8a-a212-340d28a5b191"]
+Cell[3525, 104, 495, 8, 40, "Output", "ExpressionUUID" -> \
+"9ccf6558-f380-4070-a26d-8832a4c3439c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2971, 94, 5856, 129, 717, "Input", "ExpressionUUID" -> \
+Cell[4057, 117, 5856, 129, 717, "Input", "ExpressionUUID" -> \
 "f0270562-9371-4f26-ae24-903514a28567"],
-Cell[8830, 225, 11202, 259, 394, "Output", "ExpressionUUID" -> \
-"c4cedf41-e80e-42ff-9468-162e6edd0d4b"]
+Cell[9916, 248, 11364, 261, 394, "Output", "ExpressionUUID" -> \
+"d982af07-f8b7-488e-8963-c7ddb130ea2d"]
 }, Open  ]],
-Cell[20047, 487, 10429, 243, 899, "Input", "ExpressionUUID" -> \
+Cell[21295, 512, 10429, 243, 899, "Input", "ExpressionUUID" -> \
 "71eed20d-3709-4e40-a0f6-1e0411c1d32f"],
-Cell[30479, 732, 883, 25, 67, "Input", "ExpressionUUID" -> \
+Cell[31727, 757, 883, 25, 67, "Input", "ExpressionUUID" -> \
 "22c3c158-8105-4e35-b6ce-5fdfd0a51831"],
 Cell[CellGroupData[{
-Cell[31387, 761, 15154, 365, 1367, "Input", "ExpressionUUID" -> \
+Cell[32635, 786, 15194, 366, 1367, "Input", "ExpressionUUID" -> \
 "d2edadc9-04dc-4e4d-aba4-49db7647c3b1"],
-Cell[46544, 1128, 7584, 169, 394, "Output", "ExpressionUUID" -> \
-"974994f3-427b-4da6-b768-320bb363ed28"]
+Cell[47832, 1154, 7750, 171, 394, "Output", "ExpressionUUID" -> \
+"6a69a6bb-6c7a-451c-a228-bf70897afb41"]
 }, Open  ]],
-Cell[54143, 1300, 700, 12, 86, "Text", "ExpressionUUID" -> \
+Cell[55597, 1328, 700, 12, 86, "Text", "ExpressionUUID" -> \
 "cf04f51b-b6fa-4916-931a-23fbab9d1683"],
 Cell[CellGroupData[{
-Cell[54868, 1316, 418, 8, 40, "Input", "ExpressionUUID" -> \
+Cell[56322, 1344, 532, 11, 40, "Input", "ExpressionUUID" -> \
 "312f6613-85f3-488f-83d2-19d263af99fb"],
-Cell[55289, 1326, 261, 4, 40, "Output", "ExpressionUUID" -> \
-"9de1ac50-ccd3-43ec-931d-306196912e19"]
+Cell[56857, 1357, 168, 3, 40, "Output", "ExpressionUUID" -> \
+"8eaa34d5-5424-4209-8971-61141c275218"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[55587, 1335, 6747, 182, 535, "Input", "ExpressionUUID" -> \
+Cell[57062, 1365, 10528, 255, 847, "Input", "ExpressionUUID" -> \
 "b9169067-fa32-454c-9dbb-4eab81a3c7a5"],
-Cell[62337, 1519, 4527, 104, 184, "Output", "ExpressionUUID" -> \
-"4735219a-3e5f-491b-b405-9f7f190ac463"]
+Cell[67593, 1622, 5071, 116, 337, "Output", "ExpressionUUID" -> \
+"67f9d924-6a4d-4e25-9e69-816ccf901422"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[66901, 1628, 244, 5, 40, "Input", "ExpressionUUID" -> \
+Cell[72701, 1743, 351, 8, 40, "Input", "ExpressionUUID" -> \
 "e579dbaa-2756-4655-8c14-a80bcc3f16b1"],
-Cell[67148, 1635, 330, 6, 40, "Output", "ExpressionUUID" -> \
-"7f63780c-1dec-4e91-838f-2d0c985a95b5"]
+Cell[73055, 1753, 181, 3, 40, "Output", "ExpressionUUID" -> \
+"d02d2e73-6095-42f5-a710-af451e21263a"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[67527, 1647, 1116, 18, 687, "Chapter", "ExpressionUUID" -> \
+Cell[73285, 1762, 1116, 18, 687, "Chapter", "ExpressionUUID" -> \
 "baa95afa-c465-4c33-b2cd-fd07f0b773ab"],
 Cell[CellGroupData[{
-Cell[68668, 1669, 2441, 53, 119, "Input", "ExpressionUUID" -> \
+Cell[74426, 1784, 2441, 53, 119, "Input", "ExpressionUUID" -> \
 "e94fc8c1-00ea-41d9-a0c1-db35aeb1c75d"],
-Cell[71112, 1724, 7689, 155, 518, "Output", "ExpressionUUID" -> \
-"5b4e1032-678c-434c-bd52-27c373743ee4"]
+Cell[76870, 1839, 7855, 157, 518, "Output", "ExpressionUUID" -> \
+"9441af3f-0585-46da-8d80-2055c9264354"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[78838, 1884, 2351, 51, 119, "Input", "ExpressionUUID" -> \
+Cell[84762, 2001, 2351, 51, 119, "Input", "ExpressionUUID" -> \
 "4e159f51-70c3-4ecc-bf74-c1103b41586e"],
-Cell[81192, 1937, 5202, 107, 455, "Output", "ExpressionUUID" -> \
-"84b170d5-1312-490c-81b4-1d0e975d412f"]
+Cell[87116, 2054, 5364, 109, 455, "Output", "ExpressionUUID" -> \
+"43062663-72c3-4cc9-aba6-9a06cc2f243d"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[86431, 2049, 357, 7, 50, "Input", "ExpressionUUID" -> \
+Cell[92517, 2168, 465, 10, 40, "Input", "ExpressionUUID" -> \
 "74375b11-c599-4e60-9146-7eee53168d83"],
-Cell[86791, 2058, 226, 4, 50, "Output", "ExpressionUUID" -> \
-"43afae75-8cca-44db-b741-2b8a00b73f20"]
+Cell[92985, 2180, 173, 3, 40, "Output", "ExpressionUUID" -> \
+"be55dfb2-1273-4b7a-b493-3486fad3a991"]
 }, Open  ]],
-Cell[87032, 2065, 169, 3, 47, "Text", "ExpressionUUID" -> \
+Cell[93173, 2186, 169, 3, 38, "Text", "ExpressionUUID" -> \
 "d828e908-6fc8-49e4-a1f6-7c38fce4eb31"],
 Cell[CellGroupData[{
-Cell[87226, 2072, 1893, 47, 148, "Input", "ExpressionUUID" -> \
+Cell[93367, 2193, 1893, 47, 119, "Input", "ExpressionUUID" -> \
 "cd7c06d2-f8ec-42b1-a05a-a7ce04675dac"],
-Cell[89122, 2121, 5132, 104, 568, "Output", "ExpressionUUID" -> \
-"c50094cc-1cfa-491c-bd4e-7602c9a546e8"]
+Cell[95263, 2242, 5291, 105, 455, "Output", "ExpressionUUID" -> \
+"f2c7b724-ba69-47cd-be2c-f821ce2db09c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[94291, 2230, 235, 5, 50, "Input", "ExpressionUUID" -> \
+Cell[100591, 2352, 346, 8, 40, "Input", "ExpressionUUID" -> \
 "13147ed6-60b4-41c0-b121-7741b73c8640"],
-Cell[94529, 2237, 227, 4, 50, "Output", "ExpressionUUID" -> \
-"e4915cb9-fb2d-4f85-9f5c-289f653ef040"]
+Cell[100940, 2362, 178, 3, 40, "Output", "ExpressionUUID" -> \
+"3fc60fdc-c0ea-414a-8960-dacd884ca45c"]
 }, Open  ]],
-Cell[94771, 2244, 1721, 46, 181, "Input", "ExpressionUUID" -> \
+Cell[101133, 2368, 1721, 46, 145, "Input", "ExpressionUUID" -> \
 "fbf7eb4c-03f2-4cbe-9c6c-11ceed702ba5"],
 Cell[CellGroupData[{
-Cell[96517, 2294, 15601, 369, 1708, "Input", "ExpressionUUID" -> \
+Cell[102879, 2418, 15601, 369, 1367, "Input", "ExpressionUUID" -> \
 "c5889d2a-6272-43d9-8383-1fb5d9d18208"],
-Cell[112121, 2665, 7965, 176, 961, "Output", "ExpressionUUID" -> \
-"800ccef5-b219-434d-8e2b-f39c87f473c8"]
+Cell[118483, 2789, 8232, 186, 769, "Output", "ExpressionUUID" -> \
+"830a1efe-aba5-4f8e-b624-7f9669260c68"]
 }, Open  ]],
-Cell[120101, 2844, 558, 11, 50, "Input", "ExpressionUUID" -> \
+Cell[126730, 2978, 668, 14, 40, "Input", "ExpressionUUID" -> \
 "a7af6c50-04ff-4507-a3d2-91c2d4f330b1"],
 Cell[CellGroupData[{
-Cell[120684, 2859, 18664, 441, 1838, "Input", "ExpressionUUID" -> \
+Cell[127423, 2996, 18664, 441, 1471, "Input", "ExpressionUUID" -> \
 "87894052-c4f3-45ac-b388-52fc62cf32a2"],
-Cell[139351, 3302, 11537, 248, 961, "Output", "ExpressionUUID" -> \
-"06b4e0b1-22c4-48a5-b695-b8cef25c76fd"]
+Cell[146090, 3439, 11659, 251, 769, "Output", "ExpressionUUID" -> \
+"c4c754d4-6761-4122-8f39-6fbf5200c498"]
 }, Open  ]],
-Cell[CellGroupData[{
-Cell[150925, 3555, 339, 8, 50, "Input", "ExpressionUUID" -> \
+Cell[157764, 3693, 505, 12, 40, "Input", "ExpressionUUID" -> \
 "055bf82c-a45e-461f-a880-cc64e766729b"],
-Cell[151267, 3565, 230, 4, 50, "Output", "ExpressionUUID" -> \
-"5344d207-f961-49fd-a6e9-12242df281d9"]
-}, Open  ]],
 Cell[CellGroupData[{
-Cell[151534, 3574, 1066, 30, 116, "Input", "ExpressionUUID" -> \
+Cell[158294, 3709, 1066, 30, 93, "Input", "ExpressionUUID" -> \
 "c74f59d4-7463-4017-8b2a-6504099526e1"],
-Cell[152603, 3606, 482, 12, 803, "Output", "ExpressionUUID" -> \
-"92f8072e-2732-4c7b-979c-c79a35d0890d"]
+Cell[159363, 3741, 647, 14, 643, "Output", "ExpressionUUID" -> \
+"d311a721-568e-46b5-9de2-eb82d9c12968"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[153122, 3623, 1017, 29, 116, "Input", "ExpressionUUID" -> \
+Cell[160047, 3760, 1017, 29, 93, "Input", "ExpressionUUID" -> \
 "d74807e3-b118-422b-ac60-8ce655f35479"],
-Cell[154142, 3654, 478, 12, 482, "Output", "ExpressionUUID" -> \
-"3f547df9-dae7-43e5-ba62-9e460f15147e"]
+Cell[161067, 3791, 638, 14, 386, "Output", "ExpressionUUID" -> \
+"03be86e9-4a40-4d41-9605-39fdb0136778"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[154657, 3671, 1018, 29, 116, "Input", "ExpressionUUID" -> \
+Cell[161742, 3810, 1018, 29, 93, "Input", "ExpressionUUID" -> \
 "ae23ac6c-977d-4cec-8e89-0404bd1a1733"],
-Cell[155678, 3702, 472, 11, 395, "Output", "ExpressionUUID" -> \
-"fd870f42-b5e1-4edf-8a79-5a4a10676328"]
+Cell[162763, 3841, 638, 14, 316, "Output", "ExpressionUUID" -> \
+"633ce870-d2ad-48fe-a148-85d1d120189b"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[156187, 3718, 1452, 42, 116, "Input", "ExpressionUUID" -> \
+Cell[163438, 3860, 1452, 42, 93, "Input", "ExpressionUUID" -> \
 "48d3a06c-8879-4ff1-a574-7444d2dae161"],
-Cell[157642, 3762, 620, 16, 846, "Output", "ExpressionUUID" -> \
-"c3ac6563-919c-433d-b8dd-33d62262fb32"]
+Cell[164893, 3904, 783, 18, 643, "Output", "ExpressionUUID" -> \
+"b79a4605-433f-4b2d-8cb7-c00d56bfe16c"]
 }, Open  ]]
 }, Open  ]]
 }

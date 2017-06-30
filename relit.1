@@ -17,12 +17,15 @@ relit \- Reverse literate programming tool
 .IR sourcefilenames...
 .SH DESCRIPTION
 .B relit
-is a 'reverse literate programming' tool. It is designed to process LaTeX and TeX files (or potentially troff, etc) and flexibly extract and assemble complete source code. Reverse literate programming encourages putting the entire compilable source code in publishable documents (such as peer reviewed publications), in any suitable order, and perhaps with unit tests and other support (e.g., makefiles) in the same file but hidden from the reader. 
+is a 'reverse literate programming' tool. Relit is designed to process LaTeX and TeX files (or potentially troff, etc) and flexibly extract and assemble complete source code and other files. Reverse literate programming encourages putting the entire compilable source code in publishable documents (such as peer reviewed publications), in any suitable order, and perhaps with unit tests and other support (e.g., makefiles) in the same file but hidden from the reader. 
 .SH OPTIONS
 Arguments are processed left-to-right. Within files, definitions and uses of names can be in any order; name definitions do not need to be in the files where they are used.
 .TP
 -a 
 List all name and file definitions (overrides -n)
+.TP
+-d
+Run for diagnostics only and do not generate or update any files; -d may be used with other options (e.g., -v)
 .TP
 -f 
 Force all generated files to be updated (giving you choices on how you use makefiles)
@@ -33,14 +36,14 @@ List all files generated to standard output (overrides -u)
 -n 
 List all names and files (more concise output than -a)
 .TP
+-s 
+List subscript information
+.TP
 -u
 List only updated (changed or touched) files to standard output. Note if you use -f and -u together, you get a list of all files generated, whether they are changed or not.
 .TP
 -v
 Verbose mode (show \fBrelit\fR commands as they are processed)
-.TP
--x
-Run for diagnostics only and do not generate or update any files; you probably want -x AND at least one other option (-a, -f, -g, -n, -u or -v) unless you are only interested in errors
 .TP
 \fIname\fR=\fIvalue\fR
 Define a name. If there are spaces in the \fIvalue\fR it must be enclosed in quote marks.
@@ -80,8 +83,8 @@ With both %define and %generate, names can have # subscripts. For each distinct 
 \fBor\fR
 \\relit{set-tag \fIvalue\fR}
 .IP
-Define a default tag for any subsequent defines or generates without an explicit tag. A tag value can 
-include <\fInames\fR>. By using <\fIname\fR> as a tag, the name, and hence the tag, can be set in the command line. Default tags can be changed repeatedly as required.
+Define a default tag for any subsequent %defines or %generates without an explicit tag. A tag value can 
+include <\fInames\fR>. By using <\fIname\fR> as a tag, the name, and hence the tag, can be set in the command line. Default tags can be changed (or cleared) using %set-tag repeatedly as required.
 .PP
 Where \fIre\fR can have the form:
 .TP

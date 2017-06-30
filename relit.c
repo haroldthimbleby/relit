@@ -18,7 +18,7 @@
 #define SUBSCRIPT_TYPE "subscripted name"
 #define COUNTER_SYMBOL '#'
 
-int verboseOption = 0, touchedFilesOption = 0, listFileNamesOption = 0, forceUpdateOption = 0, xOption = 0, allDefinitionsOption = 0, allNamesOption = 0, optionsOption = 0;
+int verboseOption = 0, touchedFilesOption = 0, listFileNamesOption = 0, forceUpdateOption = 0, dOption = 0, allDefinitionsOption = 0, allNamesOption = 0, optionsOption = 0, subscriptListOption = 0;
 char *defaultTag = "";
 enum { UPDATE, UNCHANGED } touchWriting;
 long touchLength;
@@ -57,12 +57,9 @@ void explainSubscripts()
 {	int notes = 0;
 	for( struct dictionary *d = names; d != NULL; d = d->next )
     	if( !strcmp(d->type, SUBSCRIPT_TYPE) )
-		{	if( !notes++ )
-				fprintf(stderr, "Subscript notes:\n");
-			if( d->counter > 1 )
-				fprintf(stderr, "     %s covers subscript range 1 to %d\n", d->name, d->counter);
-			else
-				fprintf(stderr, "  ** %s covers subscript 1 only (only used once)\n", d->name);
+		{	if( !notes++ && subscriptListOption ) fprintf(stderr, "Subscript notes:\n");
+			if( d->counter > 1 && subscriptListOption ) fprintf(stderr, "     %s covers subscript range 1 to %d\n", d->name, d->counter);
+			if( d->counter == 1 ) fprintf(stderr, "  ** %s covers subscript 1 only (only used once)\n", d->name);
 		}
 }
 
@@ -96,7 +93,7 @@ void define(char *type, char *name, char *value, char *tag)
 		}
 		nameEntry->counter++;
 		if( nameEntry->counter > 999 )
-		{	fprintf(stderr, "** Oops. I never thought we'd need such big subscripts. Please edit relit.c and recompile!!\n");
+		{	fprintf(stderr, "** Oops. I never thought we'd need such big subscripts > 999. Please edit relit.c and recompile!!\n");
 			exit(-1);
 		}
 		char *tname = safealloc(strlen(name)+1+3); // allows # counting up to 10^3-1 
@@ -105,7 +102,7 @@ void define(char *type, char *name, char *value, char *tag)
 		for( int i = 0; name[i]; i++ )
 		{	if( name[i] == COUNTER_SYMBOL )
 			{   if( countercounter++ > 0 )
-				{	fprintf(stderr, "** You cannot have more than one subscripter '%c' character in %s\n", COUNTER_SYMBOL, name);
+				{	fprintf(stderr, "** You cannot have more than one subscript '%c' character in %s\n", COUNTER_SYMBOL, name);
 					break;
 				}
 				sprintf(&tname[j], "%d", nameEntry->counter);
@@ -186,7 +183,7 @@ struct
 
 FILE *touchOpen(char *name)
 {	FILE *fd;
-	if( xOption ) return stderr; // any valid FILE* will do, as nothing will be done with it
+	if( dOption ) return stderr; // any valid FILE* will do, as nothing will be done with it
 	touchLength = 0L;
 	if( forceUpdateOption || (fd = fopen(name, "r+")) == NULL ) // try creating the file
 	{	touchWriting = UPDATE;
@@ -200,7 +197,7 @@ FILE *touchOpen(char *name)
 void touch(FILE *fd, char *s, long n) // write n bytes to file, but only update file if they are different
 {	size_t bytesRead;
 	long originalPosition = touchLength;
-	if( xOption ) return;
+	if( dOption ) return;
 	touchLength += n;
 	if( touchWriting == UPDATE )
 	{	fwrite(s, 1, n, fd);
@@ -217,7 +214,8 @@ void touch(FILE *fd, char *s, long n) // write n bytes to file, but only update 
 }
 
 void touchClose(FILE *fd, char *fileName) // trim file to actual length
-{	if( xOption ) return;
+{	if( listFileNamesOption ) printf("%s\n", fileName); 
+	if( dOption ) return;
 	fseek(fd, 0L, SEEK_END);
 	if( ftell(fd) != touchLength ) 
 	{	touchWriting = UPDATE; // in case new file is a shorter prefix (so not neeeding UPDATE so far)
@@ -225,7 +223,7 @@ void touchClose(FILE *fd, char *fileName) // trim file to actual length
 			fprintf(stderr, "File truncate failed - %s\n", strerror(errno));
 	}
 	fclose(fd);
-	if( listFileNamesOption || (touchedFilesOption && touchWriting == UPDATE ) ) printf("%s\n", fileName); 
+	if( !listFileNamesOption && (touchedFilesOption && touchWriting == UPDATE ) ) printf("%s\n", fileName); 
 }
 
 int recursivelyExpand(FILE *fd, char *filename, char *bp, char *tag, int tags)
@@ -299,7 +297,7 @@ int search(char *type, char *name, char *reName, char *bp, int offset, int dot, 
 		}
 		if( regexec(&compiled_re, &bp[offset], 1, REmatch, 0) == 0 ) offset = offset+REmatch[0].rm_eo-1;
 		else 
-		{	fprintf(stderr, "** %s %s: cannot find a match for (%s search): /%s/\n", type, name, reName, re);
+		{	fprintf(stderr, "** %s %s: cannot find a match for (%s search): /%s/%s\n", type, name, reName, re, strcmp(reName, "end")? "": "\n   -- perhaps due to the start search skipping further than you expected?");
 			return offset;
 		}
 	}
@@ -358,23 +356,31 @@ long process(char *bp, long offset, regmatch_t *REmatch, int setTag, int setTagI
 }
 
 struct structOption
-{	char *option, *usage;
-	int *optionFlag;
+{	char *option, *usage; int *optionFlag;
 } options[] =
 {	{"-a", "list all name and file definitions (overrides -n)", &allDefinitionsOption},
-	{"-f", "force all generated files to be updated", &forceUpdateOption},
-	{"-g", "list all generated files to standard output (overrides -u)", &listFileNamesOption},
+	{"-d", "do not generate any files", &dOption},
+	{"-f", "touch (update) generated files", &forceUpdateOption},
+	{"-g", "list names of all generated files to standard output (overrides -u)", &listFileNamesOption},
 	{"-n", "list all names and files", &allNamesOption},
-	{"-u", "list only updated files to standard output", &touchedFilesOption},
-	{"-v", "verbose mode", &verboseOption},
-	{"-x", "do not generate or update any files", &xOption},
+	{"-s", "list subscript information", &subscriptListOption},
+	{"-u", "list names of updated files to standard output", &touchedFilesOption},
+	{"-v", "verbose mode - trace command usage", &verboseOption},
 	{"--", "treat all further parameters as filenames", &optionsOption},
 };
 
 int setOption(char *argvi)
 {	if( !optionsOption )
-		for( int o = 0; o < sizeof options/sizeof(struct structOption); o++ )
-			if( !strcmp(options[o].option, argvi) ) return *options[o].optionFlag = 1;
+	{	for( int o = 0; o < sizeof options/sizeof(struct structOption); o++ )
+			if( !strcmp(options[o].option, argvi) ) 
+			{	*options[o].optionFlag = 1;
+				if( dOption && forceUpdateOption )
+        		{	fprintf(stderr, "** -d and -f options are incompatible! Stopping now.\n");
+        			exit(0);
+        		}
+				return 1;
+			}
+	}
 	return 0;
 }
 
@@ -422,7 +428,7 @@ int main(int argc, char *argv[])
 			// process any \relit[tag]{command} commands
 			while( regexec(&RErelitCheck, &bp[offset], 14, REmatch, 0) == 0 ) // find everything of the form: \relit([|{) 
 			{	long eo = REmatch[0].rm_eo, so = REmatch[0].rm_so;
-				if( !thisfileTeXMode && verboseOption ) fprintf(stderr, ": \\relit style commands...\n");
+				if( !thisfileTeXMode && verboseOption ) fprintf(stderr, ": '\\relit'-style commands...\n");
 				thisfileTeXMode = TeXMode = 1;
 				if( regexec(&RErelit, &bp[offset], 14, REmatch, 0) != 0 || REmatch[0].rm_so != so ) // it matched \relit, but not the rest...
 				{	fprintf(stderr, "** Warning: line not in \\relit syntax (line ignored)\n%.*s", (int) (eo-so), &bp[offset+so]);
@@ -439,7 +445,7 @@ int main(int argc, char *argv[])
 			offset = 0;
 			while( regexec(&REcheck, &bp[offset], 14, REmatch, 0) == 0 ) // find everything of the form: % keyword... 
 			{	long eo = REmatch[0].rm_eo, so = REmatch[0].rm_so;
-				if( !thisfilenonTeXmode && verboseOption ) fprintf(stderr, ": %% style commands...\n");
+				if( !thisfilenonTeXmode && verboseOption ) fprintf(stderr, ": '%%'-style commands...\n");
 				thisfilenonTeXmode = nonTeXMode = 1;
 				if( regexec(&REkeyword, &bp[offset], 14, REmatch, 0) != 0 || REmatch[0].rm_so != so ) // it matched % keyword, but not the rest...
 				{	fprintf(stderr, "** Warning: line not in %% relit syntax (line ignored)\n%.*s", (int) (eo-so), &bp[offset+so]);
@@ -450,11 +456,12 @@ int main(int argc, char *argv[])
 			free(bp);
 			close(fp);
 		}
-		else fprintf(stderr, "** cannot open \"%s\"\n", processedFileName);
+		else fprintf(stderr, "** cannot open \"%s\" %s\n", processedFileName,
+				processedFileName[0] == '-'? "(and it isn't a recognised flag)": "");
 	generateFiles();
 	checkDictionary();
 	explainSubscripts();
-	if( TeXMode && nonTeXMode ) fprintf(stderr, "** Warning: mixes both \\relit[]{} and %% forms of relit command\n");
+	if( TeXMode && nonTeXMode ) fprintf(stderr, "** Warning: mixes both '\\relit[]{}' and '%%' styles of relit command\n");
 	if( !opened ) usage(argv[0]);
 	return 0;
 }
