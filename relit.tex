@@ -12,7 +12,7 @@
 
 \newif\ifnew
 
-\newfalse
+\newtrue
 
 \ifnew
 	\long\def\new#1{\textcolor{red}{#1}}
@@ -67,7 +67,9 @@
 
 \def\listOfFiles{}
 
-\def\myinput#1{\global\edef\listOfFiles{\listOfFiles \noindent #1 \vskip 1pt }%
+% \global\edef\listOfFiles{\listOfFiles \noindent #1 \vskip 1pt 
+\newif\ifexists
+\def\myinput#1{\IfFileExists{./#1}{\existstrue}{\existsfalse}\global \edef\listOfFiles{\listOfFiles \noindent {#1} \ifexists (included OK) \else file MISSING\fi~page \thepage\vskip 1pt} %
 \IfFileExists{./#1}{\input #1\relax\unskip}{\textcolor{red}{\bfseries *** Warning: ``#1'' does not exist. Please run make~#1 to create the files that are needed! ***}}}
 
 \def\specialMarker{*}
@@ -1071,7 +1073,7 @@ He has research interests in: Human Factors, computing, and medical device desig
 
 In addition to over 100 peer reviewed publications, he is the Director of four university spin-out companies, and has won several international product design awards. He is an editor of \emph{Anaesthesia and Intensive Care Medicine}.
 
-\end{document}
+
 \newpage
 \section*{Appendix: Automatically generating figure captions}
 Many journals require a list of figure captions, as Elsevier does. The following list of figure captions was generated automatically using \name{relit} to generate a subscripted set of files, one for each figure caption, as described. This was very easy to do using \name{relit}'s subscript (\texttt{\#}) feature, and \name{relit} generated a sequence of uniquely-named files, \texttt{caption-1.tex}, \texttt{caption-2.tex}, etc. Section~\ref{subscript-section} provides more details.
@@ -1092,21 +1094,41 @@ If we had been concerned, we could have used \name{relit}'s tags (see section \r
 \getFigureCaption
 \getFigureCaption
 
+%\ifnew \else\end{document}\fi
 \newpage
-\section*{List of included files (to be sure what to upload to Elsevier)}
-This list is the included files in order as they are used in the document. There are repetitions. \vskip 2ex
+\section*{Appendix: Typesetting instructions}
+First, make \name{relit}:
 
+\begin{quote}\tt
+cc relit.c -o relit
+\end{quote}
+
+Now generate many files used by this paper by running: 
+
+\begin{quote}\tt
+./relit relit.tex
+\end{quote}
+
+Once you have run \name{relit}, treat everything in the standard \LaTeX\ way. Thus,
+standard files are generated as follows:
+
+\begin{quote}
+Run \texttt{pdflatex relit.tex} to get \texttt{relit.aux} (and \texttt{relit.pdf})\\
+
+Run \texttt{bibtex relit.aux} to get \texttt{relit.bbl} from \texttt{relit.bib}\\
+
+Run \texttt{makeindex relit.idx} to get \texttt{relit.ind}
+\end{quote}
+
+You will typically need to run this lot at least twice: to get cross references correct and to get the index page numbers correct --- you have to run \name{makeindex} twice (once to generate an index, then after running \name{pdflatex} again, to get the right page numbers after the index has been inserted into the document).
+
+Running \texttt{make clean} will delete all the generated files. Note that \texttt{relit.bib} and \texttt{relit.tex} are not deleted by \texttt{make clean}.
+
+Below is a list of the included files in order as they are used in the document. There are repetitions. \vskip 2ex
+
+\begin{quote}
 \listOfFiles
-
-Also need these to be able to generate a PDF:
-
-relit.aux
-relit.ind
-relit.bbl
-relit.tex
-relit.bib
-
-Note that relit.bib and relit.tex are not deleted by make clean
+\end{quote}
 
 \end{document}
 
