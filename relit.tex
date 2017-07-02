@@ -875,16 +875,14 @@ As described above, \name{relit} uses \texttt{\%} to introduce commands, like \t
 \% \emph{any comments permitted\/} & \char'134relit\{ends\} \\
 \end{tabular}\end{center}
 %generate caption-#.tex .,/%end/-1
-\caption{Corresponding normal and \TeX-mode syntax for \name{relit} commands.} 
+\caption{Corresponding normal and \TeX-mode syntax for \name{relit} commands. The final case in the table allows \texttt{\char'134relit\{ends\}} to mark the end of definitions (anything convenient, such as text in a comment can also be used).} 
 %end
 \label{fig:syntax}
 \end{figure*}
 
-Comments, text after \texttt{\%}, get completely lost to \TeX\ and \LaTeX, which makes the basic use of \name{relit} very easy to understand: \TeX\ and \LaTeX\ has nothing to do with how \name{relit} commands work. On the other hand, an author may wish to do more; for instance, they may want to see exactly where the \name{relit} commands are and what they do. This is best done using \LaTeX\ itself, which means \name{relit} commands should not be ignored by the typesetting programs, but actually processed. In \name{relit}'s ``\TeX-mode,'' therefore, commands are written as proper \TeX/\LaTeX\ commands rather than as comments. Essentially, \name{relit} works as before, but now \LaTeX\ can add anything to the features.
+In \TeX-mode, the author defines \name{relit} commands to do arbitrary typesetting (as well as continuing supporting \name{relit}), such as printing where they are used in the document to help prepare the paper or keep track of how \name{relit} is being used, or an index of \name{relit} names can be constructed, which would help in large projects. An example (from this paper) is shown in figure~\ref{fig:index}.
 
-\TeX\ has to define the \name{relit} commands that are used in \TeX-mode: for example, if we want \name{relit}'s behaviour to be exactly as described above then \TeX\ must define \name{relit} commands so they are just ignored. However, \TeX\ can obviously be used to define the commands to do more interesting things, such as printing where they are used in the document to help the authors prepare the paper and keep track of how \name{relit} is being used. \TeX\ can also construct an index of \name{relit} names, which may help in large authoring projects. An example (from this paper) is shown in figure~\ref{fig:index}.
-
-The \TeX-mode syntax corresponds directly to the original syntax, and is summarised in figure~\ref{fig:syntax}. The final case in the table allows the author to use \texttt{\char'134relit\{ends\}} to mark the end of definitions (anything convenient, such as text in a comment can also be used). 
+The \TeX-mode syntax corresponds directly to the original syntax, and is summarised in figure~\ref{fig:syntax}.  
 
 Here is an example of its use, directly following the present text: 
 \relit[\seen{}]{generate TeX-mode-demo.tex /This/, /relit.ends/-1}
