@@ -18,7 +18,7 @@
 #define SUBSCRIPT_TYPE "subscripted name"
 #define COUNTER_SYMBOL '#'
 
-int verboseOption = 0, touchedFilesOption = 0, listFileNamesOption = 0, forceUpdateOption = 0, dOption = 0, allDefinitionsOption = 0, allNamesOption = 0, optionsOption = 0, subscriptListOption = 0;
+int verboseOption = 0, touchedFilesOption = 0, listFileNamesOption = 0, forceUpdateOption = 0, dOption = 0, allDefinitionsOption = 0, allNamesOption = 0, optionsOption = 0, subscriptListOption = 0, tagOption = 0;
 char *defaultTag = "";
 enum { UPDATE, UNCHANGED } touchWriting;
 long touchLength;
@@ -38,6 +38,15 @@ char *safealloc(size_t n)
 	return p;
 }
 
+char *tagSeparator = ":";
+void printTagUse(char *type, char *name, char *value, char *tag)
+{	char *newlinep; int linecount = 1;
+	while( (newlinep = index(value, '\n')) != NULL )
+	{	fprintf(stdout, "%s%s%s%s%s%s%d%s%.*s\n", type, tagSeparator, name, tagSeparator, tag, tagSeparator, linecount++, tagSeparator, (int) (newlinep-value), value);
+		value = newlinep+1;
+	}
+}
+
 void checkDictionary()
 {	for( struct dictionary *d = names; d != NULL; d = d->next )
     {	if( !d->used ) 
@@ -45,6 +54,7 @@ void checkDictionary()
 		else if( d->recursive ) fprintf(stderr, "** recursive definition: %s %s\n%s", d->type, d->name, d->value);
 		// printf %8s padding so generate and define align nicely
         else if( allDefinitionsOption ) fprintf(stderr, "%8s %s:\n%s", d->type, d->name, d->value);
+        if( tagOption ) printTagUse(d->type, d->name, d->value, d->tag);
         if( !d->used || d->recursive || allDefinitionsOption )
         {	char *p = index(d->value, '\0'); // adding a newline looks much better, but is it misleading?
         	fprintf(stderr, "%s-----\n", p > d->value && p[-1] != '\n'? "\n----(end of line added above for neater report)": "");
@@ -121,7 +131,7 @@ void define(char *type, char *name, char *value, char *tag)
 	new->value = value;
 	new->type = type;
 	new->used = new->expanding = new->recursive = 0;
-	new->tag = tag;
+	new->tag = strcmp(tag, "none")? tag: "";
 	for( p = &names; *p != NULL; p = &(*p)->next ) // insert sort
 		if( strcmp(new->name, (*p)->name) < 0 ) break;
 		else if( !strcmp(new->name, (*p)->name) )
@@ -170,7 +180,7 @@ struct
 	{	&REreplace, // match <name>
 		"<[ \t]*([[:alpha:]#][[:alnum:]#-]*)[ \t]*>"
 	},
-	{	&REcheck,
+	{	&REcheck, // match the keyword alone - so if the REkeyword fails, this will match and hence print an error 
 		"%[ \t]*(generate|define|set-tag)[^\n]*\n"
 	},
 	{	&RErelit,
@@ -324,7 +334,7 @@ long process(char *bp, long offset, regmatch_t *REmatch, int setTag, int setTagI
 { 	char *type, *name, *start, *end, *tag;
 	long startChar, endChar;
 	int startDot, endDot, startDelta, endDelta;
-	if( 0 ) // print RE matches - useful for getting REmatch indices right
+	if( 0 ) // print RE matches - useful for getting REmatch indices right!
 	{	for( int i = 0; i < 14; i++ ) 
 			if( REmatch[i].rm_eo > 0 ) printf("%d = %.*s\n", i, (int) (REmatch[i].rm_eo-REmatch[i].rm_so), &bp[offset+REmatch[i].rm_so]);
 			else printf("%d = NONE %d\n", i, (int) REmatch[i].rm_eo );
@@ -347,7 +357,7 @@ long process(char *bp, long offset, regmatch_t *REmatch, int setTag, int setTagI
 	tag = usesTag? allocString(&bp[offset+REmatch[tagIndex].rm_so], REmatch[tagIndex].rm_eo-REmatch[tagIndex].rm_so): defaultTag;
 	offset += REmatch[0].rm_eo; // skip past the matched command
 	saySearch(startDot, start, startDelta, "", "", ", ");
-	saySearch(endDot, end, endDelta, ", ", tag, "\n");
+	saySearch(endDot, end, endDelta, strcmp(tag, "")? ", ":"", tag, "\n");
 	startChar = search(type, name, "start", bp, offset, startDot, start, startDelta, ", ");
 	endChar = search(type, name, "end", bp, startChar, endDot, end, endDelta, "");
 	if( endChar >= startChar )
@@ -356,32 +366,40 @@ long process(char *bp, long offset, regmatch_t *REmatch, int setTag, int setTagI
 }
 
 struct structOption
-{	char *option, *usage; int *optionFlag;
+{	char *option, **argument, *usage; int *optionFlag;
 } options[] =
-{	{"-a", "list all name and file definitions (overrides -n)", &allDefinitionsOption},
-	{"-d", "do not generate any files", &dOption},
-	{"-f", "touch (update) generated files", &forceUpdateOption},
-	{"-g", "list names of all generated files to standard output (overrides -u)", &listFileNamesOption},
-	{"-n", "list all names and files", &allNamesOption},
-	{"-s", "list subscript information", &subscriptListOption},
-	{"-u", "list names of updated files to standard output", &touchedFilesOption},
-	{"-v", "verbose mode - trace command usage", &verboseOption},
-	{"--", "treat all further parameters as filenames", &optionsOption},
+{	{"-a", NULL, "list all name and file definitions (overrides -n)", &allDefinitionsOption},
+	{"-d", NULL, "do not generate any files", &dOption},
+	{"-f", NULL, "touch (update) generated files", &forceUpdateOption},
+	{"-g", NULL, "list names of all generated files to standard output (overrides -u)", &listFileNamesOption},
+	{"-n", NULL, "list all names and files", &allNamesOption},
+	{"-s", NULL, "list subscript information", &subscriptListOption},
+	{"-t[separator]", &tagSeparator, "summarise all definitions with tags, line by line; designed for Unix filtering etc. Default separator is :", &tagOption},
+	{"-u", NULL, "list names of updated files to standard output", &touchedFilesOption},
+	{"-v", NULL, "verbose mode - trace command usage", &verboseOption},
+	{"--", NULL, "treat all further parameters as filenames", &optionsOption},
 };
 
 int setOption(char *argvi)
 {	if( !optionsOption )
 	{	for( int o = 0; o < sizeof options/sizeof(struct structOption); o++ )
-			if( !strcmp(options[o].option, argvi) ) 
-			{	*options[o].optionFlag = 1;
+			if( !strncmp(options[o].option, argvi, 2) ) 
+			{	if( strlen(argvi) != 2 )
+				{	if( options[o].argument == NULL )
+					{	fprintf(stderr, "** Option %s should not take a parameter\n", options[o].option);
+						exit(0);
+					} else 
+						*options[o].argument = &argvi[2];
+				}
+				*options[o].optionFlag = 1;
 				if( dOption && forceUpdateOption )
-        		{	fprintf(stderr, "** -d and -f options are incompatible! Stopping now.\n");
+        		{	fprintf(stderr, "** Options -d and -f are incompatible!\n");
         			exit(0);
         		}
 				return 1;
 			}
 	}
-	return 0;
+	return 0; // not an option
 }
 
 void usage(char *process)
@@ -397,7 +415,7 @@ void usage(char *process)
 int main(int argc, char *argv[]) 
 {	int fp, opened = 0, TeXMode = 0, nonTeXMode = 0;
 	char *bp, *processedFileName;
-	for( int i = 0; i < REMAX; i++ )
+	for( int i = 0; i < REMAX; i++ ) // set up the res
     {	if( regcomp(res[i].compiled, res[i].regex, REG_EXTENDED) != 0 )
     	{	fprintf(stderr, "** internal error: regcomp fail\n%s\n", res[i].regex);
     		int bra = 0, ket = 0;
@@ -415,12 +433,12 @@ int main(int argc, char *argv[])
 		{	int thisfileTeXMode = 0, thisfilenonTeXmode = 0;
 			struct stat stat_buf;
 			fstat(fp, &stat_buf);
-			bp = safealloc(1+stat_buf.st_size);
+			bp = safealloc(3+stat_buf.st_size);
 			if( read(fp, bp, stat_buf.st_size) != stat_buf.st_size )
 			{	fprintf(stderr, "** cannot read from \"%s\" (maybe a permissions problem?)\n", processedFileName);
 				continue;
 			}
-			bp[1+stat_buf.st_size] = (char) 0;
+			bp[stat_buf.st_size] = (char) 0;
 			opened = 1;
 			regmatch_t REmatch[16];
 			long offset = 0;

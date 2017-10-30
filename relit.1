@@ -9,6 +9,8 @@ relit \- Reverse literate programming tool
 [\fB-f\fR]
 [\fB-g\fR]
 [\fB-n\fR]
+[\fB-s\fR]
+[\fB-t\fIarg\fR]
 [\fB-u\fR]
 [\fB-v\fR]
 [\fB-x\fR]
@@ -19,31 +21,34 @@ relit \- Reverse literate programming tool
 .B relit
 is a 'reverse literate programming' tool. Relit is designed to process LaTeX and TeX files (or potentially troff, etc) and flexibly extract and assemble complete source code and other files. Reverse literate programming encourages putting the entire compilable source code in publishable documents (such as peer reviewed publications), in any suitable order, and perhaps with unit tests and other support (e.g., makefiles) in the same file but hidden from the reader. 
 .SH OPTIONS
-Arguments are processed left-to-right. Within files, definitions and uses of names can be in any order; name definitions do not need to be in the files where they are used.
+Flags are processed left-to-right, but files can be in any order.  
 .TP
 -a 
-List all name and file definitions (overrides -n)
+List all name and file definitions (overrides -n).
 .TP
 -d
-Run for diagnostics only and do not generate or update any files; -d may be used with other options (e.g., -v)
+Run for diagnostics only and do not generate or update any files; -d may be used with other options (e.g., -v).
 .TP
 -f 
-Force all generated files to be updated (giving you choices on how you use makefiles)
+Force all generated files to be updated (giving you choices on how you use makefiles).
 .TP
 -g
-List all files generated to standard output (overrides -u)
+List all files generated to standard output (overrides -u).
 .TP
 -n 
-List all names and files (more concise output than -a)
+List all names and files (more concise output than -a).
 .TP
 -s 
-List subscript information
+List subscript information.
+.TP
+-t\fIarg\fR
+List all commands and tags, line by line. Fields are separated by the -t argument string, or ':' if none is provided explicitly. Intended to be post-processed by a Unix filter, e.g., grep '^generate:.*\.c::1:' will list first lines of all C files (more precisely, files ending in .c) generated with no tags.
 .TP
 -u
-List only updated (changed or touched) files to standard output. Note if you use -f and -u together, you get a list of all files generated, whether they are changed or not.
+List only changed files to standard output. Note if you use -f and -u together, you get a list of all files generated, whether they are changed or not.
 .TP
 -v
-Verbose mode (show \fBrelit\fR commands as they are processed)
+Verbose mode (show \fBrelit\fR commands as they are processed).
 .TP
 \fIname\fR=\fIvalue\fR
 Define a name. If there are spaces in the \fIvalue\fR it must be enclosed in quote marks.
@@ -55,13 +60,15 @@ The
 .B relit 
 tool generally processes TeX or LaTeX files. Commands are written either as comments (as text following the % character, so they are completely ignored by LaTeX) or they can be written as ordinary LaTeX commands, which LaTeX (or TeX) can then also process for any further purposes in the usual way. In normal use, \\relit can be defined to disappear, but if the author wishes it can be defined like \\marginpar, so that the author can easily keep track of where relit commands are used. The advantage of the % notation is that it requires no new LaTeX definitions to start using it immediately.
 .LP
+Definitions and uses of names can be in any order. Names do not need to be defined before they are used. Name definitions are global and do not need to be in the files where they are used.
+.LP
 % define \fIname\fR \fIre\fR, \fIre\fR [, \fItag\fR]
 \fBor\fR
 \\relit[\fItag\fR]{define \fIname\fR \fIre\fR, \fIre\fR}
 .IP
 Define 
 .I name 
-to be the following lines that match between the two regular expressions inclusive. The name can be optionally tagged. (In the LaTeX form, if a tag is specified, the square brackets are required.)
+to be the following lines that match between the two regular expressions inclusive. The name can be optionally tagged. (In the LaTeX form, if a tag is specified, the square brackets are required.) If the tag is omitted, it is taken from the last %set-tag command; if no tag is required, then 'none' can be used.
 .LP
 % generate \fIname\fR \fIre\fR, \fIre\fR [, \fItag\fR]
 \fBor\fR
@@ -75,16 +82,16 @@ Within the text matched for %define and %generate, names of the form <\fIname\fR
 .LP
 There is only one name space, so a file name can be used as an ordinary name (i.e., in the form <\fIfilename\fR> in the body of a %define or %generate) as well. This allows generated files to be built up from both defines and from other files.
 .LP
-Both %define and %generate commands can be used in normal text or `hidden' (e.g., after the \\end{document}) or in files that are only processed by \fBrelit\fR. Note that it would be unusual to use variable names (e.g., <n>) except in hidden parts of a document, since names are only expanded when files are generated \(em the original text is never changed.
+Both %define and %generate commands can be used in normal text or hidden (e.g., after the \\end{document}) or in files that are only processed by \fBrelit\fR. Note that it would be unusual to use variable names (e.g., <n>) except in hidden parts of a document (or files that are not typeset), since names are only expanded when files are generated \(em the original text is never changed by \fBrelit\fR.
 .LP
 With both %define and %generate, names can have # subscripts. For each distinct name, a # is replaced by a subscript counter. So %generate f#.txt ..., %generate f#.txt will actually generate files called f1.txt and f2.txt, etc. (Note that f# and #f are different names, generating f1, f2, f3... and 1f, 2f, 3f... respectively.)
 .LP
 % set-tag \fIvalue\fR
 \fBor\fR
-\\relit{set-tag \fIvalue\fR}
+\\relit{set-tag \fIvalue\fR} 
 .IP
 Define a default tag for any subsequent %defines or %generates without an explicit tag. A tag value can 
-include <\fInames\fR>. By using <\fIname\fR> as a tag, the name, and hence the tag, can be set in the command line. Default tags can be changed (or cleared) using %set-tag repeatedly as required.
+include <\fInames\fR>, so by using <\fIname\fR> as a tag, the name, and hence the tag, can be set in the command line. Default tags can be changed (or cleared if set to 'none') using %set-tag repeatedly as required.
 .PP
 Where \fIre\fR can have the form:
 .TP
@@ -109,6 +116,6 @@ Typically, a %generate command, placed after LaTeX's \\end{document}, will be us
 .SH BUGS
 Regular expressions cannot contain / (or } in the \\relit form)
 .PP
-The fixed strings, and % and \\relit in particular, cannot be changed (it might be nice to be able to process files using other conventions, such as makefiles or C programs, too).
-.SH AUTHOR
+The fixed strings, and % and \\relit in particular, cannot be changed (it might be nice to be able to process files using other conventions, such as makefiles or C programs, too). If \\relit is used after a %, it is not ignored.
+SH AUTHOR
 Harold Thimbleby, harold@thimbleby.net, 2017
