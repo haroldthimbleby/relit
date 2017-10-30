@@ -114,8 +114,8 @@ will create a file t.c containing "Hello world" and a file t.c-tagged.txt (which
 .PP
 Typically, a %generate command, placed after LaTeX's \\end{document}, will be used to create a makefile to keep track of how to make, compile and unit test the source code files. Typically, tags will be \\seen{} and \\unseen{}, appropriately defined.
 .SH BUGS
-Regular expressions cannot contain / (or } in the \\relit form)
+Regular expressions cannot contain '/' (or '}' in the \\relit form)
 .PP
-The fixed strings, and % and \\relit in particular, cannot be changed (it might be nice to be able to process files using other conventions, such as makefiles or C programs, too). If \\relit is used after a %, it is not ignored.
-SH AUTHOR
-Harold Thimbleby, harold@thimbleby.net, 2017
+The fixed strings, and % and \\relit in particular, cannot be changed (it might be nice to be able to process files using other conventions, such as makefiles or C programs, too). If \\relit is used after a %, it is not ignored. It is easy enough to fix everything in the C source for \fBrelit\fR, as it is simply based on regular expressions.
+.SH AUTHOR
+Harold Thimbleby, harold@thimbleby.net, 2016 on.
