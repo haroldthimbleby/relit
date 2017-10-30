@@ -2,6 +2,7 @@ HIGHLIGHTS
 
 A tool for publishing reproducible algorithms &A reproducible, elegant algorithm for sequential experiments
 Harold Thimbleby & Dave Williams
+Correspondence: harold@thimbleby.net
 
 
 * Reproducible algorithms are problematic, and the lack of reproducible algorithms holds back computer science.
