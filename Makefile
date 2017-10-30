@@ -1,88 +1,82 @@
-# Makefile for relit
+# Simple makefile for relit
+# Make and Latex are a mess, and make+latex+relit is worse :-)
+# but fortunately most of the steps are pretty fast, so a simple approach is better 
 
-.PHONY: all man test clean bib run index test runRelit zip
+.PHONY: all man zip cleanlatex clean 
 
-all relit.pdf relit.aux-target relit.idx-target: relit.tex linesofcode.tex sedgewickeslinesofcode.tex lastwine.tex winelist.tex allLinesofcode.tex linesofrelit.tex e.txt relit.ind-target corelinesofcode.tex diff.txt relit.bbl-target relit.idx-target TeX-mode-demo.tex
-	./helpMake relit.pdf relit.aux relit.idx "pdflatex relit.tex"
-
-man: relit.1
-	man ./relit.1 
-	
-test: euler randomised-euler wine
-	./euler
-	./randomised-euler
-	./wine
-	
-diff.txt: randomised-euler.c euler.c
-	diff randomised-euler.c euler.c | grep -B 3 "walk a cycle" | sed "s/$$/\\\\\\\\/" > diff.txt
-	
-bib relit.bbl-target: relit.aux-target
-	./helpMake relit.bbl "bibtex relit.aux"
-	
-index relit.ind-target: relit.idx-target
-	./helpMake relit.ind "makeindex relit.idx"
-	 
-runRelit randomise-euler.c sedcommands euler.c-tagged.txt define-non-randomised-cycle wine.c euler.c: relit.tex relit  
+all: relit uncom
 	./relit relit.tex
 	# echo "\\\\\\\\" `date` >> TeX-mode-demo.tex
-	
-euler: euler.c
-	cc euler.c -o euler
-	./euler
-
-randomised-euler: randomised-euler.c
-	cc randomised-euler.c -o randomised-euler
-	./randomised-euler 
-
-winelist.tex: wine
-	./wine > winelist.tex 
-	
-lastwine.tex: winelist.tex  
-	tail -n 1 winelist.tex > lastwine.tex
-	
-linesofcode.tex: euler.c uncom
+	javac ForLoop.java
+	java ForLoop > java-output.tex
+	expr `cat relit.c|wc -l` / 10 "*" 10 > linesofrelit.tex
+	diff randomised-euler.c euler.c | grep -B 3 "walk a cycle" | sed "s/$$/\\\\\\\\/" > diff.txt
 	./uncom < euler.c | wc -l > t
 	@echo euler.c has `cat t` lines of code
 	@echo "\\linesofcode"=`cat t` > linesofcode.tex
-	@rm -f t
-	
-sedgewickeslinesofcode.tex: java/DirectedEulerianCycle.java uncom
-	./uncom < java/DirectedEulerianCycle.java | wc -l > t
-	@echo "\\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
-	@rm -f t
-	
-e.txt: euler.c sedcommands euler.c-tagged.txt
-	sed -f sedcommands euler.c-tagged.txt > e.txt
-	
-allLinesofcode.tex: uncom 
+	cat define-non-randomised-cycle | wc -l > t
+	@echo "\\linesofcode"=`cat t` > corelinesofcode.tex
 	cat java/*.java | ./uncom | wc -l > t
 	@echo "\\linesofcode"=`cat t` > allLinesofcode.tex
 	@rm -f t
-	
-linesofrelit.tex: relit.c
-	expr `cat relit.c|wc -l` / 10 "*" 10 > linesofrelit.tex
-	
-corelinesofcode.tex: define-non-randomised-cycle
-	cat define-non-randomised-cycle | wc -l > t
-	@echo "\\linesofcode"=`cat t` > corelinesofcode.tex
-	@rm -f t
-	
+	cc wine.c -o wine 
+	./wine > winelist.tex 
+	tail -n 1 winelist.tex > lastwine.tex
+	sed -f sedcommands euler.c-tagged.txt > demo-tagged-euler.txt
+	for i in caption-*.tex; do (head -c 30 $$i; echo "\ellipsis "; tail -c 30 $$i) > shorter-$$i; done
+	pdflatex relit.tex # generate .aux and .idx files
+	bibtex relit.aux
+	makeindex relit.idx
+	pdflatex relit.tex # now insert bibliography and index
+	makeindex relit.idx # second run to get page numbers right
+	pdflatex relit.tex # third run to sort out citation references to bibliography
+
 relit: relit.c
 	cc relit.c -o relit
 	
 uncom: uncom.c
 	cc uncom.c -o uncom
+	./uncom < java/DirectedEulerianCycle.java | wc -l > t
+	@echo "\\linesofcode"=`cat t` > sedgewickeslinesofcode.tex
+	@rm -f t
 	
-wine: wine.c
-	cc wine.c -o wine 
-	
-zip elsevier.zip: # make elsevier.zip for Elsevier, does not include relit.bib
-	echo zip does not include relit.bib, since we never delete that file
-	zip elsevier.zip linesofcode.tex corelinesofcode.tex sedgewickeslinesofcode.tex allLinesofcode.tex winelist.tex lastwine.tex nameDemo.c linesofrelit.tex e.txt relit.ind diff.txt caption-1.tex caption-2.tex caption-3.tex caption-4.tex caption-5.tex caption-6.tex relit.aux relit.bbl relit.bib relit.tex
-	
-cleanlatex: # get rid of anything that Latex does not depend on
-	-rm -f define-non-randomised-cycle euler euler.c relit.dvi relit.log relit.spl hello.c randomised-euler randomised-euler.c relit-def.tex sedcommands TeX-mode-demo.tex uncom wine wine.c a.out *-target *-tagged.txt elsevier.zip
+test: euler randomised-euler wine
+	cc euler.c -o euler
+	cc randomised-euler.c -o randomised-euler
+	./euler
+	./randomised-euler
+	./wine
 
-clean: cleanlatex # leaves just the sources and the pdf file
-	-rm -f allLinesofcode.tex corelinesofcode.tex define-non-randomised-cycle e.txt euler euler.c relit.aux relit.blg relit.dvi relit.idx relit.ilg relit.log relit.spl relit.synctex.gz hello.c lastwine.tex linesofcode.tex linesofrelit.tex nameDemo.c randomised-euler randomised-euler.c relit relit-def.tex sedcommands sedgewickeslinesofcode.tex t TeX-mode-demo.tex uncom wine wine.c winelist.tex a.out caption-6.tex caption-5.tex caption-4.tex caption-3.tex caption-2.tex caption-1.tex diff.txt relit.bbl relit.ind 
-	-rm -f *-target *-temp-*.tmp *-tagged.txt
+man: relit.1
+	man ./relit.1 
+	
+zip:
+	@echo To make zip files try:
+	@echo "-  " make scp.zip  --- zips just the files needed by publishers to typeset the paper
+	@echo "-  " make basic.zip    --- smallest package - zips all files, including documentation, source code, etc, ready for a make
+	@echo "-  " make full.zip   --- zips all files, after a full make
+	@echo "-  " make sw.zip   --- zips only the software, source and documentation, relit.c, draw-figures.nb, relit.1, etc
+	
+scp.zip: all
+	@echo Zip for everything needed to upload to the journal Science of Computer Programming, everything ready to typeset
+	zip scp.zip TeX-mode-demo.tex allLinesofcode.tex corelinesofcode.tex demo-tagged-euler.txt diff.txt java-output.tex lastwine.tex linesofcode.tex linesofrelit.tex nameDemo.c relit.aux relit.bbl relit.bib relit.idx relit.ind relit.spl relit.tex sedgewickeslinesofcode.tex shorter-caption-1.tex shorter-caption-2.tex shorter-caption-3.tex shorter-caption-4.tex shorter-caption-5.tex shorter-caption-6.tex winelist.tex Makefile figures
+
+basic.zip: 
+	@echo smallest self-contained zip file of everything, but needs a full make after unzipping
+	zip basic.zip relit.tex Makefile relit.c relit.1 relit.bib draw-figures.nb figures README.md Highlights.txt java uncom.c unit-tests.txt 
+	
+full.zip: all
+	@echo zip file of everything after a full make
+	-rm -f full.zip
+	zip full.zip *
+	
+sw.zip:
+	@echo zip of just the software and documentation
+	zip sw.zip Makefile draw-figures.nb relit.c relit.1 uncom.c unit-tests.txt
+	
+cleanlatex: # get rid of everything that Latex does NOT depend on -- use this you want to run latex only
+	-rm -f define-non-randomised-cycle euler euler.c relit.dvi relit.log relit.spl hello.c randomised-euler randomised-euler.c relit-def.tex sedcommands TeX-mode-demo.tex uncom wine wine.c *-tagged.txt relit.zip
+
+clean: cleanlatex # leaves just the sources, zips and the pdf file; after a clean, you'll have to do a make all
+	-rm -f allLinesofcode.tex corelinesofcode.tex define-non-randomised-cycle demo-tagged-euler.txt euler euler.c relit.aux relit.blg relit.dvi relit.idx relit.ilg relit.log relit.spl relit.synctex.gz lastwine.tex linesofcode.tex linesofrelit.tex nameDemo.c randomised-euler randomised-euler.c relit relit-def.tex sedcommands sedgewickeslinesofcode.tex t TeX-mode-demo.tex uncom wine wine.c winelist.tex caption-*.tex shorter-caption-*.tex diff.txt relit.bbl relit.ind java-output.tex ForLoop.java ForLoop.class
+	-rm -f *-tagged.txt
